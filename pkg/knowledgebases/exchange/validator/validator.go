@@ -3,12 +3,13 @@ package validator
 import (
 	"bufio"
 	"embed"
+	"io"
+	"regexp"
+
 	"github.com/anondigriz/mogan-core/pkg/knowledgebases/exchange/validator/errors"
 	"github.com/lestrrat-go/libxml2"
 	"github.com/lestrrat-go/libxml2/xsd"
 	"go.uber.org/zap"
-	"io"
-	"regexp"
 )
 
 const defaultMaxCheckLines = 15

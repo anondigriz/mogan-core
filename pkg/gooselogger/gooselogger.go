@@ -1,8 +1,9 @@
 package gooselogger
 
 import (
-	"go.uber.org/zap"
 	"strings"
+
+	"go.uber.org/zap"
 )
 
 type GooseLogger struct {

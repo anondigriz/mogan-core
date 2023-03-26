@@ -35,6 +35,10 @@ func (er ValidatorErr) Unwrap() error {
 	return er.Err
 }
 
+func (er ValidatorErr) IsValidatorErr() bool {
+	return true
+}
+
 func NewValidationXMLFailErr(baseError error, errors []error) error {
 	e := ValidatorErr{
 		Stat:    ValidationXMLFail,

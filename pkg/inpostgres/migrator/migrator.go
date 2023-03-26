@@ -3,6 +3,7 @@ package migrator
 import (
 	"database/sql"
 	"embed"
+
 	"github.com/anondigriz/mogan-core/pkg/gooselogger"
 	_ "github.com/jackc/pgx/v5/stdlib"
 	"github.com/pressly/goose/v3"

@@ -10,15 +10,15 @@
                                 <xs:complexType>
                                     <xs:sequence>
                                         <xs:element name="parameter" minOccurs="0"
-                                                    maxOccurs="unbounded">
+                                            maxOccurs="unbounded">
                                             <xs:complexType>
-                                                <xs:attribute name="id" use="required"/>
-                                                <xs:attribute name="shortName" use="required"/>
+                                                <xs:attribute name="id" use="required" />
+                                                <xs:attribute name="shortName" use="required" />
                                                 <xs:attribute name="type" use="required">
                                                     <xs:simpleType>
                                                         <xs:restriction base="xs:string">
-                                                            <xs:enumeration value="double"/>
-                                                            <xs:enumeration value="string"/>
+                                                            <xs:enumeration value="double" />
+                                                            <xs:enumeration value="string" />
                                                         </xs:restriction>
                                                     </xs:simpleType>
                                                 </xs:attribute>
@@ -32,12 +32,12 @@
                                     <xs:sequence>
                                         <xs:element name="rule" minOccurs="0" maxOccurs="unbounded">
                                             <xs:complexType>
-                                                <xs:attribute name="id" use="required"/>
-                                                <xs:attribute name="shortName" use="required"/>
-                                                <xs:attribute name="relation" use="required"/>
-                                                <xs:attribute name="resultId" use="required"/>
-                                                <xs:attribute name="initId" use="required"/>
-                                                <xs:attribute name="description"/>
+                                                <xs:attribute name="id" use="required" />
+                                                <xs:attribute name="shortName" use="required" />
+                                                <xs:attribute name="relation" use="required" />
+                                                <xs:attribute name="resultId" use="required" />
+                                                <xs:attribute name="initId" use="required" />
+                                                <xs:attribute name="description" />
                                             </xs:complexType>
                                         </xs:element>
                                     </xs:sequence>
@@ -48,11 +48,11 @@
                                     <xs:sequence minOccurs="0">
                                         <xs:element name="constraint" minOccurs="0">
                                             <xs:complexType>
-                                                <xs:attribute name="id" use="required"/>
-                                                <xs:attribute name="shortName" use="required"/>
-                                                <xs:attribute name="relation" use="required"/>
-                                                <xs:attribute name="initId" use="required"/>
-                                                <xs:attribute name="description"/>
+                                                <xs:attribute name="id" use="required" />
+                                                <xs:attribute name="shortName" use="required" />
+                                                <xs:attribute name="relation" use="required" />
+                                                <xs:attribute name="initId" use="required" />
+                                                <xs:attribute name="description" />
                                             </xs:complexType>
                                         </xs:element>
                                     </xs:sequence>
@@ -61,14 +61,14 @@
                             <xs:element name="classes">
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element name="class" minOccurs="0" maxOccurs="unbounded"/>
+                                        <xs:element name="class" minOccurs="0" maxOccurs="unbounded" />
                                     </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
                         </xs:all>
-                        <xs:attribute name="id" use="required"/>
-                        <xs:attribute name="shortName" use="required"/>
-                        <xs:attribute name="description"/>
+                        <xs:attribute name="id" use="required" />
+                        <xs:attribute name="shortName" use="required" />
+                        <xs:attribute name="description" />
                     </xs:complexType>
                 </xs:element>
                 <xs:element name="relations">
@@ -78,21 +78,21 @@
                                 <xs:complexType>
                                     <xs:simpleContent>
                                         <xs:extension base="xs:string">
-                                            <xs:attribute name="id" use="required"/>
-                                            <xs:attribute name="shortName" use="required"/>
-                                            <xs:attribute name="inObj" use="required"/>
+                                            <xs:attribute name="id" use="required" />
+                                            <xs:attribute name="shortName" use="required" />
+                                            <xs:attribute name="inObj" use="required" />
                                             <xs:attribute name="relationType" use="required">
                                                 <xs:simpleType>
                                                     <xs:restriction base="xs:string">
-                                                        <xs:enumeration value="constr"/>
-                                                        <xs:enumeration value="ifclause"/>
-                                                        <xs:enumeration value="prog"/>
-                                                        <xs:enumeration value="simple"/>
+                                                        <xs:enumeration value="constr" />
+                                                        <xs:enumeration value="ifclause" />
+                                                        <xs:enumeration value="prog" />
+                                                        <xs:enumeration value="simple" />
                                                     </xs:restriction>
                                                 </xs:simpleType>
                                             </xs:attribute>
-                                            <xs:attribute name="description"/>
-                                            <xs:attribute name="outObj" use="required"/>
+                                            <xs:attribute name="description" />
+                                            <xs:attribute name="outObj" use="required" />
                                         </xs:extension>
                                     </xs:simpleContent>
                                 </xs:complexType>
@@ -101,17 +101,17 @@
                     </xs:complexType>
                 </xs:element>
             </xs:all>
-            <xs:attribute name="id" use="required"/>
-            <xs:attribute name="shortName" use="required"/>
+            <xs:attribute name="id" use="required" />
+            <xs:attribute name="shortName" use="required" />
             <xs:attribute name="formatXmlVersion" use="required">
                 <xs:simpleType>
                     <xs:restriction base="xs:string">
-                        <xs:enumeration value="2.0"/>
-                        <xs:enumeration value="2.0.0"/>
+                        <xs:enumeration value="2.0" />
+                        <xs:enumeration value="2.0.0" />
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
-            <xs:attribute name="description"/>
+            <xs:attribute name="description" />
         </xs:complexType>
     </xs:element>
 </xs:schema>

@@ -3,7 +3,8 @@ package poolmaker
 import (
 	"context"
 	"fmt"
-	"github.com/anondigriz/mogan-core/pkg/logger"
+
+	"github.com/anondigriz/mogan-core/pkg/loglevel"
 	pgxUUID "github.com/jackc/pgx-gofrs-uuid"
 	pgxZap "github.com/jackc/pgx-zap"
 	"github.com/jackc/pgx/v5"
@@ -12,26 +13,7 @@ import (
 	"go.uber.org/zap"
 )
 
-func convertLogLevel(logLevel logger.LogLevel) (tracelog.LogLevel, error) {
-	switch logLevel {
-	case logger.LogLevelNone:
-		return tracelog.LogLevelNone, nil
-	case logger.LogLevelTrace:
-		return tracelog.LogLevelTrace, nil
-	case logger.LogLevelDebug:
-		return tracelog.LogLevelDebug, nil
-	case logger.LogLevelInfo:
-		return tracelog.LogLevelInfo, nil
-	case logger.LogLevelWarn:
-		return tracelog.LogLevelWarn, nil
-	case logger.LogLevelError:
-		return tracelog.LogLevelError, nil
-	default:
-		return 0, fmt.Errorf("unknown database logging level: %d", logLevel)
-	}
-}
-
-func New(ctx context.Context, lg *zap.Logger, dsn string, logLevel logger.LogLevel) (*pgxpool.Pool, error) {
+func New(ctx context.Context, lg *zap.Logger, dsn string, logLevel loglevel.LogLevel) (*pgxpool.Pool, error) {
 	dbCfg, err := pgxpool.ParseConfig(dsn)
 	if err != nil {
 		lg.Error("unable to parse config", zap.Error(err))
@@ -61,4 +43,23 @@ func New(ctx context.Context, lg *zap.Logger, dsn string, logLevel logger.LogLev
 		return nil, err
 	}
 	return dbPool, nil
+}
+
+func convertLogLevel(logLevel loglevel.LogLevel) (tracelog.LogLevel, error) {
+	switch logLevel {
+	case loglevel.None:
+		return tracelog.LogLevelNone, nil
+	case loglevel.Trace:
+		return tracelog.LogLevelTrace, nil
+	case loglevel.Debug:
+		return tracelog.LogLevelDebug, nil
+	case loglevel.Info:
+		return tracelog.LogLevelInfo, nil
+	case loglevel.Warn:
+		return tracelog.LogLevelWarn, nil
+	case loglevel.Error:
+		return tracelog.LogLevelError, nil
+	default:
+		return 0, fmt.Errorf("unknown database logging level: %d", logLevel)
+	}
 }
