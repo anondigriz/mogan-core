@@ -1,10 +1,8 @@
 package validator
 
 import (
-	"bufio"
 	"embed"
 	"io"
-	"regexp"
 
 	"github.com/anondigriz/mogan-core/pkg/knowledgebases/exchange/validator/errors"
 	"github.com/lestrrat-go/libxml2"
@@ -12,15 +10,12 @@ import (
 	"go.uber.org/zap"
 )
 
-const defaultMaxCheckLines = 15
-
 //go:embed schemes/*.xsd
 var embedSchemes embed.FS
 
 type Validator struct {
 	lg             *zap.Logger
 	xsdFileBufV2M0 []byte
-	maxCheckLines  int
 }
 
 func New(lg *zap.Logger) (*Validator, error) {
@@ -35,43 +30,11 @@ func New(lg *zap.Logger) (*Validator, error) {
 	if err != nil {
 		return nil, errors.NewReadingXSDFailErr(err)
 	}
-	return &Validator{lg: lg, xsdFileBufV2M0: xsdFileBufV2M0, maxCheckLines: defaultMaxCheckLines}, nil
-}
-
-// SetMaxCheckLines - set maximum number of lines for checks
-func (v *Validator) SetMaxCheckLines(number int) {
-	v.maxCheckLines = number
-}
-
-func (v *Validator) DetectVersion(scanner *bufio.Scanner) (string, error) {
-	// TODO - если сюда прилетает бинарник, то будет плохо.
-	// Также сюда прилетают файлы в одной строчке (сжатые XML).
-	// Так как сюда прилетают файлы < 10 МБ, то предлагается пока забить.
-	// Также не получается читать N первых байтов, так как аттрибут 'description'
-	// может иметь любую длину, а аттрибут 'formatXmlVersion' может находиться необязательно
-	// в начале.
-	scanner.Split(bufio.ScanLines)
-
-	var version string
-
-	for i := 0; i < v.maxCheckLines; i++ {
-		scanner.Scan()
-		text := scanner.Text()
-
-		re := regexp.MustCompile(`formatXmlVersion="\d\.\d"`)
-		matched := re.FindString(text)
-		if matched != "" {
-			reVer := regexp.MustCompile(`\d\.\d`)
-			version = reVer.FindString(matched)
-			break
-		}
+	v := &Validator{
+		lg:             lg,
+		xsdFileBufV2M0: xsdFileBufV2M0,
 	}
-
-	if version == "" {
-		return "", errors.NewFormatXMLVersionNotFoundErr()
-	}
-
-	return version, nil
+	return v, nil
 }
 
 func (v *Validator) ValidateV2M0(xmlFile io.Reader) error {
