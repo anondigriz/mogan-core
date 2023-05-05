@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"regexp"
 
-	"github.com/anondigriz/mogan-core/pkg/knowledgebases/exchange/errors"
+	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors"
 	"go.uber.org/zap"
 )
 

@@ -4,7 +4,7 @@ import (
 	"embed"
 	"io"
 
-	"github.com/anondigriz/mogan-core/pkg/knowledgebases/exchange/errors"
+	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors"
 	"github.com/lestrrat-go/libxml2"
 	"github.com/lestrrat-go/libxml2/xsd"
 	"go.uber.org/zap"
