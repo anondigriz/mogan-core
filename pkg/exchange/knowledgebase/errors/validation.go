@@ -2,6 +2,8 @@ package errors
 
 import (
 	"strconv"
+
+	errMsgs "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors/messages"
 )
 
 const (
@@ -14,7 +16,7 @@ const (
 func NewOpeningXSDFailErr(e error) error {
 	return ExchangeKnowledgeBaseErr{
 		Stat:    OpeningXSDFail,
-		Message: "error opening XSD file",
+		Message: errMsgs.OpeningXSDFail,
 		Err:     e,
 		Dt:      map[string]string{},
 	}
@@ -22,7 +24,7 @@ func NewOpeningXSDFailErr(e error) error {
 func NewReadingXSDFailErr(e error) error {
 	return ExchangeKnowledgeBaseErr{
 		Stat:    ReadingXSDFail,
-		Message: "error reading XSD file",
+		Message: errMsgs.ReadingXSDFail,
 		Err:     e,
 		Dt:      map[string]string{},
 	}
@@ -31,7 +33,7 @@ func NewReadingXSDFailErr(e error) error {
 func NewParsingXSDFailErr(e error) error {
 	return ExchangeKnowledgeBaseErr{
 		Stat:    ParsingXSDFail,
-		Message: "error parsing XSD file",
+		Message: errMsgs.ParsingXSDFail,
 		Err:     e,
 		Dt:      map[string]string{},
 	}
@@ -40,7 +42,7 @@ func NewParsingXSDFailErr(e error) error {
 func NewValidationXMLFailErr(baseError error, errors []error) error {
 	e := ExchangeKnowledgeBaseErr{
 		Stat:    ValidationXMLFail,
-		Message: "xml document validation error",
+		Message: errMsgs.ValidationXMLFail,
 		Err:     baseError,
 		Dt:      map[string]string{},
 	}

@@ -2,6 +2,8 @@ package errors
 
 import (
 	"fmt"
+
+	errMsgs "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors/messages"
 )
 
 const (
@@ -23,7 +25,7 @@ func NewParsingXMLFailErr(msg string, e error) error {
 func NewFormatXMLVersionNotFoundErr() error {
 	return ExchangeKnowledgeBaseErr{
 		Stat:    FormatXMLVersionNotFound,
-		Message: "xml exchange document file version could not be detected",
+		Message: errMsgs.FormatXMLVersionNotFound,
 		Err:     nil,
 		Dt:      map[string]string{},
 	}
@@ -32,7 +34,7 @@ func NewFormatXMLVersionNotFoundErr() error {
 func NewUnsupportedFormatXMLVersionErr(version string) error {
 	return ExchangeKnowledgeBaseErr{
 		Stat:    UnsupportedFormatXMLVersion,
-		Message: fmt.Sprintf("xml exchange document file version '%s' is not supported", version),
+		Message: fmt.Sprintf("%s. Unsupported version: '%s'", errMsgs.UnsupportedFormatXMLVersion, version),
 		Err:     nil,
 		Dt:      map[string]string{},
 	}
@@ -41,7 +43,7 @@ func NewUnsupportedFormatXMLVersionErr(version string) error {
 func NewUnexpectedJobExecutionFailErr(err error) error {
 	return ExchangeKnowledgeBaseErr{
 		Stat:    UnexpectedJobExecutionFail,
-		Message: "unexpected job execution error occurred",
+		Message: errMsgs.UnexpectedJobExecution,
 		Err:     nil,
 		Dt:      map[string]string{},
 	}

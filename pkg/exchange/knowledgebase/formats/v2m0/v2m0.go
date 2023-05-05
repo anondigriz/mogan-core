@@ -2,12 +2,16 @@ package v2m0
 
 import "encoding/xml"
 
+type BaseInfo struct {
+	ID          string `xml:"id,attr"`
+	ShortName   string `xml:"shortName,attr"`
+	Description string `xml:"description,attr"`
+}
+
 type Model struct {
+	BaseInfo
 	XMLName          xml.Name `xml:"model"`
-	ID               string   `xml:"id,attr"`
-	ShortName        string   `xml:"shortName,attr"`
 	FormatXMLVersion string   `xml:"formatXmlVersion,attr"`
-	Description      string   `xml:"description,attr"`
 	Class            Class    `xml:"class"`
 	Relations        struct {
 		Relations []Relation `xml:"relation"`
@@ -15,10 +19,8 @@ type Model struct {
 }
 
 type Class struct {
-	ID          string `xml:"id,attr"`
-	ShortName   string `xml:"shortName,attr"`
-	Description string `xml:"description,attr"`
-	Classes     struct {
+	BaseInfo
+	Classes struct {
 		Classes []Class `xml:"class"`
 	} `xml:"classes"`
 	Rules struct {
@@ -33,18 +35,14 @@ type Class struct {
 }
 
 type Rule struct {
-	ID          string `xml:"id,attr"`
-	ShortName   string `xml:"shortName,attr"`
-	Description string `xml:"description,attr"`
-	RelationID  string `xml:"relation,attr"`
-	InitIDs     string `xml:"initId,attr"`
-	ResultIDs   string `xml:"resultId,attr"`
+	BaseInfo
+	RelationID string `xml:"relation,attr"`
+	InitIDs    string `xml:"initId,attr"`
+	ResultIDs  string `xml:"resultId,attr"`
 }
 
 type Relation struct {
-	ID           string `xml:"id,attr"`
-	ShortName    string `xml:"shortName,attr"`
-	Description  string `xml:"description,attr"`
+	BaseInfo
 	OutObjects   string `xml:"outObj,attr"`
 	InObjects    string `xml:"inObj,attr"`
 	RelationType string `xml:"relationType,attr"`
@@ -52,9 +50,7 @@ type Relation struct {
 }
 
 type Parameter struct {
-	ID           string `xml:"id,attr"`
-	ShortName    string `xml:"shortName,attr"`
-	Description  string `xml:"description,attr"`
+	BaseInfo
 	Type         string `xml:"type,attr"`
 	DefaultValue string `xml:"defaultValue,attr"`
 }

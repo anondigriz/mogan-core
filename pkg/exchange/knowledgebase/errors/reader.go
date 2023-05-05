@@ -1,5 +1,9 @@
 package errors
 
+import (
+	errMsgs "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors/messages"
+)
+
 const (
 	ReadingXMLFail   = "ReadingXMLFail"
 	XMLUnmarshalFail = "XMLUnmarshalFail"
@@ -8,7 +12,7 @@ const (
 func NewReadingXMLFailErr(e error) error {
 	return ExchangeKnowledgeBaseErr{
 		Stat:    ReadingXMLFail,
-		Message: "error reading XML file",
+		Message: errMsgs.ReadingXMLFail,
 		Err:     e,
 		Dt:      map[string]string{},
 	}
@@ -17,7 +21,7 @@ func NewReadingXMLFailErr(e error) error {
 func NewXMLUnmarshalFailErr(e error) error {
 	return ExchangeKnowledgeBaseErr{
 		Stat:    XMLUnmarshalFail,
-		Message: "fail to unmarshal the xml file",
+		Message: errMsgs.XMLUnmarshalFail,
 		Err:     e,
 		Dt:      map[string]string{},
 	}
