@@ -8,7 +8,7 @@ import (
 	"go.uber.org/zap"
 )
 
-const defaultMaxCheckLines = 15
+var DefaultMaxCheckLines int = 15
 
 type Detector struct {
 	lg            *zap.Logger
@@ -18,7 +18,7 @@ type Detector struct {
 func New(lg *zap.Logger) *Detector {
 	d := &Detector{
 		lg:            lg,
-		maxCheckLines: defaultMaxCheckLines,
+		maxCheckLines: DefaultMaxCheckLines,
 	}
 
 	return d
@@ -36,6 +36,7 @@ func (v *Detector) DetectVersion(scanner *bufio.Scanner) (string, error) {
 	// Также не получается читать N первых байтов, так как аттрибут 'description'
 	// может иметь любую длину, а аттрибут 'formatXmlVersion' может находиться необязательно
 	// в начале.
+	// @anondigriz
 	scanner.Split(bufio.ScanLines)
 
 	var version string

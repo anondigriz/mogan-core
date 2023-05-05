@@ -53,7 +53,7 @@ func (v *Validator) ValidateV2M0(xmlFile io.Reader) error {
 	d, err := libxml2.Parse(buf)
 	if err != nil {
 		v.lg.Error("failed to parse XML file", zap.Error(err))
-		return errors.NewParsingXMLFailErr(err)
+		return errors.NewParsingXMLFailErr("failed to parse XML file", err)
 	}
 	defer d.Free()
 

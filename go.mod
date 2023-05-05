@@ -4,6 +4,7 @@ go 1.20
 
 require (
 	github.com/go-chi/chi/v5 v5.0.8
+	github.com/google/uuid v1.3.0
 	github.com/jackc/pgx-gofrs-uuid v0.0.0-20230224015001-1d428863c2e2
 	github.com/jackc/pgx-zap v0.0.0-20221202020421-94b1cb2f889f
 	github.com/jackc/pgx/v5 v5.3.1
