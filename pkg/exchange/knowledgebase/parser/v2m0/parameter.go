@@ -55,7 +55,7 @@ func (vm V2M0) convertTypeParameter(base string) (types.ParameterType, error) {
 func (vm V2M0) getOrCreateParameterUUID(id string, ids *ids) string {
 	prUUID, ok := ids.Parameters[id]
 	if !ok {
-		prUUID = uuidGen.New().String()
+		prUUID = uuidGen.NewString()
 	}
 	return prUUID
 }

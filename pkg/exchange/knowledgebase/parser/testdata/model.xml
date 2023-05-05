@@ -1,0 +1,890 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="{50b4575f-3edd-4a6d-b55b-6454fe7b1262}"
+  shortName="MIPRA Cubes" description="This model was generated automatically."
+  formatXmlVersion="2.0">
+  <class id="20bb0ed7-a40f-4cd9-8058-e611dc2dc0d5" shortName="STRIPS Cubes" description="">
+    <parameters />
+    <classes>
+      <class id="47a0b320-5ad5-4ee4-a073-c04969c50c23" shortName="Current state" description="">
+        <parameters />
+        <classes>
+          <class id="cc5f9c69-c44c-4494-87e2-3de401bcea30" shortName="Cubes" description="">
+            <parameters />
+            <classes>
+              <class id="ccaa01f5-5231-4fb4-8986-031cccd8e160" shortName="Cube[0]" description="">
+                <parameters>
+                  <parameter id="27e90e0e-248d-444f-a990-29281cc96ba1" shortName="Cube[0].On"
+                    description="" type="double" defaultValue="" />
+                  <parameter id="8d02482b-9619-4c74-96c5-83a6a41bc847" shortName="Cube[0].OverFree"
+                    description="" type="string" defaultValue="" />
+                  <parameter id="29994932-6a87-4853-b127-3529cabad467"
+                    shortName="Cube[0].CurrentTower" description="" type="double" defaultValue="" />
+                  <parameter id="afceb33c-4a0a-4b6d-8008-503bc2d402a4"
+                    shortName="Cube[0].IsCurrentTarget" description="" type="string" defaultValue="" />
+                  <parameter id="7818333b-75ac-4761-a527-ddb27898c5e2" shortName="Cube[0].TargetOn"
+                    description="" type="double" defaultValue="" />
+                  <parameter id="1547f0c9-a088-4489-85aa-266c4deba4d6"
+                    shortName="Cube[0].TargetTower" description="" type="double" defaultValue="" />
+                </parameters>
+                <classes />
+                <rules />
+                <constraints />
+              </class>
+              <class id="1e2d0c25-de80-4295-b7ae-e3475f6a0214" shortName="Cube[1]" description="">
+                <parameters>
+                  <parameter id="ca830ff9-4ab3-422c-a30f-3510834eadb7" shortName="Cube[1].On"
+                    description="" type="double" defaultValue="" />
+                  <parameter id="b8bdef6f-00a9-4c4d-8bfe-49f6715a6677" shortName="Cube[1].OverFree"
+                    description="" type="string" defaultValue="" />
+                  <parameter id="08e02452-ace9-4d32-b687-e5e2bf96503f"
+                    shortName="Cube[1].CurrentTower" description="" type="double" defaultValue="" />
+                  <parameter id="4589b93a-17c9-4312-9f23-53ab74357630"
+                    shortName="Cube[1].IsCurrentTarget" description="" type="string" defaultValue="" />
+                  <parameter id="2ff8b01c-cab3-4618-be7d-377f5ecd9284" shortName="Cube[1].TargetOn"
+                    description="" type="double" defaultValue="" />
+                  <parameter id="800eb8dc-0061-4b90-b207-f09441b2c233"
+                    shortName="Cube[1].TargetTower" description="" type="double" defaultValue="" />
+                </parameters>
+                <classes />
+                <rules />
+                <constraints />
+              </class>
+              <class id="8afa0b8d-2ddb-428e-a0e8-4eb210b25d5f" shortName="Cube[2]" description="">
+                <parameters>
+                  <parameter id="979bee4f-2f94-4f18-8f41-ffb28b1d99f2" shortName="Cube[2].On"
+                    description="" type="double" defaultValue="" />
+                  <parameter id="aa53e8da-9a6c-4b6e-b308-547b1588f450" shortName="Cube[2].OverFree"
+                    description="" type="string" defaultValue="" />
+                  <parameter id="b5bb1900-12c4-44c9-9a6c-b2b5dfb479c8"
+                    shortName="Cube[2].CurrentTower" description="" type="double" defaultValue="" />
+                  <parameter id="9884b69c-8ab0-44aa-9641-3dcf49207dec"
+                    shortName="Cube[2].IsCurrentTarget" description="" type="string" defaultValue="" />
+                  <parameter id="b92a3445-042d-4a6e-8766-598ae78b4657" shortName="Cube[2].TargetOn"
+                    description="" type="double" defaultValue="" />
+                  <parameter id="7bd697a6-21ef-426a-b2ab-9f43cadc9937"
+                    shortName="Cube[2].TargetTower" description="" type="double" defaultValue="" />
+                </parameters>
+                <classes />
+                <rules />
+                <constraints />
+              </class>
+              <class id="6102f482-e589-4490-806f-297df307d0b6" shortName="Cube[3]" description="">
+                <parameters>
+                  <parameter id="4d1c0fa6-7a75-4d5b-a3cc-c8571e389133" shortName="Cube[3].On"
+                    description="" type="double" defaultValue="" />
+                  <parameter id="fac181d5-e23f-4c61-a101-8a6ce160fdec" shortName="Cube[3].OverFree"
+                    description="" type="string" defaultValue="" />
+                  <parameter id="175edb69-52d1-4213-ba20-9e3eea1d068a"
+                    shortName="Cube[3].CurrentTower" description="" type="double" defaultValue="" />
+                  <parameter id="c68dd10b-79e4-46f6-9ba2-f25c27ba7d2a"
+                    shortName="Cube[3].IsCurrentTarget" description="" type="string" defaultValue="" />
+                  <parameter id="3891640a-8f36-4eba-a324-a2b015523d3a" shortName="Cube[3].TargetOn"
+                    description="" type="double" defaultValue="" />
+                  <parameter id="14cf94e9-239d-4e84-9ab2-5df5b9327f29"
+                    shortName="Cube[3].TargetTower" description="" type="double" defaultValue="" />
+                </parameters>
+                <classes />
+                <rules />
+                <constraints />
+              </class>
+              <class id="e0806fdc-f94a-4d9d-8a1a-61e7d675dc5b" shortName="Cube[4]" description="">
+                <parameters>
+                  <parameter id="935da0b6-3009-4699-b245-d8c254861693" shortName="Cube[4].On"
+                    description="" type="double" defaultValue="" />
+                  <parameter id="d14579d4-1b4b-4887-ac7c-c80192d49b7c" shortName="Cube[4].OverFree"
+                    description="" type="string" defaultValue="" />
+                  <parameter id="96e1e750-72d3-4959-9a78-921e729c00e2"
+                    shortName="Cube[4].CurrentTower" description="" type="double" defaultValue="" />
+                  <parameter id="d9ca415f-98a4-4cd3-b52e-5b3fbf32e96e"
+                    shortName="Cube[4].IsCurrentTarget" description="" type="string" defaultValue="" />
+                  <parameter id="4dde9405-cce0-465d-90c3-a3446b10d11b" shortName="Cube[4].TargetOn"
+                    description="" type="double" defaultValue="" />
+                  <parameter id="5143b1d2-7d07-415e-a72f-8d2fad2cfc23"
+                    shortName="Cube[4].TargetTower" description="" type="double" defaultValue="" />
+                </parameters>
+                <classes />
+                <rules />
+                <constraints />
+              </class>
+              <class id="428fdde4-524b-458a-99e0-4228c7736d9b" shortName="Cube[5]" description="">
+                <parameters>
+                  <parameter id="8ba26b34-551d-44d2-95cb-eb5b4bdc8c71" shortName="Cube[5].On"
+                    description="" type="double" defaultValue="" />
+                  <parameter id="57fef365-ad0c-453c-8f28-5a63da7e36c9" shortName="Cube[5].OverFree"
+                    description="" type="string" defaultValue="" />
+                  <parameter id="c721c559-6a09-4223-b602-8026fb023d15"
+                    shortName="Cube[5].CurrentTower" description="" type="double" defaultValue="" />
+                  <parameter id="04f6a11c-a33a-40a9-b9aa-0d0f80b16d70"
+                    shortName="Cube[5].IsCurrentTarget" description="" type="string" defaultValue="" />
+                  <parameter id="06d5e5b2-2489-4105-a061-bd60c7208ff4" shortName="Cube[5].TargetOn"
+                    description="" type="double" defaultValue="" />
+                  <parameter id="655ba673-4089-467d-907b-062799b3d5d6"
+                    shortName="Cube[5].TargetTower" description="" type="double" defaultValue="" />
+                </parameters>
+                <classes />
+                <rules />
+                <constraints />
+              </class>
+              <class id="1ead3092-f345-42e8-ba56-2333854f0cfe" shortName="Cube[6]" description="">
+                <parameters>
+                  <parameter id="8be25fa8-b229-46b7-bd54-fc015bb3f9ea" shortName="Cube[6].On"
+                    description="" type="double" defaultValue="" />
+                  <parameter id="21c2e28e-9048-442d-b008-51b235218dd0" shortName="Cube[6].OverFree"
+                    description="" type="string" defaultValue="" />
+                  <parameter id="f2bfd447-b182-420f-837b-3f502e4ca1fb"
+                    shortName="Cube[6].CurrentTower" description="" type="double" defaultValue="" />
+                  <parameter id="d7954e1a-9b2e-441c-9ff1-c4d3bc16f50f"
+                    shortName="Cube[6].IsCurrentTarget" description="" type="string" defaultValue="" />
+                  <parameter id="2a338d4e-6bcd-45fa-abc4-a7251f976827" shortName="Cube[6].TargetOn"
+                    description="" type="double" defaultValue="" />
+                  <parameter id="2e23c617-cf95-44d0-bbc6-f9de6d3fc53a"
+                    shortName="Cube[6].TargetTower" description="" type="double" defaultValue="" />
+                </parameters>
+                <classes />
+                <rules />
+                <constraints />
+              </class>
+              <class id="aadc3d4a-7b2c-4609-81b0-c81e67112a68" shortName="Cube[7]" description="">
+                <parameters>
+                  <parameter id="e54b4461-0fca-43c3-8bd7-3a5fd4a1e8a8" shortName="Cube[7].On"
+                    description="" type="double" defaultValue="" />
+                  <parameter id="538e9ee2-4478-4bb3-ae76-7fa83a590152" shortName="Cube[7].OverFree"
+                    description="" type="string" defaultValue="" />
+                  <parameter id="d4db0b3f-e678-4f16-9dd2-7988cad6b802"
+                    shortName="Cube[7].CurrentTower" description="" type="double" defaultValue="" />
+                  <parameter id="bce39239-6a83-41bf-b60c-a784da3ab08d"
+                    shortName="Cube[7].IsCurrentTarget" description="" type="string" defaultValue="" />
+                  <parameter id="d8f1fa07-6756-46dd-9b6b-bffe7a4adefb" shortName="Cube[7].TargetOn"
+                    description="" type="double" defaultValue="" />
+                  <parameter id="21a450dd-ef6f-469c-ba48-3909f37bfffe"
+                    shortName="Cube[7].TargetTower" description="" type="double" defaultValue="" />
+                </parameters>
+                <classes />
+                <rules />
+                <constraints />
+              </class>
+              <class id="ef388b20-2e24-40b0-844f-c477c47cf3e7" shortName="Cube[8]" description="">
+                <parameters>
+                  <parameter id="3d0a332e-bbcd-4f7d-986d-324c6a97d3bc" shortName="Cube[8].On"
+                    description="" type="double" defaultValue="" />
+                  <parameter id="c7f7a1a5-0bac-454d-889a-8d6fcb146718" shortName="Cube[8].OverFree"
+                    description="" type="string" defaultValue="" />
+                  <parameter id="bedacb3f-6185-41fd-b589-edd5bdd47916"
+                    shortName="Cube[8].CurrentTower" description="" type="double" defaultValue="" />
+                  <parameter id="c687435e-cd09-48c2-a560-b3249e1be668"
+                    shortName="Cube[8].IsCurrentTarget" description="" type="string" defaultValue="" />
+                  <parameter id="0af73d67-f577-4f19-b6c3-f2d50c5cff67" shortName="Cube[8].TargetOn"
+                    description="" type="double" defaultValue="" />
+                  <parameter id="213c9f5b-e93e-49b4-9619-adee3079ffaa"
+                    shortName="Cube[8].TargetTower" description="" type="double" defaultValue="" />
+                </parameters>
+                <classes />
+                <rules />
+                <constraints />
+              </class>
+              <class id="cc670c41-671c-4241-a089-42e899ed026e" shortName="Cube[9]" description="">
+                <parameters>
+                  <parameter id="69849b57-8230-4e6d-8cb0-928b61ab0d67" shortName="Cube[9].On"
+                    description="" type="double" defaultValue="" />
+                  <parameter id="5627e820-52ff-40c7-9a2f-9688f532f295" shortName="Cube[9].OverFree"
+                    description="" type="string" defaultValue="" />
+                  <parameter id="7c3fc2f5-8089-401b-8623-8878c1b97622"
+                    shortName="Cube[9].CurrentTower" description="" type="double" defaultValue="" />
+                  <parameter id="ceba3725-33dc-495e-98aa-6c62a45d26ab"
+                    shortName="Cube[9].IsCurrentTarget" description="" type="string" defaultValue="" />
+                  <parameter id="e627f6a5-2f42-4a76-898a-4526bcc24f3c" shortName="Cube[9].TargetOn"
+                    description="" type="double" defaultValue="" />
+                  <parameter id="21a3c773-0b69-4f28-afb1-b69da9b0c252"
+                    shortName="Cube[9].TargetTower" description="" type="double" defaultValue="" />
+                </parameters>
+                <classes />
+                <rules />
+                <constraints />
+              </class>
+            </classes>
+            <rules />
+            <constraints />
+          </class>
+          <class id="8d2bd975-7616-4ef4-8589-fd410b309f71" shortName="Iterations" description="">
+            <parameters />
+            <classes>
+              <class id="bc028865-9a35-4efa-bd00-e1885b853309" shortName="Iteration[0]"
+                description="">
+                <parameters />
+                <classes>
+                  <class id="e722fff6-dc8a-4f2c-a946-4386b64691e3" shortName="InitialActions[0]"
+                    description="">
+                    <parameters>
+                      <parameter id="563391b1-ff82-4951-91f3-4b59c07386a5"
+                        shortName="InitialActions[0].FindTargetCube" description="" type="double"
+                        defaultValue="" />
+                      <parameter id="2408b266-30b1-4e8d-9576-8f6b9d4fcec6"
+                        shortName="InitialActions[0].PrepareTargetTower" description=""
+                        type="double" defaultValue="" />
+                    </parameters>
+                    <classes />
+                    <rules />
+                    <constraints />
+                  </class>
+                  <class id="9a4b418c-f4e4-4f25-a713-32b651d5e11e" shortName="Targets[0]"
+                    description="">
+                    <parameters>
+                      <parameter id="244b10d2-f7fb-4923-a835-beff6b8f4b46"
+                        shortName="Targets[0].TargetCube" description="" type="double"
+                        defaultValue="" />
+                      <parameter id="24f8aef5-55da-4ad2-a341-46f78f298cd7"
+                        shortName="Targets[0].TargetTower" description="" type="double"
+                        defaultValue="" />
+                    </parameters>
+                    <classes />
+                    <rules />
+                    <constraints />
+                  </class>
+                </classes>
+                <rules />
+                <constraints />
+              </class>
+              <class id="f1982fb1-b252-475a-b39d-a44b26e5e1ed" shortName="Iteration[1]"
+                description="">
+                <parameters />
+                <classes>
+                  <class id="e3f3bc46-2e86-4c3d-8a92-8bd7d9253e64" shortName="InitialActions[1]"
+                    description="">
+                    <parameters>
+                      <parameter id="4e8c9d3f-7ebb-4f16-8c74-2e715f810356"
+                        shortName="InitialActions[1].FindTargetCube" description="" type="double"
+                        defaultValue="" />
+                      <parameter id="3e873ffc-6680-4208-9787-f8958ba7173e"
+                        shortName="InitialActions[1].PrepareTargetTower" description=""
+                        type="double" defaultValue="" />
+                    </parameters>
+                    <classes />
+                    <rules />
+                    <constraints />
+                  </class>
+                  <class id="2678ab9b-3ac5-40a0-ac66-bdc9d2df5feb" shortName="Targets[1]"
+                    description="">
+                    <parameters>
+                      <parameter id="ee4d2b82-0e3d-49b2-ac7c-2a42017520e1"
+                        shortName="Targets[1].TargetCube" description="" type="double"
+                        defaultValue="" />
+                      <parameter id="5bde0014-d78f-4c1d-8c7c-1d9c19cfbcd9"
+                        shortName="Targets[1].TargetTower" description="" type="double"
+                        defaultValue="" />
+                    </parameters>
+                    <classes />
+                    <rules />
+                    <constraints />
+                  </class>
+                </classes>
+                <rules />
+                <constraints />
+              </class>
+              <class id="f70bf8ea-7e75-4ea5-ae4e-7e5f67a7699c" shortName="Iteration[2]"
+                description="">
+                <parameters />
+                <classes>
+                  <class id="da7b10d1-a5cb-4bdb-bb42-933d52d7f00c" shortName="InitialActions[2]"
+                    description="">
+                    <parameters>
+                      <parameter id="51a7e846-3e51-4ebb-8d0c-16d6f5361f12"
+                        shortName="InitialActions[2].FindTargetCube" description="" type="double"
+                        defaultValue="" />
+                      <parameter id="65c4fa70-cc9b-4958-95f0-7e7ec29baa9f"
+                        shortName="InitialActions[2].PrepareTargetTower" description=""
+                        type="double" defaultValue="" />
+                    </parameters>
+                    <classes />
+                    <rules />
+                    <constraints />
+                  </class>
+                  <class id="99bda4e3-318f-4392-b1a8-61697b6922c4" shortName="Targets[2]"
+                    description="">
+                    <parameters>
+                      <parameter id="d0186c3a-738e-4248-a0c8-2f8071cf6a59"
+                        shortName="Targets[2].TargetCube" description="" type="double"
+                        defaultValue="" />
+                      <parameter id="e67a7414-da2c-4bb8-aa4f-bc3abf63bcac"
+                        shortName="Targets[2].TargetTower" description="" type="double"
+                        defaultValue="" />
+                    </parameters>
+                    <classes />
+                    <rules />
+                    <constraints />
+                  </class>
+                </classes>
+                <rules />
+                <constraints />
+              </class>
+              <class id="60150bd1-e33b-4044-83cb-471a8d6a5dba" shortName="Iteration[3]"
+                description="">
+                <parameters />
+                <classes>
+                  <class id="110dedec-b51b-4708-8880-610b0814e3db" shortName="InitialActions[3]"
+                    description="">
+                    <parameters>
+                      <parameter id="eef2ea58-cda6-4feb-ad36-961cb9d4a100"
+                        shortName="InitialActions[3].FindTargetCube" description="" type="double"
+                        defaultValue="" />
+                      <parameter id="95a1e2a9-de40-4e44-a873-33749b99e4e9"
+                        shortName="InitialActions[3].PrepareTargetTower" description=""
+                        type="double" defaultValue="" />
+                    </parameters>
+                    <classes />
+                    <rules />
+                    <constraints />
+                  </class>
+                  <class id="8a317ad0-3b72-4d7c-93e4-409e26f2cece" shortName="Targets[3]"
+                    description="">
+                    <parameters>
+                      <parameter id="191e569a-cf13-4750-9289-4a143d283a12"
+                        shortName="Targets[3].TargetCube" description="" type="double"
+                        defaultValue="" />
+                      <parameter id="dfb1a111-eb88-4b58-b30a-6ee1ba812026"
+                        shortName="Targets[3].TargetTower" description="" type="double"
+                        defaultValue="" />
+                    </parameters>
+                    <classes />
+                    <rules />
+                    <constraints />
+                  </class>
+                </classes>
+                <rules />
+                <constraints />
+              </class>
+              <class id="0b12b791-8247-4fbc-8ee1-3b0420e7d1c1" shortName="Iteration[4]"
+                description="">
+                <parameters />
+                <classes>
+                  <class id="5cd11667-9765-48c4-9b48-2aec7a982040" shortName="InitialActions[4]"
+                    description="">
+                    <parameters>
+                      <parameter id="eb478b75-e71f-4144-89ba-0ddf9743b4af"
+                        shortName="InitialActions[4].FindTargetCube" description="" type="double"
+                        defaultValue="" />
+                      <parameter id="9da0788c-66c6-4260-8acb-b3a0599369a1"
+                        shortName="InitialActions[4].PrepareTargetTower" description=""
+                        type="double" defaultValue="" />
+                    </parameters>
+                    <classes />
+                    <rules />
+                    <constraints />
+                  </class>
+                  <class id="132a4f20-d81f-424d-9d56-6fe7841776e8" shortName="Targets[4]"
+                    description="">
+                    <parameters>
+                      <parameter id="00cce930-1585-489f-bbd0-21af30f1b0b7"
+                        shortName="Targets[4].TargetCube" description="" type="double"
+                        defaultValue="" />
+                      <parameter id="2836361e-f8cb-47ba-94d0-be21b59a9f30"
+                        shortName="Targets[4].TargetTower" description="" type="double"
+                        defaultValue="" />
+                    </parameters>
+                    <classes />
+                    <rules />
+                    <constraints />
+                  </class>
+                </classes>
+                <rules />
+                <constraints />
+              </class>
+              <class id="52e20479-76cf-4eed-bcf8-354e905b236e" shortName="Iteration[5]"
+                description="">
+                <parameters />
+                <classes>
+                  <class id="7fcfa1bc-26e6-402c-92de-0779b5b176c4" shortName="InitialActions[5]"
+                    description="">
+                    <parameters>
+                      <parameter id="4bbbb575-7f7b-452d-b580-188ec7f4b228"
+                        shortName="InitialActions[5].FindTargetCube" description="" type="double"
+                        defaultValue="" />
+                      <parameter id="36c81a50-6f3f-4b63-a60b-c58846e195b4"
+                        shortName="InitialActions[5].PrepareTargetTower" description=""
+                        type="double" defaultValue="" />
+                    </parameters>
+                    <classes />
+                    <rules />
+                    <constraints />
+                  </class>
+                  <class id="b4f48284-fb76-4d49-ad98-d2fb26e570d5" shortName="Targets[5]"
+                    description="">
+                    <parameters>
+                      <parameter id="40218a77-d088-4eee-9f62-d9dd29d07733"
+                        shortName="Targets[5].TargetCube" description="" type="double"
+                        defaultValue="" />
+                      <parameter id="a432abec-a3a5-451e-a35a-59de08eb0d39"
+                        shortName="Targets[5].TargetTower" description="" type="double"
+                        defaultValue="" />
+                    </parameters>
+                    <classes />
+                    <rules />
+                    <constraints />
+                  </class>
+                </classes>
+                <rules />
+                <constraints />
+              </class>
+              <class id="d0747058-1c82-4b70-bdf1-e859ed60d87c" shortName="Iteration[6]"
+                description="">
+                <parameters />
+                <classes>
+                  <class id="1528ca99-9e95-48e1-b6b9-930e56dcaf63" shortName="InitialActions[6]"
+                    description="">
+                    <parameters>
+                      <parameter id="08f22109-6ace-4ec1-bf22-93cffbc297f2"
+                        shortName="InitialActions[6].FindTargetCube" description="" type="double"
+                        defaultValue="" />
+                      <parameter id="cf337b09-eaf0-4e2c-8d49-7aaefd74aede"
+                        shortName="InitialActions[6].PrepareTargetTower" description=""
+                        type="double" defaultValue="" />
+                    </parameters>
+                    <classes />
+                    <rules />
+                    <constraints />
+                  </class>
+                  <class id="f3c018a3-5c17-485b-9396-8664b16982ec" shortName="Targets[6]"
+                    description="">
+                    <parameters>
+                      <parameter id="8ed9f5e7-fce8-4e33-a811-152c0d203d06"
+                        shortName="Targets[6].TargetCube" description="" type="double"
+                        defaultValue="" />
+                      <parameter id="44488ca5-2184-41f7-9c6c-858cd5333781"
+                        shortName="Targets[6].TargetTower" description="" type="double"
+                        defaultValue="" />
+                    </parameters>
+                    <classes />
+                    <rules />
+                    <constraints />
+                  </class>
+                </classes>
+                <rules />
+                <constraints />
+              </class>
+              <class id="d719c025-e6e3-4c41-ae57-cc918cf46f79" shortName="Iteration[7]"
+                description="">
+                <parameters />
+                <classes>
+                  <class id="aca29394-bee3-452f-b8ed-ba7101ae53f2" shortName="InitialActions[7]"
+                    description="">
+                    <parameters>
+                      <parameter id="58c307c9-343d-4da5-b761-b207b167f560"
+                        shortName="InitialActions[7].FindTargetCube" description="" type="double"
+                        defaultValue="" />
+                      <parameter id="b561336b-b7d3-4efb-a410-0ba821335d2d"
+                        shortName="InitialActions[7].PrepareTargetTower" description=""
+                        type="double" defaultValue="" />
+                    </parameters>
+                    <classes />
+                    <rules />
+                    <constraints />
+                  </class>
+                  <class id="598051f4-1e05-452a-9711-738c98f24cea" shortName="Targets[7]"
+                    description="">
+                    <parameters>
+                      <parameter id="a61fdca6-da55-46bc-8c4f-c1e9fd36219e"
+                        shortName="Targets[7].TargetCube" description="" type="double"
+                        defaultValue="" />
+                      <parameter id="88a82e9f-a0b5-4bee-9353-ca0ddcb1a574"
+                        shortName="Targets[7].TargetTower" description="" type="double"
+                        defaultValue="" />
+                    </parameters>
+                    <classes />
+                    <rules />
+                    <constraints />
+                  </class>
+                </classes>
+                <rules />
+                <constraints />
+              </class>
+              <class id="28277cb9-407b-4f83-b902-bd5a6cfeea09" shortName="Iteration[8]"
+                description="">
+                <parameters />
+                <classes>
+                  <class id="6b76eacd-6e42-4639-a859-0ece478b8ba2" shortName="InitialActions[8]"
+                    description="">
+                    <parameters>
+                      <parameter id="2236502d-9200-4ba5-80f8-7698118bd79f"
+                        shortName="InitialActions[8].FindTargetCube" description="" type="double"
+                        defaultValue="" />
+                      <parameter id="d9089c29-e53a-46b0-aab8-02f78bc1d09d"
+                        shortName="InitialActions[8].PrepareTargetTower" description=""
+                        type="double" defaultValue="" />
+                    </parameters>
+                    <classes />
+                    <rules />
+                    <constraints />
+                  </class>
+                  <class id="6e27463d-1ad3-4059-903a-4c935703e236" shortName="Targets[8]"
+                    description="">
+                    <parameters>
+                      <parameter id="985108ec-8dd6-4c98-b346-50f06513b167"
+                        shortName="Targets[8].TargetCube" description="" type="double"
+                        defaultValue="" />
+                      <parameter id="220c118f-d2e8-48b1-a316-5327183848b8"
+                        shortName="Targets[8].TargetTower" description="" type="double"
+                        defaultValue="" />
+                    </parameters>
+                    <classes />
+                    <rules />
+                    <constraints />
+                  </class>
+                </classes>
+                <rules />
+                <constraints />
+              </class>
+              <class id="9bfd762d-6950-4870-86c5-0174a6479d6c" shortName="Iteration[9]"
+                description="">
+                <parameters />
+                <classes>
+                  <class id="91065c8c-8240-46a5-8646-6f78bb9676d6" shortName="InitialActions[9]"
+                    description="">
+                    <parameters>
+                      <parameter id="70014ac3-31f5-48b5-94c7-c8608b1a277a"
+                        shortName="InitialActions[9].FindTargetCube" description="" type="double"
+                        defaultValue="" />
+                      <parameter id="62f7c1bc-d04e-46ee-a8ca-8ce84c5b7fca"
+                        shortName="InitialActions[9].PrepareTargetTower" description=""
+                        type="double" defaultValue="" />
+                    </parameters>
+                    <classes />
+                    <rules />
+                    <constraints />
+                  </class>
+                  <class id="2db304e8-3ba6-49ee-bebf-bd18b9d59b51" shortName="Targets[9]"
+                    description="">
+                    <parameters>
+                      <parameter id="6f495169-20db-45f5-8460-6d3399d071bb"
+                        shortName="Targets[9].TargetCube" description="" type="double"
+                        defaultValue="" />
+                      <parameter id="10219a07-bba2-4947-bb45-3b2bea576c57"
+                        shortName="Targets[9].TargetTower" description="" type="double"
+                        defaultValue="" />
+                    </parameters>
+                    <classes />
+                    <rules />
+                    <constraints />
+                  </class>
+                </classes>
+                <rules />
+                <constraints />
+              </class>
+            </classes>
+            <rules />
+            <constraints />
+          </class>
+          <class id="17285e2f-b30f-44ed-9aeb-7128405d4376" shortName="Towers" description="">
+            <parameters>
+              <parameter id="83068a90-fe22-461d-afbe-e106d0bbe0cc" shortName="M" description=""
+                type="double" defaultValue="" />
+              <parameter id="7cfaf33d-7b44-408d-afd7-197e024ae9c0" shortName="CurrentTargetTower"
+                description="" type="double" defaultValue="" />
+            </parameters>
+            <classes />
+            <rules />
+            <constraints />
+          </class>
+        </classes>
+        <rules />
+        <constraints />
+      </class>
+      <class id="8bd518b0-e0d8-4659-875d-cf3d21a393b9" shortName="Management" description="">
+        <parameters />
+        <classes>
+          <class id="c66766ca-0b38-4274-8a68-2d68646cb005" shortName="Actions" description="">
+            <parameters>
+              <parameter id="0a8a684e-8256-46e0-9276-56e5735edaf7" shortName="PutCubeOnTargetPlace"
+                description="" type="double" defaultValue="" />
+              <parameter id="346ac084-0d73-4ae3-b36b-4cee6e9a8a06" shortName="PrepareTargetTower"
+                description="" type="double" defaultValue="" />
+              <parameter id="207b07bf-2433-4d4f-862a-7b6d0874de8c" shortName="FindTargetCube"
+                description="" type="double" defaultValue="" />
+              <parameter id="5a3ac4dd-7098-4938-b62a-27111509694a"
+                shortName="MoveCubesFromCurrentTargetCube" description="" type="double"
+                defaultValue="" />
+            </parameters>
+            <classes />
+            <rules />
+            <constraints />
+          </class>
+          <class id="167775d9-b2f0-4681-8ccd-8ae862f79fe4" shortName="SetValue" description="">
+            <parameters>
+              <parameter id="aca5e2ae-7edd-40ef-814a-2987c918ff78" shortName="CurrentTargetCube"
+                description="" type="double" defaultValue="" />
+              <parameter id="1e627216-fd7f-4ad5-afbc-8edb258fd0ec" shortName="CurrentTargetTower"
+                description="" type="double" defaultValue="" />
+            </parameters>
+            <classes />
+            <rules />
+            <constraints />
+          </class>
+          <class id="d6290fce-f186-4bb7-8b7a-16228e054252" shortName="Processing" description="">
+            <parameters>
+              <parameter id="5ea536cc-9a0b-40b0-89dd-e39f619fb45d" shortName="Start" description=""
+                type="string" defaultValue="" />
+              <parameter id="ffce765d-057b-4840-acaf-c8ad0a4e4ec1" shortName="Continue"
+                description="" type="string" defaultValue="" />
+              <parameter id="d393ed99-3b0c-4985-9fbf-90b45061127a" shortName="Stop" description=""
+                type="string" defaultValue="" />
+            </parameters>
+            <classes />
+            <rules />
+            <constraints />
+          </class>
+          <class id="4039d789-03cc-46cb-856a-9c00642b7785" shortName="IntermediateTargets"
+            description="">
+            <parameters>
+              <parameter id="78cb707e-4a0b-4de6-8792-17a572897c2c" shortName="Target[0]"
+                description="" type="string" defaultValue="" />
+              <parameter id="4139253e-5e67-40c9-89a4-81109582c85d" shortName="Target[1]"
+                description="" type="string" defaultValue="" />
+              <parameter id="dda0cc90-5934-47c3-b12a-c981c95d05a1" shortName="Target[2]"
+                description="" type="string" defaultValue="" />
+              <parameter id="2448a8f1-7dcd-4b22-bbb7-e82e9677a032" shortName="Target[3]"
+                description="" type="string" defaultValue="" />
+              <parameter id="f6fc1e46-f3a7-4f2f-b80e-0c4df3f01586" shortName="Target[4]"
+                description="" type="string" defaultValue="" />
+              <parameter id="c80e5822-c314-4690-97eb-df60078e42e3" shortName="Target[5]"
+                description="" type="string" defaultValue="" />
+              <parameter id="484cb63f-014f-4591-9fb9-2cc86ff74571" shortName="Target[6]"
+                description="" type="string" defaultValue="" />
+              <parameter id="a1244d3c-93bf-4272-8f06-fee60ac29e28" shortName="Target[7]"
+                description="" type="string" defaultValue="" />
+              <parameter id="68acb94e-0dbc-4366-bdf1-d309b353eec1" shortName="Target[8]"
+                description="" type="string" defaultValue="" />
+              <parameter id="6c1ae0ec-816e-411f-b4e4-c31f81972830" shortName="Target[9]"
+                description="" type="string" defaultValue="" />
+            </parameters>
+            <classes />
+            <rules />
+            <constraints />
+          </class>
+        </classes>
+        <rules />
+        <constraints />
+      </class>
+    </classes>
+    <rules>
+      <rule id="4d8cc695-880f-4f32-af2a-7a45ea5af67b" shortName="StartWorking" description=""
+        relation="bc93fad3-9ea5-404b-832e-84a7a37700b0"
+        initId="Start:5ea536cc-9a0b-40b0-89dd-e39f619fb45d;TargetCube:244b10d2-f7fb-4923-a835-beff6b8f4b46;TargetTower:24f8aef5-55da-4ad2-a341-46f78f298cd7"
+        resultId="CurrentTargetCube:aca5e2ae-7edd-40ef-814a-2987c918ff78;PrepareTargetTower:346ac084-0d73-4ae3-b36b-4cee6e9a8a06;FindTargetCube:207b07bf-2433-4d4f-862a-7b6d0874de8c;CurrentTargetTower:1e627216-fd7f-4ad5-afbc-8edb258fd0ec" />
+      <rule id="dcdca118-68be-47cc-ab66-1d5d3165cc89" shortName="IterationBeforeCompleting[0]"
+        description="" relation="306f8d43-4b9c-419a-843d-eb301681cdb1"
+        initId="IsCurrentTarget:ceba3725-33dc-495e-98aa-6c62a45d26ab;CurrentTargetTower:7cfaf33d-7b44-408d-afd7-197e024ae9c0;CurrentTower:7c3fc2f5-8089-401b-8623-8878c1b97622;OverFree:5627e820-52ff-40c7-9a2f-9688f532f295"
+        resultId="PutCubeOnTargetPlace:0a8a684e-8256-46e0-9276-56e5735edaf7" />
+      <rule id="eb5a3f8c-266f-4642-afbe-eefb177b121a" shortName="IterationComplete[0]"
+        description="" relation="711f5fe8-88cb-40e3-b8e3-1630d6afc891"
+        initId="IsCurrentTarget:ceba3725-33dc-495e-98aa-6c62a45d26ab;Target:78cb707e-4a0b-4de6-8792-17a572897c2c;NextTargetCube:ee4d2b82-0e3d-49b2-ac7c-2a42017520e1;NextTargetTower:5bde0014-d78f-4c1d-8c7c-1d9c19cfbcd9;NextActionPrepareTargetTower:3e873ffc-6680-4208-9787-f8958ba7173e;NextActionFindTargetCube:4e8c9d3f-7ebb-4f16-8c74-2e715f810356"
+        resultId="FindTargetCube:207b07bf-2433-4d4f-862a-7b6d0874de8c;SetCurrentTargetTower:1e627216-fd7f-4ad5-afbc-8edb258fd0ec;SetCurrentTargetCube:aca5e2ae-7edd-40ef-814a-2987c918ff78;PrepareTargetTower:346ac084-0d73-4ae3-b36b-4cee6e9a8a06" />
+      <rule id="3fb31a44-c82a-46de-9890-98779a1d900b" shortName="IterationInProgress[0]"
+        description="" relation="e1f89948-8208-4511-9dbf-75b0a3f040c0"
+        initId="IsCurrentTarget:ceba3725-33dc-495e-98aa-6c62a45d26ab;CurrentTargetTower:7cfaf33d-7b44-408d-afd7-197e024ae9c0;CurrentTower:7c3fc2f5-8089-401b-8623-8878c1b97622;OverFree:5627e820-52ff-40c7-9a2f-9688f532f295"
+        resultId="MoveCubes:5a3ac4dd-7098-4938-b62a-27111509694a" />
+      <rule id="eba40449-3148-4e48-a78b-ae1af57f877a" shortName="IterationBeforeCompleting[1]"
+        description="" relation="306f8d43-4b9c-419a-843d-eb301681cdb1"
+        initId="IsCurrentTarget:afceb33c-4a0a-4b6d-8008-503bc2d402a4;CurrentTargetTower:7cfaf33d-7b44-408d-afd7-197e024ae9c0;CurrentTower:29994932-6a87-4853-b127-3529cabad467;OverFree:8d02482b-9619-4c74-96c5-83a6a41bc847"
+        resultId="PutCubeOnTargetPlace:0a8a684e-8256-46e0-9276-56e5735edaf7" />
+      <rule id="8ea99687-caae-41b5-aa05-dfd12549e4eb" shortName="IterationComplete[1]"
+        description="" relation="711f5fe8-88cb-40e3-b8e3-1630d6afc891"
+        initId="IsCurrentTarget:afceb33c-4a0a-4b6d-8008-503bc2d402a4;Target:4139253e-5e67-40c9-89a4-81109582c85d;NextTargetCube:d0186c3a-738e-4248-a0c8-2f8071cf6a59;NextTargetTower:e67a7414-da2c-4bb8-aa4f-bc3abf63bcac;NextActionPrepareTargetTower:65c4fa70-cc9b-4958-95f0-7e7ec29baa9f;NextActionFindTargetCube:51a7e846-3e51-4ebb-8d0c-16d6f5361f12"
+        resultId="FindTargetCube:207b07bf-2433-4d4f-862a-7b6d0874de8c;SetCurrentTargetTower:1e627216-fd7f-4ad5-afbc-8edb258fd0ec;SetCurrentTargetCube:aca5e2ae-7edd-40ef-814a-2987c918ff78;PrepareTargetTower:346ac084-0d73-4ae3-b36b-4cee6e9a8a06" />
+      <rule id="6bb1c927-b75a-44fa-81c6-45016b423b16" shortName="IterationInProgress[1]"
+        description="" relation="e1f89948-8208-4511-9dbf-75b0a3f040c0"
+        initId="IsCurrentTarget:afceb33c-4a0a-4b6d-8008-503bc2d402a4;CurrentTargetTower:7cfaf33d-7b44-408d-afd7-197e024ae9c0;CurrentTower:29994932-6a87-4853-b127-3529cabad467;OverFree:8d02482b-9619-4c74-96c5-83a6a41bc847"
+        resultId="MoveCubes:5a3ac4dd-7098-4938-b62a-27111509694a" />
+      <rule id="37ffbb93-d0ad-4c07-bcad-a07a1b9229ca" shortName="IterationBeforeCompleting[2]"
+        description="" relation="306f8d43-4b9c-419a-843d-eb301681cdb1"
+        initId="IsCurrentTarget:c68dd10b-79e4-46f6-9ba2-f25c27ba7d2a;CurrentTargetTower:7cfaf33d-7b44-408d-afd7-197e024ae9c0;CurrentTower:175edb69-52d1-4213-ba20-9e3eea1d068a;OverFree:fac181d5-e23f-4c61-a101-8a6ce160fdec"
+        resultId="PutCubeOnTargetPlace:0a8a684e-8256-46e0-9276-56e5735edaf7" />
+      <rule id="1587f4d6-9b78-40b2-a76e-a5a621f5da56" shortName="IterationComplete[2]"
+        description="" relation="711f5fe8-88cb-40e3-b8e3-1630d6afc891"
+        initId="IsCurrentTarget:c68dd10b-79e4-46f6-9ba2-f25c27ba7d2a;Target:dda0cc90-5934-47c3-b12a-c981c95d05a1;NextTargetCube:191e569a-cf13-4750-9289-4a143d283a12;NextTargetTower:dfb1a111-eb88-4b58-b30a-6ee1ba812026;NextActionPrepareTargetTower:95a1e2a9-de40-4e44-a873-33749b99e4e9;NextActionFindTargetCube:eef2ea58-cda6-4feb-ad36-961cb9d4a100"
+        resultId="FindTargetCube:207b07bf-2433-4d4f-862a-7b6d0874de8c;SetCurrentTargetTower:1e627216-fd7f-4ad5-afbc-8edb258fd0ec;SetCurrentTargetCube:aca5e2ae-7edd-40ef-814a-2987c918ff78;PrepareTargetTower:346ac084-0d73-4ae3-b36b-4cee6e9a8a06" />
+      <rule id="ff35bca2-5d12-4a4b-a428-9e0b865774cd" shortName="IterationInProgress[2]"
+        description="" relation="e1f89948-8208-4511-9dbf-75b0a3f040c0"
+        initId="IsCurrentTarget:c68dd10b-79e4-46f6-9ba2-f25c27ba7d2a;CurrentTargetTower:7cfaf33d-7b44-408d-afd7-197e024ae9c0;CurrentTower:175edb69-52d1-4213-ba20-9e3eea1d068a;OverFree:fac181d5-e23f-4c61-a101-8a6ce160fdec"
+        resultId="MoveCubes:5a3ac4dd-7098-4938-b62a-27111509694a" />
+      <rule id="4263cd1c-b845-458a-b9ea-d06c030ea032" shortName="IterationBeforeCompleting[3]"
+        description="" relation="306f8d43-4b9c-419a-843d-eb301681cdb1"
+        initId="IsCurrentTarget:d9ca415f-98a4-4cd3-b52e-5b3fbf32e96e;CurrentTargetTower:7cfaf33d-7b44-408d-afd7-197e024ae9c0;CurrentTower:96e1e750-72d3-4959-9a78-921e729c00e2;OverFree:d14579d4-1b4b-4887-ac7c-c80192d49b7c"
+        resultId="PutCubeOnTargetPlace:0a8a684e-8256-46e0-9276-56e5735edaf7" />
+      <rule id="0ec2dc44-d17f-4fa4-bc39-df74c084c8f6" shortName="IterationComplete[3]"
+        description="" relation="711f5fe8-88cb-40e3-b8e3-1630d6afc891"
+        initId="IsCurrentTarget:d9ca415f-98a4-4cd3-b52e-5b3fbf32e96e;Target:2448a8f1-7dcd-4b22-bbb7-e82e9677a032;NextTargetCube:00cce930-1585-489f-bbd0-21af30f1b0b7;NextTargetTower:2836361e-f8cb-47ba-94d0-be21b59a9f30;NextActionPrepareTargetTower:9da0788c-66c6-4260-8acb-b3a0599369a1;NextActionFindTargetCube:eb478b75-e71f-4144-89ba-0ddf9743b4af"
+        resultId="FindTargetCube:207b07bf-2433-4d4f-862a-7b6d0874de8c;SetCurrentTargetTower:1e627216-fd7f-4ad5-afbc-8edb258fd0ec;SetCurrentTargetCube:aca5e2ae-7edd-40ef-814a-2987c918ff78;PrepareTargetTower:346ac084-0d73-4ae3-b36b-4cee6e9a8a06" />
+      <rule id="a114d4bd-5503-4e91-91c4-0484c54f19df" shortName="IterationInProgress[3]"
+        description="" relation="e1f89948-8208-4511-9dbf-75b0a3f040c0"
+        initId="IsCurrentTarget:d9ca415f-98a4-4cd3-b52e-5b3fbf32e96e;CurrentTargetTower:7cfaf33d-7b44-408d-afd7-197e024ae9c0;CurrentTower:96e1e750-72d3-4959-9a78-921e729c00e2;OverFree:d14579d4-1b4b-4887-ac7c-c80192d49b7c"
+        resultId="MoveCubes:5a3ac4dd-7098-4938-b62a-27111509694a" />
+      <rule id="92a19003-2e4f-4550-bbdc-a2c0052f1771" shortName="IterationBeforeCompleting[4]"
+        description="" relation="306f8d43-4b9c-419a-843d-eb301681cdb1"
+        initId="IsCurrentTarget:c687435e-cd09-48c2-a560-b3249e1be668;CurrentTargetTower:7cfaf33d-7b44-408d-afd7-197e024ae9c0;CurrentTower:bedacb3f-6185-41fd-b589-edd5bdd47916;OverFree:c7f7a1a5-0bac-454d-889a-8d6fcb146718"
+        resultId="PutCubeOnTargetPlace:0a8a684e-8256-46e0-9276-56e5735edaf7" />
+      <rule id="ecd2dd5a-665e-47a0-946c-7c3ecee361b1" shortName="IterationComplete[4]"
+        description="" relation="711f5fe8-88cb-40e3-b8e3-1630d6afc891"
+        initId="IsCurrentTarget:c687435e-cd09-48c2-a560-b3249e1be668;Target:f6fc1e46-f3a7-4f2f-b80e-0c4df3f01586;NextTargetCube:40218a77-d088-4eee-9f62-d9dd29d07733;NextTargetTower:a432abec-a3a5-451e-a35a-59de08eb0d39;NextActionPrepareTargetTower:36c81a50-6f3f-4b63-a60b-c58846e195b4;NextActionFindTargetCube:4bbbb575-7f7b-452d-b580-188ec7f4b228"
+        resultId="FindTargetCube:207b07bf-2433-4d4f-862a-7b6d0874de8c;SetCurrentTargetTower:1e627216-fd7f-4ad5-afbc-8edb258fd0ec;SetCurrentTargetCube:aca5e2ae-7edd-40ef-814a-2987c918ff78;PrepareTargetTower:346ac084-0d73-4ae3-b36b-4cee6e9a8a06" />
+      <rule id="63b5a3ce-9940-45a9-9395-60772810ad3b" shortName="IterationInProgress[4]"
+        description="" relation="e1f89948-8208-4511-9dbf-75b0a3f040c0"
+        initId="IsCurrentTarget:c687435e-cd09-48c2-a560-b3249e1be668;CurrentTargetTower:7cfaf33d-7b44-408d-afd7-197e024ae9c0;CurrentTower:bedacb3f-6185-41fd-b589-edd5bdd47916;OverFree:c7f7a1a5-0bac-454d-889a-8d6fcb146718"
+        resultId="MoveCubes:5a3ac4dd-7098-4938-b62a-27111509694a" />
+      <rule id="e036aae3-2df6-4363-b221-4a4344c1c03f" shortName="IterationBeforeCompleting[5]"
+        description="" relation="306f8d43-4b9c-419a-843d-eb301681cdb1"
+        initId="IsCurrentTarget:4589b93a-17c9-4312-9f23-53ab74357630;CurrentTargetTower:7cfaf33d-7b44-408d-afd7-197e024ae9c0;CurrentTower:08e02452-ace9-4d32-b687-e5e2bf96503f;OverFree:b8bdef6f-00a9-4c4d-8bfe-49f6715a6677"
+        resultId="PutCubeOnTargetPlace:0a8a684e-8256-46e0-9276-56e5735edaf7" />
+      <rule id="f8da0b5d-5844-449f-b04e-65d22804825c" shortName="IterationComplete[5]"
+        description="" relation="711f5fe8-88cb-40e3-b8e3-1630d6afc891"
+        initId="IsCurrentTarget:4589b93a-17c9-4312-9f23-53ab74357630;Target:c80e5822-c314-4690-97eb-df60078e42e3;NextTargetCube:8ed9f5e7-fce8-4e33-a811-152c0d203d06;NextTargetTower:44488ca5-2184-41f7-9c6c-858cd5333781;NextActionPrepareTargetTower:cf337b09-eaf0-4e2c-8d49-7aaefd74aede;NextActionFindTargetCube:08f22109-6ace-4ec1-bf22-93cffbc297f2"
+        resultId="FindTargetCube:207b07bf-2433-4d4f-862a-7b6d0874de8c;SetCurrentTargetTower:1e627216-fd7f-4ad5-afbc-8edb258fd0ec;SetCurrentTargetCube:aca5e2ae-7edd-40ef-814a-2987c918ff78;PrepareTargetTower:346ac084-0d73-4ae3-b36b-4cee6e9a8a06" />
+      <rule id="612ef488-482c-43ba-8f2b-d5616bd3677c" shortName="IterationInProgress[5]"
+        description="" relation="e1f89948-8208-4511-9dbf-75b0a3f040c0"
+        initId="IsCurrentTarget:4589b93a-17c9-4312-9f23-53ab74357630;CurrentTargetTower:7cfaf33d-7b44-408d-afd7-197e024ae9c0;CurrentTower:08e02452-ace9-4d32-b687-e5e2bf96503f;OverFree:b8bdef6f-00a9-4c4d-8bfe-49f6715a6677"
+        resultId="MoveCubes:5a3ac4dd-7098-4938-b62a-27111509694a" />
+      <rule id="1777784b-52ec-4088-8b08-6186ee9cfaae" shortName="IterationBeforeCompleting[6]"
+        description="" relation="306f8d43-4b9c-419a-843d-eb301681cdb1"
+        initId="IsCurrentTarget:9884b69c-8ab0-44aa-9641-3dcf49207dec;CurrentTargetTower:7cfaf33d-7b44-408d-afd7-197e024ae9c0;CurrentTower:b5bb1900-12c4-44c9-9a6c-b2b5dfb479c8;OverFree:aa53e8da-9a6c-4b6e-b308-547b1588f450"
+        resultId="PutCubeOnTargetPlace:0a8a684e-8256-46e0-9276-56e5735edaf7" />
+      <rule id="0ceb77d9-9a21-43bf-99d8-5c70eb6a0779" shortName="IterationComplete[6]"
+        description="" relation="711f5fe8-88cb-40e3-b8e3-1630d6afc891"
+        initId="IsCurrentTarget:9884b69c-8ab0-44aa-9641-3dcf49207dec;Target:484cb63f-014f-4591-9fb9-2cc86ff74571;NextTargetCube:a61fdca6-da55-46bc-8c4f-c1e9fd36219e;NextTargetTower:88a82e9f-a0b5-4bee-9353-ca0ddcb1a574;NextActionPrepareTargetTower:b561336b-b7d3-4efb-a410-0ba821335d2d;NextActionFindTargetCube:58c307c9-343d-4da5-b761-b207b167f560"
+        resultId="FindTargetCube:207b07bf-2433-4d4f-862a-7b6d0874de8c;SetCurrentTargetTower:1e627216-fd7f-4ad5-afbc-8edb258fd0ec;SetCurrentTargetCube:aca5e2ae-7edd-40ef-814a-2987c918ff78;PrepareTargetTower:346ac084-0d73-4ae3-b36b-4cee6e9a8a06" />
+      <rule id="9466c341-1636-49a5-9038-f5a336d903ac" shortName="IterationInProgress[6]"
+        description="" relation="e1f89948-8208-4511-9dbf-75b0a3f040c0"
+        initId="IsCurrentTarget:9884b69c-8ab0-44aa-9641-3dcf49207dec;CurrentTargetTower:7cfaf33d-7b44-408d-afd7-197e024ae9c0;CurrentTower:b5bb1900-12c4-44c9-9a6c-b2b5dfb479c8;OverFree:aa53e8da-9a6c-4b6e-b308-547b1588f450"
+        resultId="MoveCubes:5a3ac4dd-7098-4938-b62a-27111509694a" />
+      <rule id="a867b959-cb82-4ca2-9da8-e3061db345ef" shortName="IterationBeforeCompleting[7]"
+        description="" relation="306f8d43-4b9c-419a-843d-eb301681cdb1"
+        initId="IsCurrentTarget:04f6a11c-a33a-40a9-b9aa-0d0f80b16d70;CurrentTargetTower:7cfaf33d-7b44-408d-afd7-197e024ae9c0;CurrentTower:c721c559-6a09-4223-b602-8026fb023d15;OverFree:57fef365-ad0c-453c-8f28-5a63da7e36c9"
+        resultId="PutCubeOnTargetPlace:0a8a684e-8256-46e0-9276-56e5735edaf7" />
+      <rule id="c406c6b7-8b76-42d4-bb8d-6ecda1bdd49f" shortName="IterationComplete[7]"
+        description="" relation="711f5fe8-88cb-40e3-b8e3-1630d6afc891"
+        initId="IsCurrentTarget:04f6a11c-a33a-40a9-b9aa-0d0f80b16d70;Target:a1244d3c-93bf-4272-8f06-fee60ac29e28;NextTargetCube:985108ec-8dd6-4c98-b346-50f06513b167;NextTargetTower:220c118f-d2e8-48b1-a316-5327183848b8;NextActionPrepareTargetTower:d9089c29-e53a-46b0-aab8-02f78bc1d09d;NextActionFindTargetCube:2236502d-9200-4ba5-80f8-7698118bd79f"
+        resultId="FindTargetCube:207b07bf-2433-4d4f-862a-7b6d0874de8c;SetCurrentTargetTower:1e627216-fd7f-4ad5-afbc-8edb258fd0ec;SetCurrentTargetCube:aca5e2ae-7edd-40ef-814a-2987c918ff78;PrepareTargetTower:346ac084-0d73-4ae3-b36b-4cee6e9a8a06" />
+      <rule id="db57b687-c62d-4ed3-b95d-c0786185693b" shortName="IterationInProgress[7]"
+        description="" relation="e1f89948-8208-4511-9dbf-75b0a3f040c0"
+        initId="IsCurrentTarget:04f6a11c-a33a-40a9-b9aa-0d0f80b16d70;CurrentTargetTower:7cfaf33d-7b44-408d-afd7-197e024ae9c0;CurrentTower:c721c559-6a09-4223-b602-8026fb023d15;OverFree:57fef365-ad0c-453c-8f28-5a63da7e36c9"
+        resultId="MoveCubes:5a3ac4dd-7098-4938-b62a-27111509694a" />
+      <rule id="384ad7dd-a574-4be5-9e97-78d34c5a4d80" shortName="IterationBeforeCompleting[8]"
+        description="" relation="306f8d43-4b9c-419a-843d-eb301681cdb1"
+        initId="IsCurrentTarget:d7954e1a-9b2e-441c-9ff1-c4d3bc16f50f;CurrentTargetTower:7cfaf33d-7b44-408d-afd7-197e024ae9c0;CurrentTower:f2bfd447-b182-420f-837b-3f502e4ca1fb;OverFree:21c2e28e-9048-442d-b008-51b235218dd0"
+        resultId="PutCubeOnTargetPlace:0a8a684e-8256-46e0-9276-56e5735edaf7" />
+      <rule id="557deaae-d6d9-43ff-ac32-b71c24586695" shortName="IterationComplete[8]"
+        description="" relation="711f5fe8-88cb-40e3-b8e3-1630d6afc891"
+        initId="IsCurrentTarget:d7954e1a-9b2e-441c-9ff1-c4d3bc16f50f;Target:68acb94e-0dbc-4366-bdf1-d309b353eec1;NextTargetCube:6f495169-20db-45f5-8460-6d3399d071bb;NextTargetTower:10219a07-bba2-4947-bb45-3b2bea576c57;NextActionPrepareTargetTower:62f7c1bc-d04e-46ee-a8ca-8ce84c5b7fca;NextActionFindTargetCube:70014ac3-31f5-48b5-94c7-c8608b1a277a"
+        resultId="FindTargetCube:207b07bf-2433-4d4f-862a-7b6d0874de8c;SetCurrentTargetTower:1e627216-fd7f-4ad5-afbc-8edb258fd0ec;SetCurrentTargetCube:aca5e2ae-7edd-40ef-814a-2987c918ff78;PrepareTargetTower:346ac084-0d73-4ae3-b36b-4cee6e9a8a06" />
+      <rule id="ec218096-cd2d-4f16-b649-82af1bac5ffc" shortName="IterationInProgress[8]"
+        description="" relation="e1f89948-8208-4511-9dbf-75b0a3f040c0"
+        initId="IsCurrentTarget:d7954e1a-9b2e-441c-9ff1-c4d3bc16f50f;CurrentTargetTower:7cfaf33d-7b44-408d-afd7-197e024ae9c0;CurrentTower:f2bfd447-b182-420f-837b-3f502e4ca1fb;OverFree:21c2e28e-9048-442d-b008-51b235218dd0"
+        resultId="MoveCubes:5a3ac4dd-7098-4938-b62a-27111509694a" />
+      <rule id="407ffdf1-c7a0-4fc2-9b1f-6763bfdac4d5" shortName="IterationBeforeCompleting[9]"
+        description="" relation="306f8d43-4b9c-419a-843d-eb301681cdb1"
+        initId="IsCurrentTarget:bce39239-6a83-41bf-b60c-a784da3ab08d;CurrentTargetTower:7cfaf33d-7b44-408d-afd7-197e024ae9c0;CurrentTower:d4db0b3f-e678-4f16-9dd2-7988cad6b802;OverFree:538e9ee2-4478-4bb3-ae76-7fa83a590152"
+        resultId="PutCubeOnTargetPlace:0a8a684e-8256-46e0-9276-56e5735edaf7" />
+      <rule id="b15ed72d-9607-418f-b115-b2ffa708d5fa" shortName="Finish" description=""
+        relation="550e3d85-a0b3-4e21-90ac-5c665ada4261"
+        initId="TowerComplete0:78cb707e-4a0b-4de6-8792-17a572897c2c;TowerComplete1:f6fc1e46-f3a7-4f2f-b80e-0c4df3f01586;TowerComplete2:6c1ae0ec-816e-411f-b4e4-c31f81972830"
+        resultId="Stop:d393ed99-3b0c-4985-9fbf-90b45061127a" />
+      <rule id="9df8ad4d-a74f-4982-86ba-d0ce10dea685" shortName="CheckCubeOnTarget[0]"
+        description="" relation="cd3fa625-d511-46ec-b0a8-a93520c15b5e"
+        initId="ControlVariable:ffce765d-057b-4840-acaf-c8ad0a4e4ec1;On:69849b57-8230-4e6d-8cb0-928b61ab0d67;TargetOn:e627f6a5-2f42-4a76-898a-4526bcc24f3c;CurrentTower:7c3fc2f5-8089-401b-8623-8878c1b97622;TargetTower:21a3c773-0b69-4f28-afb1-b69da9b0c252"
+        resultId="CubeOnTarget:78cb707e-4a0b-4de6-8792-17a572897c2c" />
+      <rule id="3b16a9e0-1178-4490-8596-739d5a3cf869" shortName="CheckCubeOnTarget[1]"
+        description="" relation="cd3fa625-d511-46ec-b0a8-a93520c15b5e"
+        initId="ControlVariable:ffce765d-057b-4840-acaf-c8ad0a4e4ec1;On:27e90e0e-248d-444f-a990-29281cc96ba1;TargetOn:7818333b-75ac-4761-a527-ddb27898c5e2;CurrentTower:29994932-6a87-4853-b127-3529cabad467;TargetTower:1547f0c9-a088-4489-85aa-266c4deba4d6"
+        resultId="CubeOnTarget:4139253e-5e67-40c9-89a4-81109582c85d" />
+      <rule id="9399ed44-0862-48b6-bd46-86a869493720" shortName="CheckCubeOnTarget[2]"
+        description="" relation="cd3fa625-d511-46ec-b0a8-a93520c15b5e"
+        initId="ControlVariable:4139253e-5e67-40c9-89a4-81109582c85d;On:4d1c0fa6-7a75-4d5b-a3cc-c8571e389133;TargetOn:3891640a-8f36-4eba-a324-a2b015523d3a;CurrentTower:175edb69-52d1-4213-ba20-9e3eea1d068a;TargetTower:14cf94e9-239d-4e84-9ab2-5df5b9327f29"
+        resultId="CubeOnTarget:dda0cc90-5934-47c3-b12a-c981c95d05a1" />
+      <rule id="698e3330-dccb-4e7e-9fce-f94da421e335" shortName="CheckCubeOnTarget[3]"
+        description="" relation="cd3fa625-d511-46ec-b0a8-a93520c15b5e"
+        initId="ControlVariable:dda0cc90-5934-47c3-b12a-c981c95d05a1;On:935da0b6-3009-4699-b245-d8c254861693;TargetOn:4dde9405-cce0-465d-90c3-a3446b10d11b;CurrentTower:96e1e750-72d3-4959-9a78-921e729c00e2;TargetTower:5143b1d2-7d07-415e-a72f-8d2fad2cfc23"
+        resultId="CubeOnTarget:2448a8f1-7dcd-4b22-bbb7-e82e9677a032" />
+      <rule id="d2e83dab-fa52-4bb3-b5ea-b8f2834e9064" shortName="CheckCubeOnTarget[4]"
+        description="" relation="cd3fa625-d511-46ec-b0a8-a93520c15b5e"
+        initId="ControlVariable:2448a8f1-7dcd-4b22-bbb7-e82e9677a032;On:3d0a332e-bbcd-4f7d-986d-324c6a97d3bc;TargetOn:0af73d67-f577-4f19-b6c3-f2d50c5cff67;CurrentTower:bedacb3f-6185-41fd-b589-edd5bdd47916;TargetTower:213c9f5b-e93e-49b4-9619-adee3079ffaa"
+        resultId="CubeOnTarget:f6fc1e46-f3a7-4f2f-b80e-0c4df3f01586" />
+      <rule id="cd87a8f5-0ccd-4c1f-abbb-33d9ff4e9003" shortName="CheckCubeOnTarget[5]"
+        description="" relation="cd3fa625-d511-46ec-b0a8-a93520c15b5e"
+        initId="ControlVariable:ffce765d-057b-4840-acaf-c8ad0a4e4ec1;On:ca830ff9-4ab3-422c-a30f-3510834eadb7;TargetOn:2ff8b01c-cab3-4618-be7d-377f5ecd9284;CurrentTower:08e02452-ace9-4d32-b687-e5e2bf96503f;TargetTower:800eb8dc-0061-4b90-b207-f09441b2c233"
+        resultId="CubeOnTarget:c80e5822-c314-4690-97eb-df60078e42e3" />
+      <rule id="e6503a52-23b5-4d86-acd9-29f30475f18e" shortName="CheckCubeOnTarget[6]"
+        description="" relation="cd3fa625-d511-46ec-b0a8-a93520c15b5e"
+        initId="ControlVariable:c80e5822-c314-4690-97eb-df60078e42e3;On:979bee4f-2f94-4f18-8f41-ffb28b1d99f2;TargetOn:b92a3445-042d-4a6e-8766-598ae78b4657;CurrentTower:b5bb1900-12c4-44c9-9a6c-b2b5dfb479c8;TargetTower:7bd697a6-21ef-426a-b2ab-9f43cadc9937"
+        resultId="CubeOnTarget:484cb63f-014f-4591-9fb9-2cc86ff74571" />
+      <rule id="c6e77187-7cbe-426f-ac1d-5d261832bae9" shortName="CheckCubeOnTarget[7]"
+        description="" relation="cd3fa625-d511-46ec-b0a8-a93520c15b5e"
+        initId="ControlVariable:484cb63f-014f-4591-9fb9-2cc86ff74571;On:8ba26b34-551d-44d2-95cb-eb5b4bdc8c71;TargetOn:06d5e5b2-2489-4105-a061-bd60c7208ff4;CurrentTower:c721c559-6a09-4223-b602-8026fb023d15;TargetTower:655ba673-4089-467d-907b-062799b3d5d6"
+        resultId="CubeOnTarget:a1244d3c-93bf-4272-8f06-fee60ac29e28" />
+      <rule id="81d7a4f6-df13-40fe-8ba4-02fdb3090b99" shortName="CheckCubeOnTarget[8]"
+        description="" relation="cd3fa625-d511-46ec-b0a8-a93520c15b5e"
+        initId="ControlVariable:a1244d3c-93bf-4272-8f06-fee60ac29e28;On:8be25fa8-b229-46b7-bd54-fc015bb3f9ea;TargetOn:2a338d4e-6bcd-45fa-abc4-a7251f976827;CurrentTower:f2bfd447-b182-420f-837b-3f502e4ca1fb;TargetTower:2e23c617-cf95-44d0-bbc6-f9de6d3fc53a"
+        resultId="CubeOnTarget:68acb94e-0dbc-4366-bdf1-d309b353eec1" />
+      <rule id="4fb10bee-a1f7-46bb-9a14-b4d86b5c53a4" shortName="CheckCubeOnTarget[9]"
+        description="" relation="cd3fa625-d511-46ec-b0a8-a93520c15b5e"
+        initId="ControlVariable:68acb94e-0dbc-4366-bdf1-d309b353eec1;On:e54b4461-0fca-43c3-8bd7-3a5fd4a1e8a8;TargetOn:d8f1fa07-6756-46dd-9b6b-bffe7a4adefb;CurrentTower:d4db0b3f-e678-4f16-9dd2-7988cad6b802;TargetTower:21a450dd-ef6f-469c-ba48-3909f37bfffe"
+        resultId="CubeOnTarget:6c1ae0ec-816e-411f-b4e4-c31f81972830" />
+    </rules>
+    <constraints />
+  </class>
+  <relations>
+    <relation id="bc93fad3-9ea5-404b-832e-84a7a37700b0" shortName="PStartWorking" description=""
+      outObj="CurrentTargetCube:double;PrepareTargetTower:double;FindTargetCube:double;CurrentTargetTower:double"
+      inObj="Start:string;TargetCube:double;TargetTower:double" relationType="prog">var Start,
+      TargetCube, TargetTower,
+      CurrentTargetCube, CurrentTargetTower,
+      PrepareTargetTower, FindTargetCube;
+      if ((Start == "true"))
+      {
+      CurrentTargetCube = TargetCube;
+      CurrentTargetTower = TargetTower;
+      PrepareTargetTower = 0;
+      FindTargetCube = 1;
+      }</relation>
+    <relation id="306f8d43-4b9c-419a-843d-eb301681cdb1" shortName="PIterationBeforeCompleting"
+      description="" outObj="PutCubeOnTargetPlace:double"
+      inObj="IsCurrentTarget:string;OverFree:string;CurrentTargetTower:double;CurrentTower:double"
+      relationType="ifclause">if ((IsCurrentTarget == "true")&amp;&amp;(OverFree ==
+      "true")&amp;&amp;(CurrentTargetTower != CurrentTower)) {PutCubeOnTargetPlace = 0;} else
+      {PutCubeOnTargetPlace = -1;}</relation>
+    <relation id="711f5fe8-88cb-40e3-b8e3-1630d6afc891" shortName="PIterationComplete"
+      description=""
+      outObj="FindTargetCube:double;SetCurrentTargetTower:double;SetCurrentTargetCube:double;PrepareTargetTower:double"
+      inObj="IsCurrentTarget:string;Target:string;NextTargetCube:double;NextActionPrepareTargetTower:double;NextTargetTower:double;NextActionFindTargetCube:double"
+      relationType="prog">var IsCurrentTarget, Target,
+      NextActionFindTargetCube, NextActionPrepareTargetTower,
+      NextTargetCube, NextTargetTower,
+      SetCurrentTargetCube, SetCurrentTargetTower,
+      FindTargetCube, PrepareTargetTower;
+      if ((IsCurrentTarget == "true")&amp;&amp;(Target == "true"))
+      {
+      SetCurrentTargetCube = NextTargetCube;
+      SetCurrentTargetTower = NextTargetTower;
+      FindTargetCube = NextActionFindTargetCube;
+      PrepareTargetTower = NextActionPrepareTargetTower;
+      }
+      else {
+      SetCurrentTargetCube = -1;
+      SetCurrentTargetTower = -1;
+      FindTargetCube = -1;
+      PrepareTargetTower = -1;
+      }
+</relation>
+    <relation id="e1f89948-8208-4511-9dbf-75b0a3f040c0" shortName="PIterationInProgress"
+      description="" outObj="MoveCubes:double"
+      inObj="IsCurrentTarget:string;OverFree:string;CurrentTargetTower:double;CurrentTower:double"
+      relationType="ifclause">if ((IsCurrentTarget == "true")&amp;&amp;(OverFree ==
+      "false")&amp;&amp;(CurrentTargetTower != CurrentTower)) {MoveCubes = 0;} else {MoveCubes =
+      -1;}</relation>
+    <relation id="550e3d85-a0b3-4e21-90ac-5c665ada4261" shortName="PFinish" description=""
+      outObj="Stop:string" inObj="TowerComplete0:string;TowerComplete1:string;TowerComplete2:string"
+      relationType="ifclause">if ((TowerComplete0 == "true")&amp;&amp;(TowerComplete1 ==
+      "true")&amp;&amp;(TowerComplete2 == "true")) {Stop = "true";} else {Stop = "false";}</relation>
+    <relation id="cd3fa625-d511-46ec-b0a8-a93520c15b5e" shortName="PCheckTarget" description=""
+      outObj="CubeOnTarget:string"
+      inObj="ControlVariable:string;On:double;TargetOn:double;CurrentTower:double;TargetTower:double"
+      relationType="ifclause">if ((ControlVariable == "true") &amp;&amp; (On == TargetOn) &amp;&amp;
+      (CurrentTower == TargetTower)) {CubeOnTarget = "true";} else {CubeOnTarget = "false";}</relation>
+  </relations>
+</model>

@@ -14,7 +14,7 @@ import (
 func (vm V2M0) parseRule(rule entV2M0.Rule, cont *kbEnt.Container, ids *ids) error {
 	re := kbEnt.Rule{
 		BaseInfo: kbEnt.BaseInfo{
-			UUID:        uuidGen.New().String(),
+			UUID:        uuidGen.NewString(),
 			ID:          rule.ID,
 			ShortName:   rule.ShortName,
 			CreatedDate: time.Now(),

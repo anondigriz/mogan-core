@@ -16,7 +16,7 @@ import (
 func (vm V2M0) parseRelation(relation entV2M0.Relation, cont *kbEnt.Container, ids *ids) error {
 	rn := kbEnt.Pattern{
 		BaseInfo: kbEnt.BaseInfo{
-			UUID:        uuidGen.New().String(),
+			UUID:        uuidGen.NewString(),
 			ID:          relation.ID,
 			ShortName:   relation.ShortName,
 			CreatedDate: time.Now(),

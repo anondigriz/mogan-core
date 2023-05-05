@@ -12,7 +12,7 @@ import (
 func (vm V2M0) parseClass(class entV2M0.Class, cont *kbEnt.Container, ids *ids) (kbEnt.GroupHierarchy, error) {
 	gr := kbEnt.Group{
 		BaseInfo: kbEnt.BaseInfo{
-			UUID:        uuidGen.New().String(),
+			UUID:        uuidGen.NewString(),
 			ID:          class.ID,
 			ShortName:   class.ShortName,
 			CreatedDate: time.Now(),
