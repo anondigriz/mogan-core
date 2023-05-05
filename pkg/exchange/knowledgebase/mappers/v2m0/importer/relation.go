@@ -1,4 +1,4 @@
-package v2m0
+package importer
 
 import (
 	"fmt"
@@ -10,10 +10,10 @@ import (
 	kbEnt "github.com/anondigriz/mogan-core/pkg/entities/containers/knowledgebase"
 	"github.com/anondigriz/mogan-core/pkg/entities/types"
 	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors"
-	entV2M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/v2m0"
+	formatV2M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v2m0"
 )
 
-func (vm V2M0) parseRelation(relation entV2M0.Relation, cont *kbEnt.Container, ids *ids) error {
+func (vm Importer) parseRelation(relation formatV2M0.Relation, cont *kbEnt.Container, ids *ids) error {
 	rn := kbEnt.Pattern{
 		BaseInfo: kbEnt.BaseInfo{
 			UUID:        uuidGen.NewString(),
@@ -77,7 +77,7 @@ func (vm V2M0) parseRelation(relation entV2M0.Relation, cont *kbEnt.Container, i
 
 }
 
-func (vm V2M0) convertTypePattern(base string) (types.PatternType, error) {
+func (vm Importer) convertTypePattern(base string) (types.PatternType, error) {
 	switch base {
 	case "constr":
 		return types.Constraint, nil
@@ -94,7 +94,7 @@ func (vm V2M0) convertTypePattern(base string) (types.PatternType, error) {
 	}
 }
 
-func (vm V2M0) splitParameters(base string) (map[string]string, error) {
+func (vm Importer) splitParameters(base string) (map[string]string, error) {
 	params := map[string]string{}
 	if base == "" {
 		return params, nil

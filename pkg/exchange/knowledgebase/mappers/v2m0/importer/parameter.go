@@ -1,4 +1,4 @@
-package v2m0
+package importer
 
 import (
 	"fmt"
@@ -9,10 +9,10 @@ import (
 	kbEnt "github.com/anondigriz/mogan-core/pkg/entities/containers/knowledgebase"
 	"github.com/anondigriz/mogan-core/pkg/entities/types"
 	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors"
-	entV2M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/v2m0"
+	formatV2M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v2m0"
 )
 
-func (vm V2M0) parseParameter(parameter entV2M0.Parameter, gr kbEnt.Group, cont *kbEnt.Container, ids *ids) error {
+func (vm Importer) parseParameter(parameter formatV2M0.Parameter, gr kbEnt.Group, cont *kbEnt.Container, ids *ids) error {
 	pr := kbEnt.Parameter{
 		BaseInfo: kbEnt.BaseInfo{
 			UUID:        vm.getOrCreateParameterUUID(parameter.ID, ids),
@@ -39,7 +39,7 @@ func (vm V2M0) parseParameter(parameter entV2M0.Parameter, gr kbEnt.Group, cont 
 	return nil
 }
 
-func (vm V2M0) convertTypeParameter(base string) (types.ParameterType, error) {
+func (vm Importer) convertTypeParameter(base string) (types.ParameterType, error) {
 	switch base {
 	case "double":
 		return types.Double, nil
@@ -52,7 +52,7 @@ func (vm V2M0) convertTypeParameter(base string) (types.ParameterType, error) {
 	}
 }
 
-func (vm V2M0) getOrCreateParameterUUID(id string, ids *ids) string {
+func (vm Importer) getOrCreateParameterUUID(id string, ids *ids) string {
 	prUUID, ok := ids.Parameters[id]
 	if !ok {
 		prUUID = uuidGen.NewString()

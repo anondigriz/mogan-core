@@ -1,4 +1,4 @@
-package v2m0
+package importer
 
 import (
 	"fmt"
@@ -8,10 +8,10 @@ import (
 
 	kbEnt "github.com/anondigriz/mogan-core/pkg/entities/containers/knowledgebase"
 	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors"
-	entV2M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/v2m0"
+	formatV2M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v2m0"
 )
 
-func (vm V2M0) parseRule(rule entV2M0.Rule, cont *kbEnt.Container, ids *ids) error {
+func (vm Importer) parseRule(rule formatV2M0.Rule, cont *kbEnt.Container, ids *ids) error {
 	re := kbEnt.Rule{
 		BaseInfo: kbEnt.BaseInfo{
 			UUID:        uuidGen.NewString(),

@@ -39,12 +39,12 @@ func New(lg *zap.Logger) *Parser {
 	d := detector.New(lg)
 
 	pv2m0 := v2m0.New(lg)
-	i := &Parser{
+	p := &Parser{
 		lg:       lg,
 		detector: d,
 		v2m0:     pv2m0,
 	}
-	return i
+	return p
 }
 
 func (p Parser) Parse(ctx context.Context, args ParseXMLArgs) (kbEnt.Container, error) {

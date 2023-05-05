@@ -1,4 +1,4 @@
-package v2m0
+package importer
 
 import (
 	"time"
@@ -6,10 +6,10 @@ import (
 	uuidGen "github.com/google/uuid"
 
 	kbEnt "github.com/anondigriz/mogan-core/pkg/entities/containers/knowledgebase"
-	entV2M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/v2m0"
+	formatV2M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v2m0"
 )
 
-func (vm V2M0) parseClass(class entV2M0.Class, cont *kbEnt.Container, ids *ids) (kbEnt.GroupHierarchy, error) {
+func (vm Importer) parseClass(class formatV2M0.Class, cont *kbEnt.Container, ids *ids) (kbEnt.GroupHierarchy, error) {
 	gr := kbEnt.Group{
 		BaseInfo: kbEnt.BaseInfo{
 			UUID:        uuidGen.NewString(),

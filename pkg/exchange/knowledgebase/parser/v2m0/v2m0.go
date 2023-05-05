@@ -2,77 +2,41 @@ package v2m0
 
 import (
 	"encoding/xml"
-	"time"
 
 	"go.uber.org/zap"
 
 	kbEnt "github.com/anondigriz/mogan-core/pkg/entities/containers/knowledgebase"
 	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors"
-	entV2M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/v2m0"
+	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/mappers/v2m0/importer"
+
+	formatV2M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v2m0"
 )
 
 type V2M0 struct {
 	lg *zap.Logger
-}
-
-type ids struct {
-	Parameters map[string]string
-	Patterns   map[string]string
+	im *importer.Importer
 }
 
 func New(lg *zap.Logger) *V2M0 {
 	vm := &V2M0{
 		lg: lg,
+		im: importer.New(lg),
 	}
 	return vm
 }
 
 func (vm V2M0) ParseXML(kbUUID string, content []byte) (kbEnt.Container, error) {
-	var model entV2M0.Model
-	err := xml.Unmarshal(content, &model)
-	if err != nil {
+	model := &formatV2M0.Model{}
+
+	if err := xml.Unmarshal(content, model); err != nil {
 		vm.lg.Error("fail to unmarshal the xml file", zap.Error(err))
 		return kbEnt.Container{}, errors.NewXMLUnmarshalFailErr(err)
 	}
-	cont := &kbEnt.Container{
-		Groups:     map[string]kbEnt.Group{},
-		Parameters: map[string]kbEnt.Parameter{},
-		Patterns:   map[string]kbEnt.Pattern{},
-		Rules:      map[string]kbEnt.Rule{},
-	}
-
-	cont.KnowledgeBase = kbEnt.KnowledgeBase{
-		BaseInfo: kbEnt.BaseInfo{
-			UUID:        kbUUID,
-			ID:          model.ID,
-			ShortName:   model.ShortName,
-			CreatedDate: time.Now(),
-		},
-		ExtraData: kbEnt.ExtraDataKnowledgeBase{
-			Description: model.Description,
-		},
-	}
-	cont.KnowledgeBase.ModifiedDate = cont.KnowledgeBase.CreatedDate
-
-	mapIDs := &ids{
-		Parameters: map[string]string{},
-		Patterns:   map[string]string{},
-	}
-
-	for _, v := range model.Relations.Relations {
-		err = vm.parseRelation(v, cont, mapIDs)
-		if err != nil {
-			vm.lg.Error("parsing of the rule ended with an error", zap.Error(err))
-			return kbEnt.Container{}, err
-		}
-	}
-
-	gh, err := vm.parseClass(model.Class, cont, mapIDs)
+	cont, err := vm.im.Import(kbUUID, model)
 	if err != nil {
-		vm.lg.Error("parsing of the main class ended with an error", zap.Error(err))
+		vm.lg.Error("mapping xml entities to app entities fail", zap.Error(err))
 		return kbEnt.Container{}, err
 	}
-	cont.KnowledgeBase.ExtraData.Groups = gh
 
-	return *cont, nil
+	return cont, nil
 }
