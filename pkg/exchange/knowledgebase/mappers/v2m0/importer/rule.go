@@ -1,64 +1,81 @@
 package importer
 
 import (
-	"fmt"
 	"time"
 
-	uuidGen "github.com/google/uuid"
+	"go.uber.org/zap"
 
 	kbEnt "github.com/anondigriz/mogan-core/pkg/entities/containers/knowledgebase"
 	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors"
+	errMsgs "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors/messages"
 	formatV2M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v2m0"
 )
 
-func (vm Importer) parseRule(rule formatV2M0.Rule, cont *kbEnt.Container, ids *ids) error {
-	re := kbEnt.Rule{
-		BaseInfo: kbEnt.BaseInfo{
-			UUID:        uuidGen.NewString(),
-			ID:          rule.ID,
-			ShortName:   rule.ShortName,
-			CreatedDate: time.Now(),
-		},
-		ExtraData: kbEnt.ExtraDataRule{
-			Description:      rule.Description,
-			InputParameters:  []kbEnt.ParameterRule{},
-			OutputParameters: []kbEnt.ParameterRule{},
-		},
+func (im Importer) processRules(rules []formatV2M0.Rule, ws workspaceHandler) error {
+	for _, v := range rules {
+		rule, err := im.extractRule(v, ws)
+		if err != nil {
+			im.lg.Error(errMsgs.ParsingRulesFromXMLFail, zap.Error(err))
+			return err
+		}
+		ws.AddRule(rule)
 	}
-	re.ModifiedDate = re.CreatedDate
-
-	initIDs, err := vm.splitParameters(rule.InitIDs)
-	if err != nil {
-		return err
-	}
-
-	for k, v := range initIDs {
-		re.ExtraData.InputParameters = append(re.ExtraData.InputParameters, kbEnt.ParameterRule{
-			ShortName:     k,
-			ParameterUUID: vm.getOrCreateParameterUUID(v, ids),
-		})
-	}
-
-	resultIDs, err := vm.splitParameters(rule.ResultIDs)
-	if err != nil {
-		return err
-	}
-
-	for k, v := range resultIDs {
-		re.ExtraData.OutputParameters = append(re.ExtraData.OutputParameters, kbEnt.ParameterRule{
-			ShortName:     k,
-			ParameterUUID: vm.getOrCreateParameterUUID(v, ids),
-		})
-	}
-
-	pnUUID, ok := ids.Patterns[rule.RelationID]
-	if !ok {
-		return errors.NewParsingXMLFailErr(
-			fmt.Sprintf("no relation with id '%s' was found for the rule with id '%s'", rule.RelationID, rule.ID),
-			nil)
-	}
-	re.PatternUUID = pnUUID
-	cont.Rules[re.UUID] = re
 
 	return nil
+}
+
+func (im Importer) extractRule(rule formatV2M0.Rule, ws workspaceHandler) (kbEnt.Rule, error) {
+	now := time.Now()
+	r := kbEnt.Rule{
+		BaseInfo: kbEnt.BaseInfo{
+			UUID:         ws.CreateGroupUUID(),
+			ID:           rule.ID,
+			ShortName:    rule.ShortName,
+			Description:  rule.Description,
+			CreatedDate:  now,
+			ModifiedDate: now,
+		},
+		InputParameters:  []kbEnt.ParameterRule{},
+		OutputParameters: []kbEnt.ParameterRule{},
+	}
+
+	patternUUID, ok := ws.GetPatternUUID(rule.RelationID)
+	if !ok {
+		err := errors.NewRelationNotFoundForRuleErr(rule.ID, rule.RelationID)
+		im.lg.Error(errMsgs.RelationNotFoundForRule, zap.Error(err))
+		return kbEnt.Rule{}, err
+	}
+	r.PatternUUID = patternUUID
+
+	inputParameters, err := im.extractParametersRule(rule.InitIDs, ws)
+	if err != nil {
+		im.lg.Error(errMsgs.ParsingRuleParametersFromXMLFail, zap.Error(err))
+		return kbEnt.Rule{}, err
+	}
+	r.InputParameters = inputParameters
+
+	outputParameters, err := im.extractParametersRule(rule.ResultIDs, ws)
+	if err != nil {
+		im.lg.Error(errMsgs.ParsingRuleParametersFromXMLFail, zap.Error(err))
+		return kbEnt.Rule{}, err
+	}
+	r.OutputParameters = outputParameters
+
+	return r, nil
+}
+
+func (im Importer) extractParametersRule(attribute string, ws workspaceHandler) ([]kbEnt.ParameterRule, error) {
+	var parameters []kbEnt.ParameterRule
+	dict, err := im.extractDictionaryFromAttribute(attribute)
+	if err != nil {
+		return []kbEnt.ParameterRule{}, err
+	}
+
+	for k, v := range dict {
+		parameters = append(parameters, kbEnt.ParameterRule{
+			ShortName:     k,
+			ParameterUUID: ws.GetOrCreateParameterUUID(v),
+		})
+	}
+	return parameters, nil
 }

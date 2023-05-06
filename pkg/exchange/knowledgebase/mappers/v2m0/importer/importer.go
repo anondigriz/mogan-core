@@ -6,16 +6,12 @@ import (
 	"go.uber.org/zap"
 
 	kbEnt "github.com/anondigriz/mogan-core/pkg/entities/containers/knowledgebase"
+	errMsgs "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors/messages"
 	formatV2M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v2m0"
 )
 
 type Importer struct {
 	lg *zap.Logger
-}
-
-type ids struct {
-	Parameters map[string]string
-	Patterns   map[string]string
 }
 
 func New(lg *zap.Logger) *Importer {
@@ -25,46 +21,29 @@ func New(lg *zap.Logger) *Importer {
 	return vm
 }
 
-func (vm Importer) Import(kbUUID string, model *formatV2M0.Model) (kbEnt.Container, error) {
-	cont := &kbEnt.Container{
-		Groups:     map[string]kbEnt.Group{},
-		Parameters: map[string]kbEnt.Parameter{},
-		Patterns:   map[string]kbEnt.Pattern{},
-		Rules:      map[string]kbEnt.Rule{},
-	}
-
-	cont.KnowledgeBase = kbEnt.KnowledgeBase{
-		BaseInfo: kbEnt.BaseInfo{
-			UUID:        kbUUID,
-			ID:          model.ID,
-			ShortName:   model.ShortName,
-			CreatedDate: time.Now(),
-		},
-		ExtraData: kbEnt.ExtraDataKnowledgeBase{
-			Description: model.Description,
-		},
-	}
-	cont.KnowledgeBase.ModifiedDate = cont.KnowledgeBase.CreatedDate
-
-	mapIDs := &ids{
-		Parameters: map[string]string{},
-		Patterns:   map[string]string{},
-	}
-
-	for _, v := range model.Relations.Relations {
-		err := vm.parseRelation(v, cont, mapIDs)
-		if err != nil {
-			vm.lg.Error("parsing of the rule ended with an error", zap.Error(err))
-			return kbEnt.Container{}, err
-		}
-	}
-
-	gh, err := vm.parseClass(model.Class, cont, mapIDs)
+func (im Importer) Import(kbUUID string, model *formatV2M0.Model) (kbEnt.Container, error) {
+	ws := newWorkspace()
+	ws.AddKnowledgeBase(im.extractKnowledgeBase(model, kbUUID))
+	err := im.processModel(model, ws)
 	if err != nil {
-		vm.lg.Error("parsing of the main class ended with an error", zap.Error(err))
+		im.lg.Error(errMsgs.ParsingModelFromXMLFail, zap.Error(err))
 		return kbEnt.Container{}, err
 	}
-	cont.KnowledgeBase.ExtraData.Groups = gh
 
-	return *cont, nil
+	return ws.cont, nil
+
+}
+
+func (vm Importer) extractKnowledgeBase(model *formatV2M0.Model, kbUUID string) kbEnt.KnowledgeBase {
+	now := time.Now()
+	return kbEnt.KnowledgeBase{
+		BaseInfo: kbEnt.BaseInfo{
+			UUID:         kbUUID,
+			ID:           model.ID,
+			ShortName:    model.ShortName,
+			Description:  model.Description,
+			CreatedDate:  now,
+			ModifiedDate: now,
+		},
+	}
 }

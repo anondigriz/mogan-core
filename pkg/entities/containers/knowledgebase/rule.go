@@ -2,12 +2,7 @@ package knowledgebase
 
 type Rule struct {
 	BaseInfo
-	PatternUUID string
-	ExtraData   ExtraDataRule
-}
-
-type ExtraDataRule struct {
-	Description      string
+	PatternUUID      string
 	InputParameters  []ParameterRule
 	OutputParameters []ParameterRule
 }

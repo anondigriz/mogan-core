@@ -2,17 +2,10 @@ package knowledgebase
 
 type KnowledgeBase struct {
 	BaseInfo
-	RemoteUUID string
-	ExtraData  ExtraDataKnowledgeBase
-	Path       string
+	GroupsHierarchy GroupsHierarchy
 }
 
-type ExtraDataKnowledgeBase struct {
-	Description string
-	Groups      GroupHierarchy
-}
-
-type GroupHierarchy struct {
+type GroupsHierarchy struct {
 	GroupUUID string
-	Contains  []GroupHierarchy
+	Contains  []GroupsHierarchy
 }

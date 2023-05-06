@@ -4,13 +4,8 @@ import "github.com/anondigriz/mogan-core/pkg/entities/types"
 
 type Pattern struct {
 	BaseInfo
-	Type      types.PatternType
-	ExtraData ExtraDataPattern
-}
-
-type ExtraDataPattern struct {
-	Description      string
-	Language         types.ScriptLanguageType
+	Type             types.PatternType
+	ScriptLanguage   types.ScriptLanguageType
 	Script           string
 	InputParameters  []ParameterPattern
 	OutputParameters []ParameterPattern
