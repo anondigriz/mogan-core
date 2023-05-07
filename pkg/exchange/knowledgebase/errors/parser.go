@@ -77,6 +77,15 @@ func NewUnknownParameterTypeInXMLErr(t string) error {
 	}
 }
 
+func NewUnknownScriptLanguageTypeInXMLErr(t string) error {
+	return ExchangeKnowledgeBaseErr{
+		Stat:    ParsingXMLFail,
+		Message: fmt.Sprintf("%s. Type: '%s'", errMsgs.UnknownScriptLanguageTypeInXML, t),
+		Err:     nil,
+		Dt:      map[string]string{},
+	}
+}
+
 func NewBrokenDictionaryInXMLAttributeErr(value string, keyValue string) error {
 	return ExchangeKnowledgeBaseErr{
 		Stat: ParsingXMLFail,

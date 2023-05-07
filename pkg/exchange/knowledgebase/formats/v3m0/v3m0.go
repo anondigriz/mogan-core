@@ -14,12 +14,10 @@ type BaseInfo struct {
 
 type KnowledgeBase struct {
 	BaseInfo
-	XMLName          xml.Name `xml:"knowledgeBase"`
-	FormatXMLVersion string   `xml:"formatXmlVersion,attr"`
-	GroupsHierarchy  struct {
-		GroupsHierarchy []GroupsHierarchy `xml:"group"`
-	} `xml:"groupsHierarchy"`
-	Groups struct {
+	XMLName          xml.Name        `xml:"knowledgeBase"`
+	FormatXMLVersion string          `xml:"formatXmlVersion,attr"`
+	GroupsHierarchy  GroupsHierarchy `xml:"groupsHierarchy"`
+	Groups           struct {
 		Groups []Group `xml:"group"`
 	} `xml:"groups"`
 	Parameters struct {
@@ -36,7 +34,7 @@ type KnowledgeBase struct {
 type GroupsHierarchy struct {
 	GroupID  string `json:"id"`
 	Contains struct {
-		GroupsHierarchy []GroupsHierarchy `xml:"group"`
+		GroupsHierarchies []GroupsHierarchy `xml:"group"`
 	} `xml:"contains"`
 }
 
@@ -71,7 +69,7 @@ type ParameterPattern struct {
 
 type Rule struct {
 	BaseInfo
-	PatternID     string `xml:"patternID"`
+	PatternID       string `xml:"patternID"`
 	InputParameters struct {
 		InputParameters []ParameterRule `xml:"parameter"`
 	} `xml:"inputParameters"`

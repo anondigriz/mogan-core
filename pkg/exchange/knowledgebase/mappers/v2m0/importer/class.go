@@ -41,14 +41,12 @@ func (im Importer) processClass(class formatV2M0.Class, ws workspaceHandler) (kb
 		return kbEnt.GroupsHierarchy{}, err
 	}
 
-	err := im.processRules(class.Rules.Rules, ws)
-	if err != nil {
+	if err := im.processRules(class.Rules.Rules, ws); err != nil {
 		im.lg.Error(errMsgs.ParsingRulesFromXMLFail, zap.Error(err))
 		return kbEnt.GroupsHierarchy{}, err
 	}
 
-	err = im.processRules(class.Constraints.Constraints, ws)
-	if err != nil {
+	if err := im.processRules(class.Constraints.Constraints, ws); err != nil {
 		im.lg.Error(errMsgs.ParsingConstraintsFromXMLFail, zap.Error(err))
 		return kbEnt.GroupsHierarchy{}, err
 	}

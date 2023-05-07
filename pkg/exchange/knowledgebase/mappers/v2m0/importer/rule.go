@@ -28,15 +28,13 @@ func (im Importer) extractRule(rule formatV2M0.Rule, ws workspaceHandler) (kbEnt
 	now := time.Now()
 	r := kbEnt.Rule{
 		BaseInfo: kbEnt.BaseInfo{
-			UUID:         ws.CreateGroupUUID(),
+			UUID:         ws.CreateRuleUUID(),
 			ID:           rule.ID,
 			ShortName:    rule.ShortName,
 			Description:  rule.Description,
 			CreatedDate:  now,
 			ModifiedDate: now,
 		},
-		InputParameters:  []kbEnt.ParameterRule{},
-		OutputParameters: []kbEnt.ParameterRule{},
 	}
 
 	patternUUID, ok := ws.GetPatternUUID(rule.RelationID)
@@ -47,14 +45,14 @@ func (im Importer) extractRule(rule formatV2M0.Rule, ws workspaceHandler) (kbEnt
 	}
 	r.PatternUUID = patternUUID
 
-	inputParameters, err := im.extractParametersRule(rule.InitIDs, ws)
+	inputParameters, err := im.extractRuleParameters(rule.InitIDs, ws)
 	if err != nil {
 		im.lg.Error(errMsgs.ParsingRuleParametersFromXMLFail, zap.Error(err))
 		return kbEnt.Rule{}, err
 	}
 	r.InputParameters = inputParameters
 
-	outputParameters, err := im.extractParametersRule(rule.ResultIDs, ws)
+	outputParameters, err := im.extractRuleParameters(rule.ResultIDs, ws)
 	if err != nil {
 		im.lg.Error(errMsgs.ParsingRuleParametersFromXMLFail, zap.Error(err))
 		return kbEnt.Rule{}, err
@@ -64,7 +62,7 @@ func (im Importer) extractRule(rule formatV2M0.Rule, ws workspaceHandler) (kbEnt
 	return r, nil
 }
 
-func (im Importer) extractParametersRule(attribute string, ws workspaceHandler) ([]kbEnt.ParameterRule, error) {
+func (im Importer) extractRuleParameters(attribute string, ws workspaceHandler) ([]kbEnt.ParameterRule, error) {
 	var parameters []kbEnt.ParameterRule
 	dict, err := im.extractDictionaryFromAttribute(attribute)
 	if err != nil {

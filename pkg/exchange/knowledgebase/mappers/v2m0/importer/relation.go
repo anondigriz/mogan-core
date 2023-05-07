@@ -34,10 +34,8 @@ func (im Importer) extractPattern(relation formatV2M0.Relation, ws workspaceHand
 			CreatedDate:  now,
 			ModifiedDate: now,
 		},
-		ScriptLanguage:   types.JS,
-		Script:           relation.Script,
-		InputParameters:  []kbEnt.ParameterPattern{},
-		OutputParameters: []kbEnt.ParameterPattern{},
+		ScriptLanguage: types.JS,
+		Script:         relation.Script,
 	}
 
 	patternType, err := im.extractPatternType(relation.RelationType)
