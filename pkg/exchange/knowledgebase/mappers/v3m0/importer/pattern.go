@@ -10,11 +10,11 @@ import (
 	formatV3M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v3m0"
 )
 
-func (vm Importer) processPatterns(patterns []formatV3M0.Pattern, ws workspaceHandler) error {
+func (im Importer) processPatterns(patterns []formatV3M0.Pattern, ws workspaceHandler) error {
 	for _, v := range patterns {
-		pattern, err := vm.extractPattern(v, ws)
+		pattern, err := im.extractPattern(v, ws)
 		if err != nil {
-			vm.lg.Error(errMsgs.ParsingPatternFromXMLFail, zap.Error(err))
+			im.lg.Error(errMsgs.ParsingPatternFromXMLFail, zap.Error(err))
 			return err
 		}
 		ws.AddPattern(pattern)

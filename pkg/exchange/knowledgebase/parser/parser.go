@@ -11,10 +11,12 @@ import (
 	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/detector"
 	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors"
 	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/parser/v2m0"
+	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/parser/v3m0"
 )
 
 const (
 	versionV2M0 = "2.0"
+	versionV3M0 = "3.0"
 )
 
 type ParseXMLArgs struct {
@@ -33,16 +35,17 @@ type Parser struct {
 	lg       *zap.Logger
 	detector *detector.Detector
 	v2m0     *v2m0.V2M0
+	v3m0     *v3m0.V3M0
 }
 
 func New(lg *zap.Logger) *Parser {
 	d := detector.New(lg)
 
-	pv2m0 := v2m0.New(lg)
 	p := &Parser{
 		lg:       lg,
 		detector: d,
-		v2m0:     pv2m0,
+		v2m0:     v2m0.New(lg),
+		v3m0:     v3m0.New(lg),
 	}
 	return p
 }
@@ -55,7 +58,12 @@ func (p Parser) Parse(ctx context.Context, args ParseXMLArgs) (kbEnt.Container, 
 		return kbEnt.Container{}, err
 	}
 
-	if ver != versionV2M0 {
+	switch ver {
+	case versionV2M0:
+		break
+	case versionV3M0:
+		break
+	default:
 		p.lg.Error("unsupported format XML version", zap.Error(err))
 		return kbEnt.Container{}, errors.NewUnsupportedFormatXMLVersionErr(ver)
 	}
@@ -66,7 +74,7 @@ func (p Parser) Parse(ctx context.Context, args ParseXMLArgs) (kbEnt.Container, 
 		return kbEnt.Container{}, err
 	}
 
-	return p.parseV2M0(args)
+	return p.parseVersion(args, ver)
 }
 
 func (p Parser) seekFileToBegin(args ParseXMLArgs) error {
@@ -80,7 +88,7 @@ func (p Parser) seekFileToBegin(args ParseXMLArgs) error {
 	return nil
 }
 
-func (p Parser) parseV2M0(args ParseXMLArgs) (kbEnt.Container, error) {
+func (p Parser) parseVersion(args ParseXMLArgs, ver string) (kbEnt.Container, error) {
 	content, err := io.ReadAll(args.XMLFile)
 	if err != nil {
 		if err != nil {
@@ -88,7 +96,15 @@ func (p Parser) parseV2M0(args ParseXMLArgs) (kbEnt.Container, error) {
 			return kbEnt.Container{}, errors.NewReadingXMLFailErr(err)
 		}
 	}
-	cont, err := p.v2m0.ParseXML(args.KnowledgeBaseUUID, content)
+	var cont kbEnt.Container
+
+	switch ver {
+	case versionV2M0:
+		cont, err = p.v2m0.ParseXML(args.KnowledgeBaseUUID, content)
+	default:
+		cont, err = p.v3m0.ParseXML(args.KnowledgeBaseUUID, content)
+	}
+
 	if err != nil {
 		if err != nil {
 			p.lg.Error("fail to parse the XML file", zap.Error(err))

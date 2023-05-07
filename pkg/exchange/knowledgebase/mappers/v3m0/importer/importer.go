@@ -19,7 +19,7 @@ func New(lg *zap.Logger) *Importer {
 	return vm
 }
 
-func (im Importer) Import(kbUUID string, kb *formatV3M0.KnowledgeBase) (kbEnt.Container, error) {
+func (im Importer) Import(kbUUID string, kb formatV3M0.KnowledgeBase) (kbEnt.Container, error) {
 	ws := newWorkspace()
 	err := im.processKnowledgeBase(kbUUID, kb, ws)
 	if err != nil {

@@ -1,4 +1,4 @@
-package importer
+package exporter
 
 import (
 	"time"
@@ -11,11 +11,11 @@ import (
 	formatV2M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v2m0"
 )
 
-func (im Importer) processRelations(relations []formatV2M0.Relation, ws workspaceHandler) error {
+func (ex Exporter) processRelations(relations []formatV2M0.Relation, ws workspaceHandler) error {
 	for _, v := range relations {
-		pattern, err := im.extractPattern(v, ws)
+		pattern, err := ex.extractPattern(v, ws)
 		if err != nil {
-			im.lg.Error(errMsgs.ParsingPatternFromXMLFail, zap.Error(err))
+			ex.lg.Error(errMsgs.ParsingPatternFromXMLFail, zap.Error(err))
 			return err
 		}
 		ws.AddPattern(pattern)
@@ -23,7 +23,7 @@ func (im Importer) processRelations(relations []formatV2M0.Relation, ws workspac
 	return nil
 }
 
-func (im Importer) extractPattern(relation formatV2M0.Relation, ws workspaceHandler) (kbEnt.Pattern, error) {
+func (ex Exporter) extractPattern(relation formatV2M0.Relation, ws workspaceHandler) (kbEnt.Pattern, error) {
 	now := time.Now()
 	p := kbEnt.Pattern{
 		BaseInfo: kbEnt.BaseInfo{
@@ -38,23 +38,23 @@ func (im Importer) extractPattern(relation formatV2M0.Relation, ws workspaceHand
 		Script:         relation.Script,
 	}
 
-	patternType, err := im.extractPatternType(relation.RelationType)
+	patternType, err := ex.extractPatternType(relation.RelationType)
 	if err != nil {
-		im.lg.Error(errMsgs.ExtractPatternTypeFail, zap.Error(err))
+		ex.lg.Error(errMsgs.ExtractPatternTypeFail, zap.Error(err))
 		return kbEnt.Pattern{}, err
 	}
 	p.Type = patternType
 
-	inputParameters, err := im.extractPatternParameters(relation.InObjects)
+	inputParameters, err := ex.extractPatternParameters(relation.InObjects)
 	if err != nil {
-		im.lg.Error(errMsgs.ParsingRelationParametersFromXMLFail, zap.Error(err))
+		ex.lg.Error(errMsgs.ParsingRelationParametersFromXMLFail, zap.Error(err))
 		return kbEnt.Pattern{}, err
 	}
 	p.InputParameters = inputParameters
 
-	outputParameters, err := im.extractPatternParameters(relation.OutObjects)
+	outputParameters, err := ex.extractPatternParameters(relation.OutObjects)
 	if err != nil {
-		im.lg.Error(errMsgs.ParsingRelationParametersFromXMLFail, zap.Error(err))
+		ex.lg.Error(errMsgs.ParsingRelationParametersFromXMLFail, zap.Error(err))
 		return kbEnt.Pattern{}, err
 	}
 	p.OutputParameters = outputParameters
@@ -63,17 +63,17 @@ func (im Importer) extractPattern(relation formatV2M0.Relation, ws workspaceHand
 
 }
 
-func (im Importer) extractPatternParameters(attribute string) ([]kbEnt.ParameterPattern, error) {
+func (ex Exporter) extractPatternParameters(attribute string) ([]kbEnt.ParameterPattern, error) {
 	var parameters []kbEnt.ParameterPattern
-	dict, err := im.extractDictionaryFromAttribute(attribute)
+	dict, err := ex.extractDictionaryFromAttribute(attribute)
 	if err != nil {
 		return []kbEnt.ParameterPattern{}, err
 	}
 
 	for k, v := range dict {
-		parameterType, err := im.extractParameterType(v)
+		parameterType, err := ex.extractParameterType(v)
 		if err != nil {
-			im.lg.Error(errMsgs.ExtractParameterTypeFail, zap.Error(err))
+			ex.lg.Error(errMsgs.ExtractParameterTypeFail, zap.Error(err))
 			return []kbEnt.ParameterPattern{}, err
 		}
 

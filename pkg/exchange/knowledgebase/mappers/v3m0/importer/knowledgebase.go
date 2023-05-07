@@ -10,7 +10,7 @@ import (
 	formatV3M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v3m0"
 )
 
-func (im Importer) processKnowledgeBase(kbUUID string, knowledgeBase *formatV3M0.KnowledgeBase, ws workspaceHandler) error {
+func (im Importer) processKnowledgeBase(kbUUID string, knowledgeBase formatV3M0.KnowledgeBase, ws workspaceHandler) error {
 	im.processGroups(knowledgeBase.Groups.Groups, ws)
 
 	ws.AddKnowledgeBase(im.extractKnowledgeBase(kbUUID, knowledgeBase, ws))
@@ -33,7 +33,7 @@ func (im Importer) processKnowledgeBase(kbUUID string, knowledgeBase *formatV3M0
 	return nil
 }
 
-func (vm Importer) extractKnowledgeBase(kbUUID string, knowledgeBase *formatV3M0.KnowledgeBase, ws workspaceHandler) kbEnt.KnowledgeBase {
+func (im Importer) extractKnowledgeBase(kbUUID string, knowledgeBase formatV3M0.KnowledgeBase, ws workspaceHandler) kbEnt.KnowledgeBase {
 	k := kbEnt.KnowledgeBase{
 		BaseInfo: kbEnt.BaseInfo{
 			UUID:         kbUUID,
@@ -43,20 +43,20 @@ func (vm Importer) extractKnowledgeBase(kbUUID string, knowledgeBase *formatV3M0
 			CreatedDate:  time.Unix(knowledgeBase.CreatedDate, 0).UTC(),
 			ModifiedDate: time.Unix(knowledgeBase.ModifiedDate, 0).UTC(),
 		},
-		GroupsHierarchy: vm.extractGroupsHierarchy(knowledgeBase.GroupsHierarchy, ws),
+		GroupsHierarchy: im.extractGroupsHierarchy(knowledgeBase.GroupsHierarchy, ws),
 	}
 
 	return k
 }
 
-func (vm Importer) extractGroupsHierarchy(gh formatV3M0.GroupsHierarchy, ws workspaceHandler) kbEnt.GroupsHierarchy {
+func (im Importer) extractGroupsHierarchy(gh formatV3M0.GroupsHierarchy, ws workspaceHandler) kbEnt.GroupsHierarchy {
 	g := kbEnt.GroupsHierarchy{
 		GroupUUID: ws.GetOrCreateGroupUUID(gh.GroupID),
 		Contains:  []kbEnt.GroupsHierarchy{},
 	}
 
 	for _, v := range gh.Contains.GroupsHierarchies {
-		g.Contains = append(g.Contains, vm.extractGroupsHierarchy(v, ws))
+		g.Contains = append(g.Contains, im.extractGroupsHierarchy(v, ws))
 	}
 
 	return g

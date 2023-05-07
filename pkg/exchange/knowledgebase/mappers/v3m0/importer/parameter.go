@@ -10,11 +10,11 @@ import (
 	formatV3M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v3m0"
 )
 
-func (vm Importer) processParameters(parameters []formatV3M0.Parameter, ws workspaceHandler) error {
+func (im Importer) processParameters(parameters []formatV3M0.Parameter, ws workspaceHandler) error {
 	for _, v := range parameters {
-		parameter, err := vm.extractParameter(v, ws)
+		parameter, err := im.extractParameter(v, ws)
 		if err != nil {
-			vm.lg.Error(errMsgs.ParsingParameterFromXMLFail, zap.Error(err))
+			im.lg.Error(errMsgs.ParsingParameterFromXMLFail, zap.Error(err))
 			return err
 		}
 		ws.AddParameter(parameter)

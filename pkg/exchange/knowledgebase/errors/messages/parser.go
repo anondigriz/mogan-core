@@ -24,4 +24,5 @@ const (
 	ExtractPatternTypeFail               = "pattern type could not be determined"
 	ExtractScriptLanguageTypeInXML       = "script language type could not be determined"
 	ExtractParameterTypeFail             = "parameter type could not be determined"
+	TypeIsNotSupportedByFormat           = "knowledge base uses a type that is not supported by the format"
 )
