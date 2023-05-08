@@ -36,6 +36,12 @@ func TestTransformationFormV2M0(t *testing.T) {
 				path: "./testdata/v2m0/model2.xml",
 			},
 		},
+		{
+			name: "test file #3 transform to v2m0",
+			args: args{
+				path: "./testdata/v2m0/model3.xml",
+			},
+		},
 	}
 
 	for _, tt := range tests {

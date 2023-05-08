@@ -67,6 +67,17 @@ func (tf ToFormat) processGroup(args processGroupArgs) error {
 		return err
 	}
 
+	err = tf.processGroups(processGroupsArgs{
+		cont:        args.cont,
+		childGroups: args.group.Groups,
+		parentClass: &c,
+		ws:          args.ws,
+	})
+	if err != nil {
+		tf.lg.Error(errMsgs.MappingGroupsFail, zap.Error(err))
+		return err
+	}
+
 	args.parentClass.Classes.Classes = append(args.parentClass.Classes.Classes, c)
 
 	return nil

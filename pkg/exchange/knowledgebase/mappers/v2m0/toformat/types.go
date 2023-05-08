@@ -8,16 +8,19 @@ import (
 	"github.com/anondigriz/mogan-core/pkg/entities/types"
 	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors"
 	errMsgs "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors/messages"
+	formatV2M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v2m0"
 )
 
 func (tf ToFormat) mapToRelationType(base types.PatternType) (string, error) {
 	switch base {
+	case types.Program:
+		return string(formatV2M0.Prog), nil
 	case types.Constraint:
-		return "constr", nil
-	case types.IfThenElse:
-		return "ifclause", nil
+		return string(formatV2M0.Constr), nil
 	case types.Formula:
-		return "simple", nil
+		return string(formatV2M0.Simple), nil
+	case types.IfThenElse:
+		return string(formatV2M0.Ifclause), nil
 	default:
 		err := errors.NewTypeIsNotSupportedByFormatErr(strconv.Itoa(int(base)))
 		tf.lg.Error(errMsgs.TypeIsNotSupportedByFormat, zap.Error(err))
@@ -28,9 +31,9 @@ func (tf ToFormat) mapToRelationType(base types.PatternType) (string, error) {
 func (tf ToFormat) mapToParameterType(base types.ParameterType) (string, error) {
 	switch base {
 	case types.Double:
-		return "double", nil
+		return string(formatV2M0.Double), nil
 	case types.String:
-		return "string", nil
+		return string(formatV2M0.String), nil
 	case types.Boolean:
 		err := errors.NewTypeIsNotSupportedByFormatErr("Boolean")
 		tf.lg.Error(errMsgs.TypeIsNotSupportedByFormat, zap.Error(err))

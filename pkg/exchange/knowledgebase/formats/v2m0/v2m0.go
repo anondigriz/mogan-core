@@ -2,6 +2,21 @@ package v2m0
 
 import "encoding/xml"
 
+type (
+	ParameterType string
+	RelationType  string
+)
+
+const (
+	String ParameterType = "string"
+	Double ParameterType = "double"
+
+	Prog     RelationType = "prog"
+	Constr   RelationType = "constr"
+	Simple   RelationType = "simple"
+	Ifclause RelationType = "ifclause"
+)
+
 type BaseInfo struct {
 	ID          string `xml:"id,attr"`
 	ShortName   string `xml:"shortName,attr"`

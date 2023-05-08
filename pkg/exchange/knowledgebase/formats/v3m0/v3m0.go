@@ -4,6 +4,27 @@ import (
 	"encoding/xml"
 )
 
+type (
+	ParameterType      string
+	PatternType        string
+	ScriptLanguageType string
+)
+
+const (
+	String     ParameterType = "String"
+	Double     ParameterType = "Double"
+	Boolean    ParameterType = "Boolean"
+	BigInteger ParameterType = "BigInteger"
+
+	Program    PatternType = "Program"
+	Constraint PatternType = "Constraint"
+	Formula    PatternType = "Formula"
+	IfThenElse PatternType = "IfThenElse"
+
+	JS  ScriptLanguageType = "JS"
+	Lua ScriptLanguageType = "Lua"
+)
+
 type BaseInfo struct {
 	ID           string `xml:"id"`
 	ShortName    string `xml:"shortName"`

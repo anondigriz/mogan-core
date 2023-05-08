@@ -6,18 +6,19 @@ import (
 	"github.com/anondigriz/mogan-core/pkg/entities/types"
 	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors"
 	errMsgs "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors/messages"
+	formatV3M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v3m0"
 )
 
 func (ff FromFormat) mapToPatternType(base string) (types.PatternType, error) {
 	switch base {
-	case "Constraint":
-		return types.Constraint, nil
-	case "IfThenElse":
-		return types.IfThenElse, nil
-	case "Program":
+	case string(formatV3M0.Program):
 		return types.Program, nil
-	case "Formula":
+	case string(formatV3M0.Constraint):
+		return types.Constraint, nil
+	case string(formatV3M0.Formula):
 		return types.Formula, nil
+	case string(formatV3M0.IfThenElse):
+		return types.IfThenElse, nil
 	default:
 		err := errors.NewUnknownPatternTypeErr(base)
 		ff.lg.Error(errMsgs.UnknownPatternType, zap.Error(err))
@@ -27,10 +28,14 @@ func (ff FromFormat) mapToPatternType(base string) (types.PatternType, error) {
 
 func (ff FromFormat) mapToParameterType(base string) (types.ParameterType, error) {
 	switch base {
-	case "Double":
-		return types.Double, nil
-	case "String":
+	case string(formatV3M0.String):
 		return types.String, nil
+	case string(formatV3M0.Double):
+		return types.Double, nil
+	case string(formatV3M0.Boolean):
+		return types.Boolean, nil
+	case string(formatV3M0.BigInteger):
+		return types.BigInteger, nil
 	default:
 		err := errors.NewUnknownParameterTypeErr(base)
 		ff.lg.Error(errMsgs.UnknownParameterType, zap.Error(err))
@@ -40,9 +45,9 @@ func (ff FromFormat) mapToParameterType(base string) (types.ParameterType, error
 
 func (ff FromFormat) mapToScriptLanguageType(base string) (types.ScriptLanguageType, error) {
 	switch base {
-	case "JS":
+	case string(formatV3M0.JS):
 		return types.JS, nil
-	case "Lua":
+	case string(formatV3M0.Lua):
 		return types.Lua, nil
 	default:
 		err := errors.NewUnknownScriptLanguageTypeErr(base)

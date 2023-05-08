@@ -6,18 +6,19 @@ import (
 	"github.com/anondigriz/mogan-core/pkg/entities/types"
 	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors"
 	errMsgs "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors/messages"
+	formatV2M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v2m0"
 )
 
 func (ff FromFormat) mapToPatternType(base string) (types.PatternType, error) {
 	switch base {
-	case "constr":
-		return types.Constraint, nil
-	case "ifclause":
-		return types.IfThenElse, nil
-	case "prog":
+	case string(formatV2M0.Prog):
 		return types.Program, nil
-	case "simple":
+	case string(formatV2M0.Constr):
+		return types.Constraint, nil
+	case string(formatV2M0.Simple):
 		return types.Formula, nil
+	case string(formatV2M0.Ifclause):
+		return types.IfThenElse, nil
 	default:
 		err := errors.NewUnknownPatternTypeErr(base)
 		ff.lg.Error(errMsgs.UnknownPatternType, zap.Error(err))

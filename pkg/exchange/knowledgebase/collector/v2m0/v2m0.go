@@ -31,7 +31,7 @@ func (vm V2M0) CollectXML(KnowledgeBase kbEnt.Container) ([]byte, error) {
 		return []byte{}, err
 	}
 
-	b, err := xml.MarshalIndent(model, "  ", "    ")
+	b, err := xml.MarshalIndent(model, "", "  ")
 	if err != nil {
 		vm.lg.Error(errMsgs.XMLMarshalFail, zap.Error(err))
 		return []byte{}, errors.NewXMLMarshalFailErr(err)
