@@ -1,4 +1,4 @@
-package exporter
+package fromformat
 
 import (
 	"time"
@@ -10,21 +10,23 @@ import (
 	formatV2M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v2m0"
 )
 
-type Exporter struct {
+type FromFormat struct {
 	lg *zap.Logger
 }
 
-func New(lg *zap.Logger) *Exporter {
-	vm := &Exporter{
+func New(lg *zap.Logger) *FromFormat {
+	vm := &FromFormat{
 		lg: lg,
 	}
 	return vm
 }
 
-func (ex Exporter) Export(knowledgeBase kbEnt.Container) (kbEnt.Container, error) {
-	err := ex.processModel(model, ws)
+func (ff FromFormat) Import(kbUUID string, model formatV2M0.Model) (kbEnt.Container, error) {
+	ws := newWorkspace()
+	ws.AddKnowledgeBase(ff.extractKnowledgeBase(model, kbUUID))
+	err := ff.processModel(model, ws)
 	if err != nil {
-		ex.lg.Error(errMsgs.ParsingModelFromXMLFail, zap.Error(err))
+		ff.lg.Error(errMsgs.ImportKnowledgeBaseFromXMLFail, zap.Error(err))
 		return kbEnt.Container{}, err
 	}
 
@@ -32,7 +34,7 @@ func (ex Exporter) Export(knowledgeBase kbEnt.Container) (kbEnt.Container, error
 
 }
 
-func (ex Exporter) extractKnowledgeBase(model *, kbUUID string) formatV2M0.Model {
+func (ff FromFormat) extractKnowledgeBase(model formatV2M0.Model, kbUUID string) kbEnt.KnowledgeBase {
 	now := time.Now()
 	return kbEnt.KnowledgeBase{
 		BaseInfo: kbEnt.BaseInfo{

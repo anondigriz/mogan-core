@@ -1,4 +1,4 @@
-package importer
+package fromformat
 
 import (
 	"time"
@@ -10,19 +10,20 @@ import (
 	formatV2M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v2m0"
 )
 
-func (im Importer) processParameters(parameters []formatV2M0.Parameter, groupUUID string, ws workspaceHandler) error {
+func (ff FromFormat) processParameters(parameters []formatV2M0.Parameter, parentGroup *kbEnt.Group, ws workspaceHandler) error {
 	for _, v := range parameters {
-		parameter, err := im.extractParameter(v, groupUUID, ws)
+		parameter, err := ff.extractParameter(v, ws)
 		if err != nil {
-			im.lg.Error(errMsgs.ParsingParameterFromXMLFail, zap.Error(err))
+			ff.lg.Error(errMsgs.ParsingParameterFromXMLFail, zap.Error(err))
 			return err
 		}
+		parentGroup.Parameters = append(parentGroup.Parameters, parameter.UUID)
 		ws.AddParameter(parameter)
 	}
 	return nil
 }
 
-func (im Importer) extractParameter(parameter formatV2M0.Parameter, groupUUID string, ws workspaceHandler) (kbEnt.Parameter, error) {
+func (ff FromFormat) extractParameter(parameter formatV2M0.Parameter, ws workspaceHandler) (kbEnt.Parameter, error) {
 	now := time.Now()
 	p := kbEnt.Parameter{
 		BaseInfo: kbEnt.BaseInfo{
@@ -33,13 +34,12 @@ func (im Importer) extractParameter(parameter formatV2M0.Parameter, groupUUID st
 			CreatedDate:  now,
 			ModifiedDate: now,
 		},
-		GroupUUID:    groupUUID,
 		DefaultValue: parameter.DefaultValue,
 	}
 
-	t, err := im.extractParameterType(parameter.Type)
+	t, err := ff.extractParameterType(parameter.Type)
 	if err != nil {
-		im.lg.Error(errMsgs.ExtractParameterTypeFail, zap.Error(err))
+		ff.lg.Error(errMsgs.ExtractParameterTypeFail, zap.Error(err))
 		return kbEnt.Parameter{}, err
 	}
 	p.Type = t

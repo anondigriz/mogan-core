@@ -7,20 +7,20 @@ import (
 
 	kbEnt "github.com/anondigriz/mogan-core/pkg/entities/containers/knowledgebase"
 	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors"
-	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/mappers/v2m0/importer"
+	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/mappers/v2m0/fromformat"
 
 	formatV2M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v2m0"
 )
 
 type V2M0 struct {
 	lg *zap.Logger
-	im *importer.Importer
+	im *fromformat.FromFormat
 }
 
 func New(lg *zap.Logger) *V2M0 {
 	vm := &V2M0{
 		lg: lg,
-		im: importer.New(lg),
+		im: fromformat.New(lg),
 	}
 	return vm
 }

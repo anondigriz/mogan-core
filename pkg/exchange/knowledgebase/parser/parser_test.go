@@ -28,7 +28,8 @@ func TestV2M0(t *testing.T) {
 			FileName:          f.Name(),
 		}
 		kbu, err := p.Parse(context.Background(), iArgs)
-		assert.NoError(t, err, "No error was expected when parsing xml file")
+		assert.NoError(t, err, "no error was expected when parsing xml file")
+		// TODO test is incomplete and currently only needed for visual verification
 		_ = kbu
 	})
 }

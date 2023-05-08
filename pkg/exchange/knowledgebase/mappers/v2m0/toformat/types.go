@@ -1,4 +1,4 @@
-package exporter
+package toformat
 
 import (
 	"strconv"
@@ -10,7 +10,7 @@ import (
 	errMsgs "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors/messages"
 )
 
-func (ex Exporter) extractRelationType(base types.PatternType) (string, error) {
+func (tf ToFormat) extractRelationType(base types.PatternType) (string, error) {
 	switch base {
 	case types.Constraint:
 		return "constr", nil
@@ -20,12 +20,12 @@ func (ex Exporter) extractRelationType(base types.PatternType) (string, error) {
 		return "simple", nil
 	default:
 		err := errors.NewTypeIsNotSupportedByFormatErr(strconv.Itoa(int(base)))
-		ex.lg.Error(errMsgs.UnknownParameterTypeInXML, zap.Error(err))
+		tf.lg.Error(errMsgs.UnknownParameterTypeInXML, zap.Error(err))
 		return "", err
 	}
 }
 
-func (ex Exporter) extractParameterType(base types.ParameterType) (string, error) {
+func (ex ToFormat) extractParameterType(base types.ParameterType) (string, error) {
 	switch base {
 	case types.Double:
 		return "double", nil
@@ -42,7 +42,7 @@ func (ex Exporter) extractParameterType(base types.ParameterType) (string, error
 	}
 }
 
-func (ex Exporter) isAllowedScriptLanguageType(base types.ScriptLanguageType) error {
+func (ex ToFormat) isAllowedScriptLanguageType(base types.ScriptLanguageType) error {
 	switch base {
 	case types.JS:
 		return nil

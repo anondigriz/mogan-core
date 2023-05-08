@@ -32,7 +32,6 @@ func (im Importer) extractParameter(parameter formatV3M0.Parameter, ws workspace
 			CreatedDate:  time.Unix(parameter.CreatedDate, 0).UTC(),
 			ModifiedDate: time.Unix(parameter.ModifiedDate, 0).UTC(),
 		},
-		GroupUUID:    ws.GetOrCreateGroupUUID(parameter.GroupUUID),
 		DefaultValue: parameter.DefaultValue,
 	}
 

@@ -1,4 +1,4 @@
-package exporter
+package fromformat
 
 import (
 	"strings"
@@ -9,7 +9,7 @@ import (
 	errMsgs "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors/messages"
 )
 
-func (ex Exporter) extractDictionaryFromAttribute(base string) (map[string]string, error) {
+func (ff FromFormat) extractDictionaryFromAttribute(base string) (map[string]string, error) {
 	params := map[string]string{}
 	if base == "" {
 		return params, nil
@@ -20,7 +20,7 @@ func (ex Exporter) extractDictionaryFromAttribute(base string) (map[string]strin
 		keyValue := strings.Split(v, ":")
 		if len(keyValue) != 2 {
 			err := errors.NewBrokenDictionaryInXMLAttributeErr(base, v)
-			ex.lg.Error(errMsgs.BrokenDictionaryInXMLAttribute, zap.Error(err))
+			ff.lg.Error(errMsgs.BrokenDictionaryInXMLAttribute, zap.Error(err))
 			return nil, err
 		}
 		params[keyValue[0]] = keyValue[1]

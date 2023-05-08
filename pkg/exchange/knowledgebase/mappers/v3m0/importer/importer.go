@@ -23,7 +23,7 @@ func (im Importer) Import(kbUUID string, kb formatV3M0.KnowledgeBase) (kbEnt.Con
 	ws := newWorkspace()
 	err := im.processKnowledgeBase(kbUUID, kb, ws)
 	if err != nil {
-		im.lg.Error(errMsgs.ParsingModelFromXMLFail, zap.Error(err))
+		im.lg.Error(errMsgs.ImportKnowledgeBaseFromXMLFail, zap.Error(err))
 		return kbEnt.Container{}, err
 	}
 

@@ -1,11 +1,11 @@
-package exporter
+package fromformat
 
 import (
 	kbEnt "github.com/anondigriz/mogan-core/pkg/entities/containers/knowledgebase"
 	uuidGen "github.com/google/uuid"
 )
 
-type UUIDToIDmap struct {
+type idToUUIDmap struct {
 	parameters map[string]string
 	patterns   map[string]string
 }
@@ -16,7 +16,6 @@ type workspaceHandler interface {
 	AddPattern(pattern kbEnt.Pattern)
 	AddGroup(group kbEnt.Group)
 	AddRule(rule kbEnt.Rule)
-	AddGroupHierarchy(gh kbEnt.GroupsHierarchy)
 	CreateGroupUUID() string
 	CreatePatternUUID(id string) string
 	CreateRuleUUID() string
@@ -58,10 +57,6 @@ func (ws *workspace) AddGroup(group kbEnt.Group) {
 
 func (ws *workspace) AddRule(rule kbEnt.Rule) {
 	ws.cont.Rules[rule.UUID] = rule
-}
-
-func (ws *workspace) AddGroupHierarchy(gh kbEnt.GroupsHierarchy) {
-	ws.cont.KnowledgeBase.GroupsHierarchy = gh
 }
 
 func (ws *workspace) CreateGroupUUID() string {

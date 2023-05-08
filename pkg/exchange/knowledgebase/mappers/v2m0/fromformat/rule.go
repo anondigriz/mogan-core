@@ -1,4 +1,4 @@
-package exporter
+package fromformat
 
 import (
 	"time"
@@ -11,20 +11,21 @@ import (
 	formatV2M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v2m0"
 )
 
-func (ex Exporter) processRules(rules []formatV2M0.Rule, ws workspaceHandler) error {
+func (ff FromFormat) processRules(rules []formatV2M0.Rule, parentGroup *kbEnt.Group, ws workspaceHandler) error {
 	for _, v := range rules {
-		rule, err := ex.extractRule(v, ws)
+		rule, err := ff.extractRule(v, ws)
 		if err != nil {
-			ex.lg.Error(errMsgs.ParsingRulesFromXMLFail, zap.Error(err))
+			ff.lg.Error(errMsgs.ParsingRulesFromXMLFail, zap.Error(err))
 			return err
 		}
+		parentGroup.Rules = append(parentGroup.Rules, rule.UUID)
 		ws.AddRule(rule)
 	}
 
 	return nil
 }
 
-func (ex Exporter) extractRule(rule formatV2M0.Rule, ws workspaceHandler) (kbEnt.Rule, error) {
+func (ff FromFormat) extractRule(rule formatV2M0.Rule, ws workspaceHandler) (kbEnt.Rule, error) {
 	now := time.Now()
 	r := kbEnt.Rule{
 		BaseInfo: kbEnt.BaseInfo{
@@ -40,21 +41,21 @@ func (ex Exporter) extractRule(rule formatV2M0.Rule, ws workspaceHandler) (kbEnt
 	patternUUID, ok := ws.GetPatternUUID(rule.RelationID)
 	if !ok {
 		err := errors.NewRelationNotFoundForRuleErr(rule.ID, rule.RelationID)
-		ex.lg.Error(errMsgs.RelationNotFoundForRule, zap.Error(err))
+		ff.lg.Error(errMsgs.RelationNotFoundForRule, zap.Error(err))
 		return kbEnt.Rule{}, err
 	}
 	r.PatternUUID = patternUUID
 
-	inputParameters, err := ex.extractRuleParameters(rule.InitIDs, ws)
+	inputParameters, err := ff.extractRuleParameters(rule.InitIDs, ws)
 	if err != nil {
-		ex.lg.Error(errMsgs.ParsingRuleParametersFromXMLFail, zap.Error(err))
+		ff.lg.Error(errMsgs.ParsingRuleParametersFromXMLFail, zap.Error(err))
 		return kbEnt.Rule{}, err
 	}
 	r.InputParameters = inputParameters
 
-	outputParameters, err := ex.extractRuleParameters(rule.ResultIDs, ws)
+	outputParameters, err := ff.extractRuleParameters(rule.ResultIDs, ws)
 	if err != nil {
-		ex.lg.Error(errMsgs.ParsingRuleParametersFromXMLFail, zap.Error(err))
+		ff.lg.Error(errMsgs.ParsingRuleParametersFromXMLFail, zap.Error(err))
 		return kbEnt.Rule{}, err
 	}
 	r.OutputParameters = outputParameters
@@ -62,9 +63,9 @@ func (ex Exporter) extractRule(rule formatV2M0.Rule, ws workspaceHandler) (kbEnt
 	return r, nil
 }
 
-func (ex Exporter) extractRuleParameters(attribute string, ws workspaceHandler) ([]kbEnt.ParameterRule, error) {
+func (ff FromFormat) extractRuleParameters(attribute string, ws workspaceHandler) ([]kbEnt.ParameterRule, error) {
 	var parameters []kbEnt.ParameterRule
-	dict, err := ex.extractDictionaryFromAttribute(attribute)
+	dict, err := ff.extractDictionaryFromAttribute(attribute)
 	if err != nil {
 		return []kbEnt.ParameterRule{}, err
 	}

@@ -17,8 +17,7 @@ type workspaceHandler interface {
 	AddPattern(pattern kbEnt.Pattern)
 	AddGroup(group kbEnt.Group)
 	AddRule(rule kbEnt.Rule)
-	AddGroupHierarchy(gh kbEnt.GroupsHierarchy)
-	GetOrCreateGroupUUID(id string) string
+	CreateGroupUUID() string
 	CreatePatternUUID(id string) string
 	CreateRuleUUID() string
 	GetOrCreateParameterUUID(id string) string
@@ -61,17 +60,8 @@ func (ws *workspace) AddRule(rule kbEnt.Rule) {
 	ws.cont.Rules[rule.UUID] = rule
 }
 
-func (ws *workspace) AddGroupHierarchy(gh kbEnt.GroupsHierarchy) {
-	ws.cont.KnowledgeBase.GroupsHierarchy = gh
-}
-
-func (ws *workspace) GetOrCreateGroupUUID(id string) string {
-	if uuid, ok := ws.mapping.groups[id]; ok {
-		return uuid
-	}
-
+func (ws *workspace) CreateGroupUUID() string {
 	uuid := uuidGen.NewString()
-	ws.mapping.groups[id] = uuid
 	return uuid
 }
 

@@ -11,9 +11,10 @@ import (
 )
 
 func (im Importer) processKnowledgeBase(kbUUID string, knowledgeBase formatV3M0.KnowledgeBase, ws workspaceHandler) error {
+	ws.AddKnowledgeBase(im.extractKnowledgeBase(kbUUID, knowledgeBase, ws))
+
 	im.processGroups(knowledgeBase.Groups.Groups, ws)
 
-	ws.AddKnowledgeBase(im.extractKnowledgeBase(kbUUID, knowledgeBase, ws))
 
 	if err := im.processParameters(knowledgeBase.Parameters.Parameters, ws); err != nil {
 		im.lg.Error(errMsgs.ParsingParametersFromXMLFail, zap.Error(err))
@@ -43,21 +44,7 @@ func (im Importer) extractKnowledgeBase(kbUUID string, knowledgeBase formatV3M0.
 			CreatedDate:  time.Unix(knowledgeBase.CreatedDate, 0).UTC(),
 			ModifiedDate: time.Unix(knowledgeBase.ModifiedDate, 0).UTC(),
 		},
-		GroupsHierarchy: im.extractGroupsHierarchy(knowledgeBase.GroupsHierarchy, ws),
 	}
 
 	return k
-}
-
-func (im Importer) extractGroupsHierarchy(gh formatV3M0.GroupsHierarchy, ws workspaceHandler) kbEnt.GroupsHierarchy {
-	g := kbEnt.GroupsHierarchy{
-		GroupUUID: ws.GetOrCreateGroupUUID(gh.GroupID),
-		Contains:  []kbEnt.GroupsHierarchy{},
-	}
-
-	for _, v := range gh.Contains.GroupsHierarchies {
-		g.Contains = append(g.Contains, im.extractGroupsHierarchy(v, ws))
-	}
-
-	return g
 }
