@@ -71,7 +71,6 @@ func (tf ToFormat) mapToRelation(pattern kbEnt.Pattern, ws workspaceHandler) (fo
 	r.OutObjects = outObjects
 
 	return r, nil
-
 }
 
 func (tf ToFormat) mapToRelationParameters(parameters []kbEnt.ParameterPattern) (string, error) {

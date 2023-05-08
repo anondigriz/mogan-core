@@ -17,7 +17,7 @@ func (ff FromFormat) processClasses(classes []formatV2M0.Class, parentGroup *kbE
 			ff.lg.Error(errMsgs.MappingClassFail, zap.Error(err))
 			return err
 		}
-		parentGroup.Groups = append(parentGroup.Groups, childGroup)
+		parentGroup.Groups[childGroup.UUID] = childGroup
 	}
 
 	return nil
@@ -61,5 +61,6 @@ func (ff FromFormat) mapToGroup(class formatV2M0.Class, ws workspaceHandler) kbE
 			ModifiedDate: now,
 		},
 	}
+	g.Groups = map[string]kbEnt.Group{}
 	return g
 }

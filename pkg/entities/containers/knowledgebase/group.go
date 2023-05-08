@@ -2,7 +2,7 @@ package knowledgebase
 
 type Group struct {
 	BaseInfo
-	Groups     []Group
+	Groups     map[string]Group
 	Parameters []string
 	Rules      []string
 }

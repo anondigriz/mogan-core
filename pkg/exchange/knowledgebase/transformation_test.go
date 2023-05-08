@@ -55,7 +55,6 @@ func TestTransformationFormV2M0(t *testing.T) {
 				FileName:          from.Name(),
 			})
 			assert.NoError(t, err, "no error was expected when parsing XML file")
-			_ = kbu
 			to, err := os.CreateTemp("./testdata", "tmpfile-")
 			defer func() {
 				if err = to.Close(); err != nil {

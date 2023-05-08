@@ -6,6 +6,8 @@ const (
 
 	MappingClassesFail = "classes mapping error"
 	MappingClassFail   = "class mapping error"
+	MappingGroupsFail  = "groups mapping error"
+	MappingGroupFail  = "group mapping error"
 
 	MappingParametersFail = "parameters mapping error"
 	MappingParameterFail  = "parameter mapping error"
@@ -17,6 +19,7 @@ const (
 	MappingPatternFail            = "pattern mapping error"
 
 	MappingRulesFail          = "rules mapping error"
+	MappingRuleFail           = "rule mapping error"
 	MappingRuleParametersFail = "rule's parameters mapping error"
 	MappingConstraintsFail    = "constraints mapping error"
 

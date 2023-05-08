@@ -30,8 +30,10 @@ type workspaceHandler interface {
 	CheckAndRememberRule(rule kbEnt.Rule) error
 	SaveUnprocessedParameters(parameters []string)
 	SaveUnprocessedRules(rules []string)
-	RemoveProcessedParameters(uuid string)
-	RemoveProcessedRules(uuid string)
+	IsProcessedParameters(uuid string) bool
+	IsProcessedRules(uuid string) bool
+	SetProcessedParameters(uuid string)
+	SetProcessedRules(uuid string)
 	GetUnprocessedParameters() []string
 	GetUnprocessedRules() []string
 }
@@ -137,28 +139,36 @@ func (ws *workspace) CheckAndRememberRule(rule kbEnt.Rule) error {
 
 func (ws *workspace) SaveUnprocessedParameters(parameters []string) {
 	for _, v := range parameters {
-		ws.marks.parameters[v] = true
+		ws.marks.parameters[v] = false
 	}
 }
 
 func (ws *workspace) SaveUnprocessedRules(rules []string) {
 	for _, v := range rules {
-		ws.marks.parameters[v] = true
+		ws.marks.rules[v] = false
 	}
 }
 
-func (ws *workspace) RemoveProcessedParameters(uuid string) {
+func (ws *workspace) IsProcessedParameters(uuid string) bool {
+	return ws.marks.parameters[uuid]
+}
+
+func (ws *workspace) IsProcessedRules(uuid string) bool {
+	return ws.marks.rules[uuid]
+}
+
+func (ws *workspace) SetProcessedParameters(uuid string) {
 	ws.marks.parameters[uuid] = true
 }
 
-func (ws *workspace) RemoveProcessedRules(uuid string) {
+func (ws *workspace) SetProcessedRules(uuid string) {
 	ws.marks.rules[uuid] = true
 }
 
 func (ws workspace) GetUnprocessedParameters() []string {
 	result := []string{}
 	for k, v := range ws.marks.parameters {
-		if v {
+		if !v {
 			result = append(result, k)
 		}
 	}
@@ -168,7 +178,7 @@ func (ws workspace) GetUnprocessedParameters() []string {
 func (ws workspace) GetUnprocessedRules() []string {
 	result := []string{}
 	for k, v := range ws.marks.rules {
-		if v {
+		if !v {
 			result = append(result, k)
 		}
 	}

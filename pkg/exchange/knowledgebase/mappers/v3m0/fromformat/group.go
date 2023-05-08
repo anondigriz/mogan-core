@@ -24,9 +24,11 @@ func (ff FromFormat) mapToGroup(group formatV3M0.Group, ws workspaceHandler) kbE
 			ModifiedDate: time.Unix(group.ModifiedDate, 0).UTC(),
 		},
 	}
+	g.Groups = map[string]kbEnt.Group{}
 
 	for _, v := range group.Groups.Groups {
-		g.Groups = append(g.Groups, ff.mapToGroup(v, ws))
+		childGroup := ff.mapToGroup(v, ws)
+		g.Groups[childGroup.UUID] = childGroup
 	}
 
 	g.Parameters = append(g.Parameters, group.Parameters.Parameters...)
