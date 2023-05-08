@@ -1,4 +1,4 @@
-package importer
+package fromformat
 
 import (
 	"time"
@@ -7,13 +7,13 @@ import (
 	formatV3M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v3m0"
 )
 
-func (im Importer) processGroups(groups []formatV3M0.Group, ws workspaceHandler) {
+func (ff FromFormat) processGroups(groups []formatV3M0.Group, ws workspaceHandler) {
 	for _, v := range groups {
-		ws.AddGroup(im.extractGroup(v, ws))
+		ws.AddGroup(ff.mapToGroup(v, ws))
 	}
 }
 
-func (im Importer) extractGroup(group formatV3M0.Group, ws workspaceHandler) kbEnt.Group {
+func (ff FromFormat) mapToGroup(group formatV3M0.Group, ws workspaceHandler) kbEnt.Group {
 	g := kbEnt.Group{
 		BaseInfo: kbEnt.BaseInfo{
 			UUID:         ws.CreateGroupUUID(),
@@ -26,15 +26,11 @@ func (im Importer) extractGroup(group formatV3M0.Group, ws workspaceHandler) kbE
 	}
 
 	for _, v := range group.Groups.Groups {
-		g.Groups = append(g.Groups, im.extractGroup(v, ws))
+		g.Groups = append(g.Groups, ff.mapToGroup(v, ws))
 	}
 
-	for _, v := range group.Parameters.Parameters {
-		g.Parameters = append(g.Parameters, v)
-	}
+	g.Parameters = append(g.Parameters, group.Parameters.Parameters...)
+	g.Rules = append(g.Rules, group.Rules.Rules...)
 
-	for _, v := range group.Rules.Rules {
-		g.Rules = append(g.Rules, v)
-	}
 	return g
 }

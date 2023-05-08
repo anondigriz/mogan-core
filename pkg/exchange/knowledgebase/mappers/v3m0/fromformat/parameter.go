@@ -1,4 +1,4 @@
-package importer
+package fromformat
 
 import (
 	"time"
@@ -10,11 +10,11 @@ import (
 	formatV3M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v3m0"
 )
 
-func (im Importer) processParameters(parameters []formatV3M0.Parameter, ws workspaceHandler) error {
+func (ff FromFormat) processParameters(parameters []formatV3M0.Parameter, ws workspaceHandler) error {
 	for _, v := range parameters {
-		parameter, err := im.extractParameter(v, ws)
+		parameter, err := ff.mapToParameter(v, ws)
 		if err != nil {
-			im.lg.Error(errMsgs.ParsingParameterFromXMLFail, zap.Error(err))
+			ff.lg.Error(errMsgs.MappingParameterFail, zap.Error(err))
 			return err
 		}
 		ws.AddParameter(parameter)
@@ -22,7 +22,7 @@ func (im Importer) processParameters(parameters []formatV3M0.Parameter, ws works
 	return nil
 }
 
-func (im Importer) extractParameter(parameter formatV3M0.Parameter, ws workspaceHandler) (kbEnt.Parameter, error) {
+func (ff FromFormat) mapToParameter(parameter formatV3M0.Parameter, ws workspaceHandler) (kbEnt.Parameter, error) {
 	p := kbEnt.Parameter{
 		BaseInfo: kbEnt.BaseInfo{
 			UUID:         ws.GetOrCreateParameterUUID(parameter.ID),
@@ -35,9 +35,9 @@ func (im Importer) extractParameter(parameter formatV3M0.Parameter, ws workspace
 		DefaultValue: parameter.DefaultValue,
 	}
 
-	t, err := im.extractParameterType(parameter.Type)
+	t, err := ff.mapToParameterType(parameter.Type)
 	if err != nil {
-		im.lg.Error(errMsgs.ExtractParameterTypeFail, zap.Error(err))
+		ff.lg.Error(errMsgs.MappingParameterTypeFail, zap.Error(err))
 		return kbEnt.Parameter{}, err
 	}
 	p.Type = t

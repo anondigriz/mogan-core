@@ -10,7 +10,7 @@ import (
 	errMsgs "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors/messages"
 )
 
-func (tf ToFormat) extractRelationType(base types.PatternType) (string, error) {
+func (tf ToFormat) mapToRelationType(base types.PatternType) (string, error) {
 	switch base {
 	case types.Constraint:
 		return "constr", nil
@@ -20,12 +20,12 @@ func (tf ToFormat) extractRelationType(base types.PatternType) (string, error) {
 		return "simple", nil
 	default:
 		err := errors.NewTypeIsNotSupportedByFormatErr(strconv.Itoa(int(base)))
-		tf.lg.Error(errMsgs.UnknownParameterTypeInXML, zap.Error(err))
+		tf.lg.Error(errMsgs.TypeIsNotSupportedByFormat, zap.Error(err))
 		return "", err
 	}
 }
 
-func (ex ToFormat) extractParameterType(base types.ParameterType) (string, error) {
+func (tf ToFormat) mapToParameterType(base types.ParameterType) (string, error) {
 	switch base {
 	case types.Double:
 		return "double", nil
@@ -33,11 +33,11 @@ func (ex ToFormat) extractParameterType(base types.ParameterType) (string, error
 		return "string", nil
 	case types.Boolean:
 		err := errors.NewTypeIsNotSupportedByFormatErr("Boolean")
-		ex.lg.Error(errMsgs.UnknownParameterTypeInXML, zap.Error(err))
+		tf.lg.Error(errMsgs.TypeIsNotSupportedByFormat, zap.Error(err))
 		return "", err
 	default:
 		err := errors.NewTypeIsNotSupportedByFormatErr("BigInteger")
-		ex.lg.Error(errMsgs.UnknownParameterTypeInXML, zap.Error(err))
+		tf.lg.Error(errMsgs.TypeIsNotSupportedByFormat, zap.Error(err))
 		return "", err
 	}
 }
@@ -48,7 +48,7 @@ func (ex ToFormat) isAllowedScriptLanguageType(base types.ScriptLanguageType) er
 		return nil
 	default:
 		err := errors.NewTypeIsNotSupportedByFormatErr("Lua")
-		ex.lg.Error(errMsgs.UnknownParameterTypeInXML, zap.Error(err))
+		ex.lg.Error(errMsgs.TypeIsNotSupportedByFormat, zap.Error(err))
 		return err
 
 	}

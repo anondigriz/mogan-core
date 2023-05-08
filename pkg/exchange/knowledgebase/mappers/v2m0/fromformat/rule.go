@@ -13,9 +13,9 @@ import (
 
 func (ff FromFormat) processRules(rules []formatV2M0.Rule, parentGroup *kbEnt.Group, ws workspaceHandler) error {
 	for _, v := range rules {
-		rule, err := ff.extractRule(v, ws)
+		rule, err := ff.mapToRule(v, ws)
 		if err != nil {
-			ff.lg.Error(errMsgs.ParsingRulesFromXMLFail, zap.Error(err))
+			ff.lg.Error(errMsgs.MappingRulesFail, zap.Error(err))
 			return err
 		}
 		parentGroup.Rules = append(parentGroup.Rules, rule.UUID)
@@ -25,7 +25,7 @@ func (ff FromFormat) processRules(rules []formatV2M0.Rule, parentGroup *kbEnt.Gr
 	return nil
 }
 
-func (ff FromFormat) extractRule(rule formatV2M0.Rule, ws workspaceHandler) (kbEnt.Rule, error) {
+func (ff FromFormat) mapToRule(rule formatV2M0.Rule, ws workspaceHandler) (kbEnt.Rule, error) {
 	now := time.Now()
 	r := kbEnt.Rule{
 		BaseInfo: kbEnt.BaseInfo{
@@ -46,16 +46,16 @@ func (ff FromFormat) extractRule(rule formatV2M0.Rule, ws workspaceHandler) (kbE
 	}
 	r.PatternUUID = patternUUID
 
-	inputParameters, err := ff.extractRuleParameters(rule.InitIDs, ws)
+	inputParameters, err := ff.mapToRuleParameters(rule.InitIDs, ws)
 	if err != nil {
-		ff.lg.Error(errMsgs.ParsingRuleParametersFromXMLFail, zap.Error(err))
+		ff.lg.Error(errMsgs.MappingRuleParametersFail, zap.Error(err))
 		return kbEnt.Rule{}, err
 	}
 	r.InputParameters = inputParameters
 
-	outputParameters, err := ff.extractRuleParameters(rule.ResultIDs, ws)
+	outputParameters, err := ff.mapToRuleParameters(rule.ResultIDs, ws)
 	if err != nil {
-		ff.lg.Error(errMsgs.ParsingRuleParametersFromXMLFail, zap.Error(err))
+		ff.lg.Error(errMsgs.MappingRuleParametersFail, zap.Error(err))
 		return kbEnt.Rule{}, err
 	}
 	r.OutputParameters = outputParameters
@@ -63,9 +63,9 @@ func (ff FromFormat) extractRule(rule formatV2M0.Rule, ws workspaceHandler) (kbE
 	return r, nil
 }
 
-func (ff FromFormat) extractRuleParameters(attribute string, ws workspaceHandler) ([]kbEnt.ParameterRule, error) {
+func (ff FromFormat) mapToRuleParameters(attribute string, ws workspaceHandler) ([]kbEnt.ParameterRule, error) {
 	var parameters []kbEnt.ParameterRule
-	dict, err := ff.extractDictionaryFromAttribute(attribute)
+	dict, err := ff.mapToDictionary(attribute)
 	if err != nil {
 		return []kbEnt.ParameterRule{}, err
 	}

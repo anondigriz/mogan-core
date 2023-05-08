@@ -12,9 +12,9 @@ import (
 
 func (ff FromFormat) processParameters(parameters []formatV2M0.Parameter, parentGroup *kbEnt.Group, ws workspaceHandler) error {
 	for _, v := range parameters {
-		parameter, err := ff.extractParameter(v, ws)
+		parameter, err := ff.mapToParameter(v, ws)
 		if err != nil {
-			ff.lg.Error(errMsgs.ParsingParameterFromXMLFail, zap.Error(err))
+			ff.lg.Error(errMsgs.MappingParameterFail, zap.Error(err))
 			return err
 		}
 		parentGroup.Parameters = append(parentGroup.Parameters, parameter.UUID)
@@ -23,7 +23,7 @@ func (ff FromFormat) processParameters(parameters []formatV2M0.Parameter, parent
 	return nil
 }
 
-func (ff FromFormat) extractParameter(parameter formatV2M0.Parameter, ws workspaceHandler) (kbEnt.Parameter, error) {
+func (ff FromFormat) mapToParameter(parameter formatV2M0.Parameter, ws workspaceHandler) (kbEnt.Parameter, error) {
 	now := time.Now()
 	p := kbEnt.Parameter{
 		BaseInfo: kbEnt.BaseInfo{
@@ -37,9 +37,9 @@ func (ff FromFormat) extractParameter(parameter formatV2M0.Parameter, ws workspa
 		DefaultValue: parameter.DefaultValue,
 	}
 
-	t, err := ff.extractParameterType(parameter.Type)
+	t, err := ff.mapToParameterType(parameter.Type)
 	if err != nil {
-		ff.lg.Error(errMsgs.ExtractParameterTypeFail, zap.Error(err))
+		ff.lg.Error(errMsgs.MappingParameterTypeFail, zap.Error(err))
 		return kbEnt.Parameter{}, err
 	}
 	p.Type = t

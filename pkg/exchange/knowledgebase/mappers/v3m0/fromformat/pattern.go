@@ -1,4 +1,4 @@
-package importer
+package fromformat
 
 import (
 	"time"
@@ -10,11 +10,11 @@ import (
 	formatV3M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v3m0"
 )
 
-func (im Importer) processPatterns(patterns []formatV3M0.Pattern, ws workspaceHandler) error {
+func (ff FromFormat) processPatterns(patterns []formatV3M0.Pattern, ws workspaceHandler) error {
 	for _, v := range patterns {
-		pattern, err := im.extractPattern(v, ws)
+		pattern, err := ff.mapToPattern(v, ws)
 		if err != nil {
-			im.lg.Error(errMsgs.ParsingPatternFromXMLFail, zap.Error(err))
+			ff.lg.Error(errMsgs.MappingPatternFail, zap.Error(err))
 			return err
 		}
 		ws.AddPattern(pattern)
@@ -22,7 +22,7 @@ func (im Importer) processPatterns(patterns []formatV3M0.Pattern, ws workspaceHa
 	return nil
 }
 
-func (im Importer) extractPattern(pattern formatV3M0.Pattern, ws workspaceHandler) (kbEnt.Pattern, error) {
+func (ff FromFormat) mapToPattern(pattern formatV3M0.Pattern, ws workspaceHandler) (kbEnt.Pattern, error) {
 	p := kbEnt.Pattern{
 		BaseInfo: kbEnt.BaseInfo{
 			UUID:         ws.CreatePatternUUID(pattern.ID),
@@ -35,30 +35,30 @@ func (im Importer) extractPattern(pattern formatV3M0.Pattern, ws workspaceHandle
 		Script: pattern.Script,
 	}
 
-	patternType, err := im.extractPatternType(pattern.Type)
+	patternType, err := ff.mapToPatternType(pattern.Type)
 	if err != nil {
-		im.lg.Error(errMsgs.ExtractPatternTypeFail, zap.Error(err))
+		ff.lg.Error(errMsgs.MappingPatternTypeFail, zap.Error(err))
 		return kbEnt.Pattern{}, err
 	}
 	p.Type = patternType
 
-	scriptLanguageType, err := im.extractScriptLanguageType(pattern.Type)
+	scriptLanguageType, err := ff.mapToScriptLanguageType(pattern.Type)
 	if err != nil {
-		im.lg.Error(errMsgs.ExtractScriptLanguageTypeInXML, zap.Error(err))
+		ff.lg.Error(errMsgs.MappingScriptLanguageTypeFail, zap.Error(err))
 		return kbEnt.Pattern{}, err
 	}
 	p.ScriptLanguage = scriptLanguageType
 
-	inputParameters, err := im.extractPatternParameters(pattern.InputParameters.InputParameters)
+	inputParameters, err := ff.mapToPatternParameters(pattern.InputParameters.InputParameters)
 	if err != nil {
-		im.lg.Error(errMsgs.ParsingRelationParametersFromXMLFail, zap.Error(err))
+		ff.lg.Error(errMsgs.MappingRelationParametersFail, zap.Error(err))
 		return kbEnt.Pattern{}, err
 	}
 	p.InputParameters = inputParameters
 
-	outputParameters, err := im.extractPatternParameters(pattern.OutputParameters.OutputParameters)
+	outputParameters, err := ff.mapToPatternParameters(pattern.OutputParameters.OutputParameters)
 	if err != nil {
-		im.lg.Error(errMsgs.ParsingRelationParametersFromXMLFail, zap.Error(err))
+		ff.lg.Error(errMsgs.MappingRelationParametersFail, zap.Error(err))
 		return kbEnt.Pattern{}, err
 	}
 	p.OutputParameters = outputParameters
@@ -67,12 +67,12 @@ func (im Importer) extractPattern(pattern formatV3M0.Pattern, ws workspaceHandle
 
 }
 
-func (im Importer) extractPatternParameters(parameters []formatV3M0.ParameterPattern) ([]kbEnt.ParameterPattern, error) {
+func (ff FromFormat) mapToPatternParameters(parameters []formatV3M0.ParameterPattern) ([]kbEnt.ParameterPattern, error) {
 	var ps []kbEnt.ParameterPattern
 	for _, v := range parameters {
-		parameterType, err := im.extractParameterType(v.Type)
+		parameterType, err := ff.mapToParameterType(v.Type)
 		if err != nil {
-			im.lg.Error(errMsgs.ExtractParameterTypeFail, zap.Error(err))
+			ff.lg.Error(errMsgs.MappingParameterTypeFail, zap.Error(err))
 			return []kbEnt.ParameterPattern{}, err
 		}
 		ps = append(ps, kbEnt.ParameterPattern{

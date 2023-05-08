@@ -8,7 +8,7 @@ import (
 	errMsgs "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors/messages"
 )
 
-func (ff FromFormat) extractPatternType(base string) (types.PatternType, error) {
+func (ff FromFormat) mapToPatternType(base string) (types.PatternType, error) {
 	switch base {
 	case "constr":
 		return types.Constraint, nil
@@ -19,21 +19,21 @@ func (ff FromFormat) extractPatternType(base string) (types.PatternType, error) 
 	case "simple":
 		return types.Formula, nil
 	default:
-		err := errors.NewUnknownPatternTypeInXMLErr(base)
-		ff.lg.Error(errMsgs.UnknownPatternTypeInXML, zap.Error(err))
+		err := errors.NewUnknownPatternTypeErr(base)
+		ff.lg.Error(errMsgs.UnknownPatternType, zap.Error(err))
 		return 0, err
 	}
 }
 
-func (ff FromFormat) extractParameterType(base string) (types.ParameterType, error) {
+func (ff FromFormat) mapToParameterType(base string) (types.ParameterType, error) {
 	switch base {
 	case "double":
 		return types.Double, nil
 	case "string":
 		return types.String, nil
 	default:
-		err := errors.NewUnknownParameterTypeInXMLErr(base)
-		ff.lg.Error(errMsgs.UnknownParameterTypeInXML, zap.Error(err))
+		err := errors.NewUnknownParameterTypeErr(base)
+		ff.lg.Error(errMsgs.UnknownParameterType, zap.Error(err))
 		return 0, err
 	}
 }

@@ -1,3 +1,4 @@
+// TODO обработка ошибок
 package parser
 
 import (
@@ -10,6 +11,7 @@ import (
 	kbEnt "github.com/anondigriz/mogan-core/pkg/entities/containers/knowledgebase"
 	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/detector"
 	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors"
+	errMsgs "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors/messages"
 	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/parser/v2m0"
 	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/parser/v3m0"
 )
@@ -64,8 +66,9 @@ func (p Parser) Parse(ctx context.Context, args ParseXMLArgs) (kbEnt.Container, 
 	case versionV3M0:
 		break
 	default:
-		p.lg.Error("unsupported format XML version", zap.Error(err))
-		return kbEnt.Container{}, errors.NewUnsupportedFormatXMLVersionErr(ver)
+		err := errors.NewUnsupportedFormatXMLVersionErr(ver)
+		p.lg.Error(errMsgs.UnsupportedFormatXMLVersion, zap.Error(err))
+		return kbEnt.Container{}, err
 	}
 
 	err = p.seekFileToBegin(args)

@@ -1,4 +1,4 @@
-package importer
+package fromformat
 
 import (
 	kbEnt "github.com/anondigriz/mogan-core/pkg/entities/containers/knowledgebase"

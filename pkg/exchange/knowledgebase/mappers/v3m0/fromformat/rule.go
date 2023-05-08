@@ -1,4 +1,4 @@
-package importer
+package fromformat
 
 import (
 	"time"
@@ -11,11 +11,11 @@ import (
 	formatV3M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v3m0"
 )
 
-func (im Importer) processRules(rules []formatV3M0.Rule, ws workspaceHandler) error {
+func (ff FromFormat) processRules(rules []formatV3M0.Rule, ws workspaceHandler) error {
 	for _, v := range rules {
-		rule, err := im.extractRule(v, ws)
+		rule, err := ff.mapToRule(v, ws)
 		if err != nil {
-			im.lg.Error(errMsgs.ParsingRulesFromXMLFail, zap.Error(err))
+			ff.lg.Error(errMsgs.MappingRulesFail, zap.Error(err))
 			return err
 		}
 		ws.AddRule(rule)
@@ -24,7 +24,7 @@ func (im Importer) processRules(rules []formatV3M0.Rule, ws workspaceHandler) er
 	return nil
 }
 
-func (im Importer) extractRule(rule formatV3M0.Rule, ws workspaceHandler) (kbEnt.Rule, error) {
+func (ff FromFormat) mapToRule(rule formatV3M0.Rule, ws workspaceHandler) (kbEnt.Rule, error) {
 	r := kbEnt.Rule{
 		BaseInfo: kbEnt.BaseInfo{
 			UUID:         ws.CreateRuleUUID(),
@@ -39,18 +39,18 @@ func (im Importer) extractRule(rule formatV3M0.Rule, ws workspaceHandler) (kbEnt
 	patternUUID, ok := ws.GetPatternUUID(rule.PatternID)
 	if !ok {
 		err := errors.NewRelationNotFoundForRuleErr(rule.ID, rule.PatternID)
-		im.lg.Error(errMsgs.RelationNotFoundForRule, zap.Error(err))
+		ff.lg.Error(errMsgs.RelationNotFoundForRule, zap.Error(err))
 		return kbEnt.Rule{}, err
 	}
 	r.PatternUUID = patternUUID
 
-	r.InputParameters = im.extractRuleParameters(rule.InputParameters.InputParameters, ws)
-	r.OutputParameters = im.extractRuleParameters(rule.OutputParameters.OutputParameters, ws)
+	r.InputParameters = ff.mapToRuleParameters(rule.InputParameters.InputParameters, ws)
+	r.OutputParameters = ff.mapToRuleParameters(rule.OutputParameters.OutputParameters, ws)
 
 	return r, nil
 }
 
-func (im Importer) extractRuleParameters(parameters []formatV3M0.ParameterRule, ws workspaceHandler) []kbEnt.ParameterRule {
+func (ff FromFormat) mapToRuleParameters(parameters []formatV3M0.ParameterRule, ws workspaceHandler) []kbEnt.ParameterRule {
 	var ps []kbEnt.ParameterRule
 	for _, v := range parameters {
 		ps = append(ps, kbEnt.ParameterRule{

@@ -10,13 +10,13 @@ import (
 func (ff FromFormat) processModel(model formatV2M0.Model, ws workspaceHandler) error {
 	err := ff.processRelations(model.Relations.Relations, ws)
 	if err != nil {
-		ff.lg.Error(errMsgs.ParsingRelationsFromXMLFail, zap.Error(err))
+		ff.lg.Error(errMsgs.MappingRelationsFail, zap.Error(err))
 		return err
 	}
 
 	rootGroup, err := ff.processClass(model.Class, ws)
 	if err != nil {
-		ff.lg.Error(errMsgs.ParsingClassFromXMLFail, zap.Error(err))
+		ff.lg.Error(errMsgs.MappingClassFail, zap.Error(err))
 		return err
 	}
 

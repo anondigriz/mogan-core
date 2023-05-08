@@ -21,20 +21,19 @@ func New(lg *zap.Logger) *FromFormat {
 	return vm
 }
 
-func (ff FromFormat) Import(kbUUID string, model formatV2M0.Model) (kbEnt.Container, error) {
+func (ff FromFormat) Map(kbUUID string, model formatV2M0.Model) (kbEnt.Container, error) {
 	ws := newWorkspace()
-	ws.AddKnowledgeBase(ff.extractKnowledgeBase(model, kbUUID))
+	ws.AddKnowledgeBase(ff.mapToKnowledgeBase(model, kbUUID))
 	err := ff.processModel(model, ws)
 	if err != nil {
-		ff.lg.Error(errMsgs.ImportKnowledgeBaseFromXMLFail, zap.Error(err))
+		ff.lg.Error(errMsgs.MapKnowledgeBaseFail, zap.Error(err))
 		return kbEnt.Container{}, err
 	}
 
 	return ws.cont, nil
-
 }
 
-func (ff FromFormat) extractKnowledgeBase(model formatV2M0.Model, kbUUID string) kbEnt.KnowledgeBase {
+func (ff FromFormat) mapToKnowledgeBase(model formatV2M0.Model, kbUUID string) kbEnt.KnowledgeBase {
 	now := time.Now()
 	return kbEnt.KnowledgeBase{
 		BaseInfo: kbEnt.BaseInfo{

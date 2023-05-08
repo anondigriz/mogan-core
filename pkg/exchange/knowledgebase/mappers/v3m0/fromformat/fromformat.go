@@ -1,4 +1,4 @@
-package importer
+package fromformat
 
 import (
 	"go.uber.org/zap"
@@ -8,22 +8,22 @@ import (
 	formatV3M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v3m0"
 )
 
-type Importer struct {
+type FromFormat struct {
 	lg *zap.Logger
 }
 
-func New(lg *zap.Logger) *Importer {
-	vm := &Importer{
+func New(lg *zap.Logger) *FromFormat {
+	vm := &FromFormat{
 		lg: lg,
 	}
 	return vm
 }
 
-func (im Importer) Import(kbUUID string, kb formatV3M0.KnowledgeBase) (kbEnt.Container, error) {
+func (ff FromFormat) Map(kbUUID string, kb formatV3M0.KnowledgeBase) (kbEnt.Container, error) {
 	ws := newWorkspace()
-	err := im.processKnowledgeBase(kbUUID, kb, ws)
+	err := ff.processKnowledgeBase(kbUUID, kb, ws)
 	if err != nil {
-		im.lg.Error(errMsgs.ImportKnowledgeBaseFromXMLFail, zap.Error(err))
+		ff.lg.Error(errMsgs.MapKnowledgeBaseFail, zap.Error(err))
 		return kbEnt.Container{}, err
 	}
 

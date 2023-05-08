@@ -13,9 +13,9 @@ import (
 
 func (ff FromFormat) processRelations(relations []formatV2M0.Relation, ws workspaceHandler) error {
 	for _, v := range relations {
-		pattern, err := ff.extractPattern(v, ws)
+		pattern, err := ff.mapToPattern(v, ws)
 		if err != nil {
-			ff.lg.Error(errMsgs.ParsingPatternFromXMLFail, zap.Error(err))
+			ff.lg.Error(errMsgs.MappingPatternFail, zap.Error(err))
 			return err
 		}
 		ws.AddPattern(pattern)
@@ -23,7 +23,7 @@ func (ff FromFormat) processRelations(relations []formatV2M0.Relation, ws worksp
 	return nil
 }
 
-func (ff FromFormat) extractPattern(relation formatV2M0.Relation, ws workspaceHandler) (kbEnt.Pattern, error) {
+func (ff FromFormat) mapToPattern(relation formatV2M0.Relation, ws workspaceHandler) (kbEnt.Pattern, error) {
 	now := time.Now()
 	p := kbEnt.Pattern{
 		BaseInfo: kbEnt.BaseInfo{
@@ -38,23 +38,23 @@ func (ff FromFormat) extractPattern(relation formatV2M0.Relation, ws workspaceHa
 		Script:         relation.Script,
 	}
 
-	patternType, err := ff.extractPatternType(relation.RelationType)
+	patternType, err := ff.mapToPatternType(relation.RelationType)
 	if err != nil {
-		ff.lg.Error(errMsgs.ExtractPatternTypeFail, zap.Error(err))
+		ff.lg.Error(errMsgs.MappingPatternTypeFail, zap.Error(err))
 		return kbEnt.Pattern{}, err
 	}
 	p.Type = patternType
 
-	inputParameters, err := ff.extractPatternParameters(relation.InObjects)
+	inputParameters, err := ff.mapToPatternParameters(relation.InObjects)
 	if err != nil {
-		ff.lg.Error(errMsgs.ParsingRelationParametersFromXMLFail, zap.Error(err))
+		ff.lg.Error(errMsgs.MappingRelationParametersFail, zap.Error(err))
 		return kbEnt.Pattern{}, err
 	}
 	p.InputParameters = inputParameters
 
-	outputParameters, err := ff.extractPatternParameters(relation.OutObjects)
+	outputParameters, err := ff.mapToPatternParameters(relation.OutObjects)
 	if err != nil {
-		ff.lg.Error(errMsgs.ParsingRelationParametersFromXMLFail, zap.Error(err))
+		ff.lg.Error(errMsgs.MappingRelationParametersFail, zap.Error(err))
 		return kbEnt.Pattern{}, err
 	}
 	p.OutputParameters = outputParameters
@@ -63,17 +63,17 @@ func (ff FromFormat) extractPattern(relation formatV2M0.Relation, ws workspaceHa
 
 }
 
-func (ff FromFormat) extractPatternParameters(attribute string) ([]kbEnt.ParameterPattern, error) {
+func (ff FromFormat) mapToPatternParameters(attribute string) ([]kbEnt.ParameterPattern, error) {
 	var parameters []kbEnt.ParameterPattern
-	dict, err := ff.extractDictionaryFromAttribute(attribute)
+	dict, err := ff.mapToDictionary(attribute)
 	if err != nil {
 		return []kbEnt.ParameterPattern{}, err
 	}
 
 	for k, v := range dict {
-		parameterType, err := ff.extractParameterType(v)
+		parameterType, err := ff.mapToParameterType(v)
 		if err != nil {
-			ff.lg.Error(errMsgs.ExtractParameterTypeFail, zap.Error(err))
+			ff.lg.Error(errMsgs.MappingParameterTypeFail, zap.Error(err))
 			return []kbEnt.ParameterPattern{}, err
 		}
 

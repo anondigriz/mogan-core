@@ -14,7 +14,7 @@ func (ff FromFormat) processClasses(classes []formatV2M0.Class, parentGroup *kbE
 	for _, v := range classes {
 		childGroup, err := ff.processClass(v, ws)
 		if err != nil {
-			ff.lg.Error(errMsgs.ParsingClassFromXMLFail, zap.Error(err))
+			ff.lg.Error(errMsgs.MappingClassFail, zap.Error(err))
 			return err
 		}
 		parentGroup.Groups = append(parentGroup.Groups, childGroup)
@@ -24,32 +24,32 @@ func (ff FromFormat) processClasses(classes []formatV2M0.Class, parentGroup *kbE
 }
 
 func (ff FromFormat) processClass(class formatV2M0.Class, ws workspaceHandler) (kbEnt.Group, error) {
-	group := ff.extractGroup(class, ws)
+	group := ff.mapToGroup(class, ws)
 
 	if err := ff.processParameters(class.Parameters.Parameters, &group, ws); err != nil {
-		ff.lg.Error(errMsgs.ParsingParametersFromXMLFail, zap.Error(err))
+		ff.lg.Error(errMsgs.MappingParametersFail, zap.Error(err))
 		return kbEnt.Group{}, err
 	}
 
 	if err := ff.processClasses(class.Classes.Classes, &group, ws); err != nil {
-		ff.lg.Error(errMsgs.ParsingClassesFromXMLFail, zap.Error(err))
+		ff.lg.Error(errMsgs.MappingClassesFail, zap.Error(err))
 		return kbEnt.Group{}, err
 	}
 
 	if err := ff.processRules(class.Rules.Rules, &group, ws); err != nil {
-		ff.lg.Error(errMsgs.ParsingRulesFromXMLFail, zap.Error(err))
+		ff.lg.Error(errMsgs.MappingRulesFail, zap.Error(err))
 		return kbEnt.Group{}, err
 	}
 
 	if err := ff.processRules(class.Constraints.Constraints, &group, ws); err != nil {
-		ff.lg.Error(errMsgs.ParsingConstraintsFromXMLFail, zap.Error(err))
+		ff.lg.Error(errMsgs.MappingConstraintsFail, zap.Error(err))
 		return kbEnt.Group{}, err
 	}
 
 	return group, nil
 }
 
-func (ff FromFormat) extractGroup(class formatV2M0.Class, ws workspaceHandler) kbEnt.Group {
+func (ff FromFormat) mapToGroup(class formatV2M0.Class, ws workspaceHandler) kbEnt.Group {
 	now := time.Now()
 	g := kbEnt.Group{
 		BaseInfo: kbEnt.BaseInfo{

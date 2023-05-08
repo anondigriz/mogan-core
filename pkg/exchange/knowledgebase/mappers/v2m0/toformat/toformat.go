@@ -25,10 +25,9 @@ func (tf ToFormat) Export(knowledgeBase kbEnt.Container) (formatV2M0.Model, erro
 
 	err := tf.processKnowledgeBase(knowledgeBase, model, ws)
 	if err != nil {
-		tf.lg.Error(errMsgs.ExportKnowledgeBaseToXMLFail, zap.Error(err))
+		tf.lg.Error(errMsgs.MapKnowledgeBaseFail, zap.Error(err))
 		return formatV2M0.Model{}, err
 	}
 
 	return *model, nil
-
 }
