@@ -19,11 +19,11 @@ func New(lg *zap.Logger) *ToFormat {
 	return vm
 }
 
-func (tf ToFormat) Export(knowledgeBase kbEnt.Container) (formatV2M0.Model, error) {
+func (tf ToFormat) Map(knowledgeBase kbEnt.Container) (formatV2M0.Model, error) {
 	model := &formatV2M0.Model{}
 	ws := newWorkspace()
 
-	err := tf.processKnowledgeBase(knowledgeBase, model, ws)
+	err := tf.processContainer(knowledgeBase, model, ws)
 	if err != nil {
 		tf.lg.Error(errMsgs.MapKnowledgeBaseFail, zap.Error(err))
 		return formatV2M0.Model{}, err

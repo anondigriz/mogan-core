@@ -4,10 +4,12 @@ import (
 	"embed"
 	"io"
 
-	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors"
 	"github.com/lestrrat-go/libxml2"
 	"github.com/lestrrat-go/libxml2/xsd"
 	"go.uber.org/zap"
+
+	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors"
+	errMsgs "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors/messages"
 )
 
 //go:embed schemes/*.xsd
@@ -21,7 +23,7 @@ type Validator struct {
 func New(lg *zap.Logger) (*Validator, error) {
 	xsdFileV2M0, err := embedSchemes.Open("schemes/v2m0.xsd")
 	if err != nil {
-		lg.Error("open XSD file was failed", zap.Error(err))
+		lg.Error(errMsgs.OpeningXSDFail, zap.Error(err))
 		return nil, errors.NewOpeningXSDFailErr(err)
 	}
 	defer xsdFileV2M0.Close()
@@ -40,25 +42,25 @@ func New(lg *zap.Logger) (*Validator, error) {
 func (v *Validator) ValidateV2M0(xmlFile io.Reader) error {
 	s, err := xsd.Parse(v.xsdFileBufV2M0)
 	if err != nil {
-		v.lg.Error("failed to parse XSD file", zap.Error(err))
+		v.lg.Error(errMsgs.ParsingXSDFail, zap.Error(err))
 		return errors.NewParsingXSDFailErr(err)
 	}
 	defer s.Free()
 
 	buf, err := io.ReadAll(xmlFile)
 	if err != nil {
-		v.lg.Error("failed to read XML file", zap.Error(err))
+		v.lg.Error(errMsgs.ReadingXMLFail, zap.Error(err))
 		return errors.NewReadingXMLFailErr(err)
 	}
 	d, err := libxml2.Parse(buf)
 	if err != nil {
-		v.lg.Error("failed to parse XML file", zap.Error(err))
-		return errors.NewParsingXMLFailErr("failed to parse XML file", err)
+		v.lg.Error(errMsgs.ParsingXMLFail, zap.Error(err))
+		return errors.NewReadingXMLFailErr(err)
 	}
 	defer d.Free()
 
 	if err = s.Validate(d); err != nil {
-		v.lg.Error("validation failed", zap.Error(err))
+		v.lg.Error(errMsgs.ValidationXMLFail, zap.Error(err))
 		return errors.NewValidationXMLFailErr(err, err.(xsd.SchemaValidationError).Errors())
 	}
 	return nil

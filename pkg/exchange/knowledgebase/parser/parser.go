@@ -1,9 +1,7 @@
-// TODO обработка ошибок
 package parser
 
 import (
 	"bufio"
-	"context"
 	"io"
 
 	"go.uber.org/zap"
@@ -12,25 +10,15 @@ import (
 	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/detector"
 	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors"
 	errMsgs "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors/messages"
+	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats"
 	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/parser/v2m0"
 	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/parser/v3m0"
 )
 
-const (
-	versionV2M0 = "2.0"
-	versionV3M0 = "3.0"
-)
-
 type ParseXMLArgs struct {
 	KnowledgeBaseUUID string
-	XMLFile           XMLFile
+	XMLFile           io.ReadSeekCloser
 	FileName          string
-}
-
-type XMLFile interface {
-	io.Reader
-	io.Seeker
-	io.Closer
 }
 
 type Parser struct {
@@ -52,18 +40,18 @@ func New(lg *zap.Logger) *Parser {
 	return p
 }
 
-func (p Parser) Parse(ctx context.Context, args ParseXMLArgs) (kbEnt.Container, error) {
+func (p Parser) Parse(args ParseXMLArgs) (kbEnt.Container, error) {
 	scanner := bufio.NewScanner(args.XMLFile)
 	ver, err := p.detector.DetectVersion(scanner)
 	if err != nil {
-		p.lg.Error("xml exchange document file version could not be detected", zap.Error(err))
+		p.lg.Error(errMsgs.DetectVersionFail, zap.Error(err))
 		return kbEnt.Container{}, err
 	}
 
 	switch ver {
-	case versionV2M0:
+	case string(formats.VersionV2M0):
 		break
-	case versionV3M0:
+	case string(formats.VersionV3M0):
 		break
 	default:
 		err := errors.NewUnsupportedFormatXMLVersionErr(ver)
@@ -71,20 +59,20 @@ func (p Parser) Parse(ctx context.Context, args ParseXMLArgs) (kbEnt.Container, 
 		return kbEnt.Container{}, err
 	}
 
-	err = p.seekFileToBegin(args)
+	err = p.returnToXMLFileBegin(args)
 	if err != nil {
-		p.lg.Error("fail to seek file to the begin", zap.Error(err))
+		p.lg.Error(errMsgs.ReturnToXMLFileBeginFail, zap.Error(err))
 		return kbEnt.Container{}, err
 	}
 
 	return p.parseVersion(args, ver)
 }
 
-func (p Parser) seekFileToBegin(args ParseXMLArgs) error {
+func (p Parser) returnToXMLFileBegin(args ParseXMLArgs) error {
 	_, err := args.XMLFile.Seek(0, 0)
 	if err != nil {
 		if err != nil {
-			p.lg.Error("fail to reset the XML file reading stream to the beginning", zap.Error(err))
+			p.lg.Error(errMsgs.ReturnToXMLFileBeginFail, zap.Error(err))
 			return errors.NewReadingXMLFailErr(err)
 		}
 	}
@@ -95,14 +83,14 @@ func (p Parser) parseVersion(args ParseXMLArgs, ver string) (kbEnt.Container, er
 	content, err := io.ReadAll(args.XMLFile)
 	if err != nil {
 		if err != nil {
-			p.lg.Error("fail to read the XML file from stream", zap.Error(err))
+			p.lg.Error(errMsgs.ReadingXMLFail, zap.Error(err))
 			return kbEnt.Container{}, errors.NewReadingXMLFailErr(err)
 		}
 	}
 	var cont kbEnt.Container
 
 	switch ver {
-	case versionV2M0:
+	case string(formats.VersionV2M0):
 		cont, err = p.v2m0.ParseXML(args.KnowledgeBaseUUID, content)
 	default:
 		cont, err = p.v3m0.ParseXML(args.KnowledgeBaseUUID, content)
@@ -110,8 +98,8 @@ func (p Parser) parseVersion(args ParseXMLArgs, ver string) (kbEnt.Container, er
 
 	if err != nil {
 		if err != nil {
-			p.lg.Error("fail to parse the XML file", zap.Error(err))
-			return kbEnt.Container{}, errors.NewParsingXMLFailErr("fail to parse the XML file", err)
+			p.lg.Error(errMsgs.ParsingXMLFail, zap.Error(err))
+			return kbEnt.Container{}, err
 		}
 	}
 	return cont, nil
