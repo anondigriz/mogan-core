@@ -2,15 +2,15 @@ package toformat
 
 import (
 	uuidGen "github.com/google/uuid"
+	"go.uber.org/zap"
 
 	kbEnt "github.com/anondigriz/mogan-core/pkg/entities/containers/knowledgebase"
 	errMsgs "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors/messages"
 	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats"
 	formatV2M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v2m0"
-	"go.uber.org/zap"
 )
 
-func (tf ToFormat) processContainer(cont kbEnt.Container, model *formatV2M0.Model, ws workspaceHandler) error {
+func (tf ToFormat) processContainer(model *formatV2M0.Model, cont kbEnt.Container, ws workspaceHandler) error {
 	tf.prepareModel(model, cont, ws)
 	tf.warmUpWorkspace(cont, ws)
 

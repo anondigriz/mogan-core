@@ -8,19 +8,19 @@ import (
 	"github.com/anondigriz/mogan-core/pkg/entities/types"
 	"github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors"
 	errMsgs "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors/messages"
-	formatV2M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v2m0"
+	formatV3M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v3m0"
 )
 
-func (tf ToFormat) mapToRelationType(base types.PatternType) (string, error) {
+func (tf ToFormat) mapToPatternType(base types.PatternType) (string, error) {
 	switch base {
 	case types.Program:
-		return string(formatV2M0.Prog), nil
+		return string(formatV3M0.Program), nil
 	case types.Constraint:
-		return string(formatV2M0.Constr), nil
+		return string(formatV3M0.Constraint), nil
 	case types.Formula:
-		return string(formatV2M0.Simple), nil
+		return string(formatV3M0.Formula), nil
 	case types.IfThenElse:
-		return string(formatV2M0.Ifclause), nil
+		return string(formatV3M0.IfThenElse), nil
 	default:
 		err := errors.NewTypeIsNotSupportedByFormatErr(strconv.Itoa(int(base)))
 		tf.lg.Error(errMsgs.TypeIsNotSupportedByFormat, zap.Error(err))
@@ -31,17 +31,13 @@ func (tf ToFormat) mapToRelationType(base types.PatternType) (string, error) {
 func (tf ToFormat) mapToParameterType(base types.ParameterType) (string, error) {
 	switch base {
 	case types.Double:
-		return string(formatV2M0.Double), nil
+		return string(formatV3M0.Double), nil
 	case types.String:
-		return string(formatV2M0.String), nil
+		return string(formatV3M0.String), nil
 	case types.Boolean:
-		err := errors.NewTypeIsNotSupportedByFormatErr("Boolean")
-		tf.lg.Error(errMsgs.TypeIsNotSupportedByFormat, zap.Error(err))
-		return "", err
+		return string(formatV3M0.Boolean), nil
 	case types.BigInteger:
-		err := errors.NewTypeIsNotSupportedByFormatErr("BigInteger")
-		tf.lg.Error(errMsgs.TypeIsNotSupportedByFormat, zap.Error(err))
-		return "", err
+		return string(formatV3M0.BigInteger), nil
 	default:
 		err := errors.NewTypeIsNotSupportedByFormatErr(strconv.Itoa(int(base)))
 		tf.lg.Error(errMsgs.TypeIsNotSupportedByFormat, zap.Error(err))
@@ -54,9 +50,7 @@ func (tf ToFormat) isAllowedScriptLanguageType(base types.ScriptLanguageType) er
 	case types.JS:
 		return nil
 	case types.Lua:
-		err := errors.NewTypeIsNotSupportedByFormatErr("Lua")
-		tf.lg.Error(errMsgs.TypeIsNotSupportedByFormat, zap.Error(err))
-		return err
+		return nil
 	default:
 		err := errors.NewTypeIsNotSupportedByFormatErr(strconv.Itoa(int(base)))
 		tf.lg.Error(errMsgs.TypeIsNotSupportedByFormat, zap.Error(err))

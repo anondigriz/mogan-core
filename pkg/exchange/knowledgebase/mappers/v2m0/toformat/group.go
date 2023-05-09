@@ -1,10 +1,11 @@
 package toformat
 
 import (
+	"go.uber.org/zap"
+
 	kbEnt "github.com/anondigriz/mogan-core/pkg/entities/containers/knowledgebase"
 	errMsgs "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors/messages"
 	formatV2M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v2m0"
-	"go.uber.org/zap"
 )
 
 type processGroupsArgs struct {

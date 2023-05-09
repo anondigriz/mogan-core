@@ -5,7 +5,7 @@ import (
 
 	kbEnt "github.com/anondigriz/mogan-core/pkg/entities/containers/knowledgebase"
 	errMsgs "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors/messages"
-	formatV2M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v2m0"
+	formatV3M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v3m0"
 )
 
 type ToFormat struct {
@@ -19,15 +19,15 @@ func New(lg *zap.Logger) *ToFormat {
 	return vm
 }
 
-func (tf ToFormat) Map(cont kbEnt.Container) (formatV2M0.Model, error) {
-	model := &formatV2M0.Model{}
+func (tf ToFormat) Map(cont kbEnt.Container) (formatV3M0.KnowledgeBase, error) {
+	knowledgeBase := &formatV3M0.KnowledgeBase{}
 	ws := newWorkspace()
 
-	err := tf.processContainer(model, cont, ws)
+	err := tf.processContainer(knowledgeBase, cont, ws)
 	if err != nil {
 		tf.lg.Error(errMsgs.MapKnowledgeBaseFail, zap.Error(err))
-		return formatV2M0.Model{}, err
+		return formatV3M0.KnowledgeBase{}, err
 	}
 
-	return *model, nil
+	return *knowledgeBase, nil
 }
