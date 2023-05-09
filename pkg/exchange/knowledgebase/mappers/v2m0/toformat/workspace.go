@@ -12,7 +12,6 @@ type identifyInfo struct {
 }
 
 type processingMarks struct {
-	rules      map[string]bool
 	parameters map[string]bool
 }
 
@@ -29,13 +28,9 @@ type workspaceHandler interface {
 	CheckAndRememberPattern(pattern kbEnt.Pattern) error
 	CheckAndRememberRule(rule kbEnt.Rule) error
 	SaveUnprocessedParameters(parameters []string)
-	SaveUnprocessedRules(rules []string)
 	IsProcessedParameters(uuid string) bool
-	IsProcessedRules(uuid string) bool
 	SetProcessedParameters(uuid string)
-	SetProcessedRules(uuid string)
 	GetUnprocessedParameters() []string
-	GetUnprocessedRules() []string
 }
 
 type workspace struct {
@@ -52,7 +47,6 @@ func newWorkspace() *workspace {
 	ws.mapping.rules = map[string]identifyInfo{}
 
 	ws.marks.parameters = map[string]bool{}
-	ws.marks.rules = map[string]bool{}
 
 	return ws
 }
@@ -143,41 +137,17 @@ func (ws *workspace) SaveUnprocessedParameters(parameters []string) {
 	}
 }
 
-func (ws *workspace) SaveUnprocessedRules(rules []string) {
-	for _, v := range rules {
-		ws.marks.rules[v] = false
-	}
-}
-
 func (ws *workspace) IsProcessedParameters(uuid string) bool {
 	return ws.marks.parameters[uuid]
-}
-
-func (ws *workspace) IsProcessedRules(uuid string) bool {
-	return ws.marks.rules[uuid]
 }
 
 func (ws *workspace) SetProcessedParameters(uuid string) {
 	ws.marks.parameters[uuid] = true
 }
 
-func (ws *workspace) SetProcessedRules(uuid string) {
-	ws.marks.rules[uuid] = true
-}
-
 func (ws workspace) GetUnprocessedParameters() []string {
 	result := []string{}
 	for k, v := range ws.marks.parameters {
-		if !v {
-			result = append(result, k)
-		}
-	}
-	return result
-}
-
-func (ws workspace) GetUnprocessedRules() []string {
-	result := []string{}
-	for k, v := range ws.marks.rules {
 		if !v {
 			result = append(result, k)
 		}

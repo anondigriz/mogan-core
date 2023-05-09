@@ -46,17 +46,6 @@ func (tf ToFormat) processGroup(args processGroupArgs) error {
 		return err
 	}
 
-	err = tf.processRules(processRulesArgs{
-		cont:        args.cont,
-		parentGroup: args.group,
-		parentClass: &c,
-		ws:          args.ws,
-	})
-	if err != nil {
-		tf.lg.Error(errMsgs.MappingRulesFail, zap.Error(err))
-		return err
-	}
-
 	err = tf.processParameters(processParametersArgs{
 		cont:        args.cont,
 		parentGroup: args.group,

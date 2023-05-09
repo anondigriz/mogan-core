@@ -63,18 +63,15 @@ func (ToFormat) warmUpWorkspace(cont kbEnt.Container, ws workspaceHandler) {
 		unprocessedParameters = append(unprocessedParameters, k)
 	}
 	ws.SaveUnprocessedParameters(unprocessedParameters)
-
-	unprocessedRules := []string{}
-	for k := range cont.Rules {
-		unprocessedRules = append(unprocessedRules, k)
-	}
-	ws.SaveUnprocessedRules(unprocessedRules)
 }
 
 func (tf ToFormat) processRootClass(cont kbEnt.Container, model *formatV2M0.Model, ws workspaceHandler) error {
 	rootGroup := kbEnt.Group{}
+
 	rootGroup.Parameters = append(rootGroup.Parameters, ws.GetUnprocessedParameters()...)
-	rootGroup.Rules = append(rootGroup.Rules, ws.GetUnprocessedRules()...)
+	for k := range cont.Rules {
+		rootGroup.Rules = append(rootGroup.Rules, k)
+	}
 
 	err := tf.processRules(processRulesArgs{
 		cont:        cont,

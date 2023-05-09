@@ -23,7 +23,7 @@ type processRulesArgs struct {
 func (tf ToFormat) processRules(args processRulesArgs) error {
 	for _, v := range args.parentGroup.Rules {
 		rule, ok := args.cont.Rules[v]
-		if !ok || args.ws.IsProcessedRules(rule.UUID) {
+		if !ok {
 			continue
 		}
 
@@ -45,7 +45,6 @@ func (tf ToFormat) processRules(args processRulesArgs) error {
 		} else {
 			args.parentClass.Rules.Rules = append(args.parentClass.Rules.Rules, r)
 		}
-		args.ws.SetProcessedRules(rule.UUID)
 	}
 	return nil
 }
