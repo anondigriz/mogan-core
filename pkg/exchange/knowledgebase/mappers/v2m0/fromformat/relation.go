@@ -1,6 +1,8 @@
 package fromformat
 
 import (
+	"fmt"
+	"strings"
 	"time"
 
 	"go.uber.org/zap"
@@ -59,8 +61,23 @@ func (ff FromFormat) mapToPattern(relation formatV2M0.Relation, ws workspaceHand
 	}
 	p.OutputParameters = outputParameters
 
-	return p, nil
+	if relation.RelationType == string(formatV2M0.Simple) || relation.RelationType == string(formatV2M0.Ifclause) {
+		p.Script = ff.convertScriptToProgramType(p.Script, inputParameters, outputParameters)
+	}
 
+	return p, nil
+}
+
+func (ff FromFormat) convertScriptToProgramType(script string, input []kbEnt.ParameterPattern, output []kbEnt.ParameterPattern) string {
+	vars := make([]string, 0, len(input)+len(output))
+	for _, v := range input {
+		vars = append(vars, v.ShortName)
+	}
+	for _, v := range output {
+		vars = append(vars, v.ShortName)
+	}
+	result := fmt.Sprintf("var %s;\n%s", strings.Join(vars, ", "), script)
+	return result
 }
 
 func (ff FromFormat) mapToPatternParameters(attribute string) ([]kbEnt.ParameterPattern, error) {

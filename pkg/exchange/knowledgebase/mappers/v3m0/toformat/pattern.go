@@ -28,11 +28,6 @@ func (tf ToFormat) mapToPattern(pattern kbEnt.Pattern, ws workspaceHandler) (for
 		return formatV3M0.Pattern{}, err
 	}
 
-	if err := tf.isAllowedScriptLanguageType(pattern.ScriptLanguage); err != nil {
-		tf.lg.Error(errMsgs.TypeIsNotSupportedByFormat, zap.Error(err))
-		return formatV3M0.Pattern{}, err
-	}
-
 	p := formatV3M0.Pattern{
 		BaseInfo: formatV3M0.BaseInfo{
 			ID:           pattern.BaseInfo.ID,
@@ -43,6 +38,13 @@ func (tf ToFormat) mapToPattern(pattern kbEnt.Pattern, ws workspaceHandler) (for
 		},
 		Script: pattern.Script,
 	}
+
+	scriptLanguageType, err := tf.mapToScriptLanguageType(pattern.ScriptLanguage)
+	if err != nil {
+		tf.lg.Error(errMsgs.TypeIsNotSupportedByFormat, zap.Error(err))
+		return formatV3M0.Pattern{}, err
+	}
+	p.Language = scriptLanguageType
 
 	patternType, err := tf.mapToPatternType(pattern.Type)
 	if err != nil {

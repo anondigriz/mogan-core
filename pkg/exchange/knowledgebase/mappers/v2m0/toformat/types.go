@@ -17,10 +17,6 @@ func (tf ToFormat) mapToRelationType(base types.PatternType) (string, error) {
 		return string(formatV2M0.Prog), nil
 	case types.Constraint:
 		return string(formatV2M0.Constr), nil
-	case types.Formula:
-		return string(formatV2M0.Simple), nil
-	case types.IfThenElse:
-		return string(formatV2M0.Ifclause), nil
 	default:
 		err := errors.NewTypeIsNotSupportedByFormatErr(strconv.Itoa(int(base)))
 		tf.lg.Error(errMsgs.TypeIsNotSupportedByFormat, zap.Error(err))
@@ -36,10 +32,6 @@ func (tf ToFormat) mapToParameterType(base types.ParameterType) (string, error) 
 		return string(formatV2M0.String), nil
 	case types.Boolean:
 		err := errors.NewTypeIsNotSupportedByFormatErr("Boolean")
-		tf.lg.Error(errMsgs.TypeIsNotSupportedByFormat, zap.Error(err))
-		return "", err
-	case types.BigInteger:
-		err := errors.NewTypeIsNotSupportedByFormatErr("BigInteger")
 		tf.lg.Error(errMsgs.TypeIsNotSupportedByFormat, zap.Error(err))
 		return "", err
 	default:

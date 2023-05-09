@@ -15,10 +15,6 @@ func (ff FromFormat) mapToPatternType(base string) (types.PatternType, error) {
 		return types.Program, nil
 	case string(formatV3M0.Constraint):
 		return types.Constraint, nil
-	case string(formatV3M0.Formula):
-		return types.Formula, nil
-	case string(formatV3M0.IfThenElse):
-		return types.IfThenElse, nil
 	default:
 		err := errors.NewUnknownPatternTypeErr(base)
 		ff.lg.Error(errMsgs.UnknownPatternType, zap.Error(err))
@@ -34,8 +30,6 @@ func (ff FromFormat) mapToParameterType(base string) (types.ParameterType, error
 		return types.Double, nil
 	case string(formatV3M0.Boolean):
 		return types.Boolean, nil
-	case string(formatV3M0.BigInteger):
-		return types.BigInteger, nil
 	default:
 		err := errors.NewUnknownParameterTypeErr(base)
 		ff.lg.Error(errMsgs.UnknownParameterType, zap.Error(err))

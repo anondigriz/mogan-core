@@ -11,15 +11,12 @@ type (
 )
 
 const (
-	String     ParameterType = "String"
-	Double     ParameterType = "Double"
-	Boolean    ParameterType = "Boolean"
-	BigInteger ParameterType = "BigInteger"
+	String  ParameterType = "String"
+	Double  ParameterType = "Double"
+	Boolean ParameterType = "Boolean"
 
 	Program    PatternType = "Program"
 	Constraint PatternType = "Constraint"
-	Formula    PatternType = "Formula"
-	IfThenElse PatternType = "IfThenElse"
 
 	JS  ScriptLanguageType = "JS"
 	Lua ScriptLanguageType = "Lua"

@@ -16,9 +16,9 @@ func (ff FromFormat) mapToPatternType(base string) (types.PatternType, error) {
 	case string(formatV2M0.Constr):
 		return types.Constraint, nil
 	case string(formatV2M0.Simple):
-		return types.Formula, nil
+		return types.Program, nil
 	case string(formatV2M0.Ifclause):
-		return types.IfThenElse, nil
+		return types.Program, nil
 	default:
 		err := errors.NewUnknownPatternTypeErr(base)
 		ff.lg.Error(errMsgs.UnknownPatternType, zap.Error(err))
