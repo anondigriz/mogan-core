@@ -22,7 +22,7 @@ func New(lg *zap.Logger) *V2M0 {
 	return vm
 }
 
-func (vm V2M0) CollectXML(cont *kbEnt.Container) ([]byte, error) {
+func (vm V2M0) CollectXML(cont *kbEnt.Container, prefix, indent string) ([]byte, error) {
 	tf := toformatV2M0.New(vm.lg, cont)
 	model, err := tf.Map()
 	if err != nil {
@@ -30,7 +30,7 @@ func (vm V2M0) CollectXML(cont *kbEnt.Container) ([]byte, error) {
 		return []byte{}, err
 	}
 
-	b, err := xml.MarshalIndent(model, "", "  ")
+	b, err := xml.MarshalIndent(model, prefix, indent)
 	if err != nil {
 		vm.lg.Error(errMsgs.XMLMarshalFail, zap.Error(err))
 		return []byte{}, errors.NewXMLMarshalFailErr(err)

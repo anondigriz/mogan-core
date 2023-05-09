@@ -19,7 +19,7 @@ func (ff *FromFormat) mapToGroup(group formatV3M0.Group) kbEnt.Group {
 			UUID:         ff.ws.CreateGroupUUID(),
 			ID:           group.ID,
 			ShortName:    group.ShortName,
-			Description:  group.Description,
+			Description:  group.Description.Text,
 			CreatedDate:  time.Unix(group.CreatedDate, 0).UTC(),
 			ModifiedDate: time.Unix(group.ModifiedDate, 0).UTC(),
 		},

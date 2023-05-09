@@ -32,7 +32,7 @@ func (tf *ToFormat) mapToRule(rule kbEnt.Rule) (formatV3M0.Rule, error) {
 		BaseInfo: formatV3M0.BaseInfo{
 			ID:           rule.BaseInfo.ID,
 			ShortName:    rule.BaseInfo.ShortName,
-			Description:  rule.BaseInfo.Description,
+			Description:  formatV3M0.Description{Text: rule.BaseInfo.Description},
 			CreatedDate:  rule.CreatedDate.UTC().Unix(),
 			ModifiedDate: rule.ModifiedDate.UTC().Unix(),
 		},

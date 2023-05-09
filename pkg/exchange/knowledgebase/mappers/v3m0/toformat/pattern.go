@@ -32,11 +32,11 @@ func (tf *ToFormat) mapToPattern(pattern kbEnt.Pattern) (formatV3M0.Pattern, err
 		BaseInfo: formatV3M0.BaseInfo{
 			ID:           pattern.BaseInfo.ID,
 			ShortName:    pattern.BaseInfo.ShortName,
-			Description:  pattern.BaseInfo.Description,
+			Description:  formatV3M0.Description{Text: pattern.BaseInfo.Description},
 			CreatedDate:  pattern.CreatedDate.UTC().Unix(),
 			ModifiedDate: pattern.ModifiedDate.UTC().Unix(),
 		},
-		Script: pattern.Script,
+		Script: formatV3M0.Script{Text: pattern.Script},
 	}
 
 	scriptLanguageType, err := tf.mapToScriptLanguageType(pattern.ScriptLanguage)

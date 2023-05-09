@@ -113,7 +113,6 @@ func TestTransformationFromV2M0ToV2M0(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			// TODO test is incomplete and currently only needed for visual verification
 			from, err := os.Open(tt.args.path)
 			assert.NoError(t, err, "fail to open the xml file")
 			defer from.Close()
@@ -144,6 +143,8 @@ func TestTransformationFromV2M0ToV2M0(t *testing.T) {
 				Version: tt.args.toFormat,
 				Cont:    &cont,
 				XMLFile: to,
+				Prefix:  "",
+				Indent:  "  ",
 			})
 			assert.NoError(t, err, "no error was expected when collecting XML file")
 		})

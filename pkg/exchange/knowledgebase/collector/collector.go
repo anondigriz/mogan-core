@@ -18,6 +18,8 @@ type ParseXMLArgs struct {
 	Version formats.Version
 	Cont    *kbEnt.Container
 	XMLFile io.Writer
+	Prefix  string
+	Indent  string
 }
 
 type Collector struct {
@@ -57,10 +59,10 @@ func (c Collector) collectToFormat(args ParseXMLArgs) error {
 	switch args.Version {
 	case formats.VersionV2M0:
 		tf := v2m0.New(c.lg)
-		b, err = tf.CollectXML(args.Cont)
+		b, err = tf.CollectXML(args.Cont, args.Prefix, args.Indent)
 	default:
 		tf := v3m0.New(c.lg)
-		b, err = tf.CollectXML(args.Cont)
+		b, err = tf.CollectXML(args.Cont, args.Prefix, args.Indent)
 	}
 
 	if err != nil {

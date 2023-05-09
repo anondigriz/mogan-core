@@ -11,23 +11,27 @@ type (
 )
 
 const (
-	String  ParameterType = "String"
-	Double  ParameterType = "Double"
-	Boolean ParameterType = "Boolean"
+	String  ParameterType = "string"
+	Double  ParameterType = "double"
+	Boolean ParameterType = "boolean"
 
-	Program    PatternType = "Program"
-	Constraint PatternType = "Constraint"
+	Program    PatternType = "program"
+	Constraint PatternType = "constraint"
 
-	JS  ScriptLanguageType = "JS"
-	Lua ScriptLanguageType = "Lua"
+	JS  ScriptLanguageType = "js"
+	Lua ScriptLanguageType = "lua"
 )
 
+type Description struct {
+	Text string `xml:",cdata"`
+}
+
 type BaseInfo struct {
-	ID           string `xml:"id"`
-	ShortName    string `xml:"shortName"`
-	Description  string `xml:"description"`
-	CreatedDate  int64  `xml:"createdDate"`
-	ModifiedDate int64  `xml:"modifiedDate"`
+	ID           string      `xml:"id"`
+	ShortName    string      `xml:"shortName"`
+	Description  Description `xml:"description"`
+	CreatedDate  int64       `xml:"createdDate"`
+	ModifiedDate int64       `xml:"modifiedDate"`
 }
 
 type KnowledgeBase struct {
@@ -67,11 +71,15 @@ type Parameter struct {
 	DefaultValue string `xml:"defaultValue"`
 }
 
+type Script struct {
+	Text string `xml:",cdata"`
+}
+
 type Pattern struct {
 	BaseInfo
 	Type            string `xml:"type"`
 	Language        string `xml:"language"`
-	Script          string `xml:"script"`
+	Script          Script `xml:"script"`
 	InputParameters struct {
 		InputParameters []ParameterPattern `xml:"parameter"`
 	} `xml:"inputParameters"`

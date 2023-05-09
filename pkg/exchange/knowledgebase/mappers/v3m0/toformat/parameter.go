@@ -32,7 +32,7 @@ func (tf *ToFormat) mapToParameter(parameter kbEnt.Parameter) (formatV3M0.Parame
 		BaseInfo: formatV3M0.BaseInfo{
 			ID:           parameter.BaseInfo.ID,
 			ShortName:    parameter.BaseInfo.ShortName,
-			Description:  parameter.BaseInfo.Description,
+			Description:  formatV3M0.Description{Text: parameter.BaseInfo.Description},
 			CreatedDate:  parameter.CreatedDate.UTC().Unix(),
 			ModifiedDate: parameter.ModifiedDate.UTC().Unix(),
 		},

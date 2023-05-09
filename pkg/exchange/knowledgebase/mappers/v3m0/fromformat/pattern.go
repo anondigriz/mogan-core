@@ -28,11 +28,11 @@ func (ff *FromFormat) mapToPattern(pattern formatV3M0.Pattern) (kbEnt.Pattern, e
 			UUID:         ff.ws.CreatePatternUUID(pattern.ID),
 			ID:           pattern.ID,
 			ShortName:    pattern.ShortName,
-			Description:  pattern.Description,
+			Description:  pattern.Description.Text,
 			CreatedDate:  time.Unix(pattern.CreatedDate, 0).UTC(),
 			ModifiedDate: time.Unix(pattern.ModifiedDate, 0).UTC(),
 		},
-		Script: pattern.Script,
+		Script: pattern.Script.Text,
 	}
 
 	patternType, err := ff.mapToPatternType(pattern.Type)

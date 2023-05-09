@@ -13,7 +13,6 @@ import (
 
 func TestV2M0(t *testing.T) {
 	t.Run("check import from file", func(t *testing.T) {
-		// TODO test is incomplete and currently only needed for visual verification
 		f, err := os.Open("./testdata/model.xml")
 		assert.NoError(t, err, "fail to open the xml file")
 		defer f.Close()

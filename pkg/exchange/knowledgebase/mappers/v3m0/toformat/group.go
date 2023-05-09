@@ -32,7 +32,7 @@ func (tf *ToFormat) mapToGroup(group kbEnt.Group) (formatV3M0.Group, error) {
 		BaseInfo: formatV3M0.BaseInfo{
 			ID:           group.BaseInfo.ID,
 			ShortName:    group.BaseInfo.ShortName,
-			Description:  group.BaseInfo.Description,
+			Description:  formatV3M0.Description{Text: group.BaseInfo.Description},
 			CreatedDate:  group.CreatedDate.UTC().Unix(),
 			ModifiedDate: group.ModifiedDate.UTC().Unix(),
 		},

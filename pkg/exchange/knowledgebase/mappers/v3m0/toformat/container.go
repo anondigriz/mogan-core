@@ -46,7 +46,7 @@ func (tf *ToFormat) prepareKnowledgeBase(knowledgeBase *formatV3M0.KnowledgeBase
 	knowledgeBase.BaseInfo = formatV3M0.BaseInfo{
 		ID:           tf.cont.KnowledgeBase.BaseInfo.ID,
 		ShortName:    tf.cont.KnowledgeBase.BaseInfo.ShortName,
-		Description:  tf.cont.KnowledgeBase.BaseInfo.Description,
+		Description:  formatV3M0.Description{Text: tf.cont.KnowledgeBase.BaseInfo.Description},
 		CreatedDate:  tf.cont.KnowledgeBase.CreatedDate.UTC().Unix(),
 		ModifiedDate: tf.cont.KnowledgeBase.ModifiedDate.UTC().Unix(),
 	}

@@ -30,7 +30,7 @@ func (ff *FromFormat) mapToRule(rule formatV3M0.Rule) (kbEnt.Rule, error) {
 			UUID:         ff.ws.CreateRuleUUID(rule.ID),
 			ID:           rule.ID,
 			ShortName:    rule.ShortName,
-			Description:  rule.Description,
+			Description:  rule.Description.Text,
 			CreatedDate:  time.Unix(rule.CreatedDate, 0).UTC(),
 			ModifiedDate: time.Unix(rule.ModifiedDate, 0).UTC(),
 		},

@@ -30,13 +30,6 @@ func (v *Detector) SetMaxCheckLines(number int) {
 }
 
 func (v *Detector) DetectVersion(scanner *bufio.Scanner) (string, error) {
-	// TODO - если сюда прилетает бинарник, то будет плохо.
-	// Также сюда прилетают файлы в одной строчке (сжатые XML).
-	// Так как сюда прилетают файлы < 10 МБ, то предлагается пока забить.
-	// Также не получается читать N первых байтов, так как аттрибут 'description'
-	// может иметь любую длину, а аттрибут 'formatXmlVersion' может находиться необязательно
-	// в начале.
-	// @anondigriz
 	scanner.Split(bufio.ScanLines)
 
 	var version string

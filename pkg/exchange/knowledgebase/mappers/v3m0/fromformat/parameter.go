@@ -28,7 +28,7 @@ func (ff *FromFormat) mapToParameter(parameter formatV3M0.Parameter) (kbEnt.Para
 			UUID:         ff.ws.GetOrCreateParameterUUID(parameter.ID),
 			ID:           parameter.ID,
 			ShortName:    parameter.ShortName,
-			Description:  parameter.Description,
+			Description:  parameter.Description.Text,
 			CreatedDate:  time.Unix(parameter.CreatedDate, 0).UTC(),
 			ModifiedDate: time.Unix(parameter.ModifiedDate, 0).UTC(),
 		},

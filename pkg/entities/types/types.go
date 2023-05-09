@@ -19,5 +19,5 @@ type ScriptLanguageType int
 
 const (
 	JS  ScriptLanguageType = 0
-	Lua ScriptLanguageType = 1 //TODO
+	Lua ScriptLanguageType = 1
 )

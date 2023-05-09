@@ -38,7 +38,7 @@ func (ff *FromFormat) mapToKnowledgeBase() kbEnt.KnowledgeBase {
 			UUID:         ff.kbUUID,
 			ID:           ff.kb.ID,
 			ShortName:    ff.kb.ShortName,
-			Description:  ff.kb.Description,
+			Description:  ff.kb.Description.Text,
 			CreatedDate:  time.Unix(ff.kb.CreatedDate, 0).UTC(),
 			ModifiedDate: time.Unix(ff.kb.ModifiedDate, 0).UTC(),
 		},
