@@ -4,12 +4,22 @@ go 1.20
 
 require (
 	github.com/go-chi/chi/v5 v5.0.8
+	github.com/google/uuid v1.3.0
 	github.com/jackc/pgx-gofrs-uuid v0.0.0-20230224015001-1d428863c2e2
 	github.com/jackc/pgx-zap v0.0.0-20221202020421-94b1cb2f889f
 	github.com/jackc/pgx/v5 v5.3.1
 	github.com/lestrrat-go/libxml2 v0.0.0-20201123224832-e6d9de61b80d
 	github.com/pressly/goose/v3 v3.10.0
+	github.com/stretchr/testify v1.8.1
 	go.uber.org/zap v1.24.0
+)
+
+require (
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/kr/text v0.2.0 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
+	github.com/rogpeppe/go-internal v1.10.0 // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
 require (

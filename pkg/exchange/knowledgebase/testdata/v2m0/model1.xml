@@ -1,0 +1,48 @@
+<model formatXmlVersion="2.0" id="{fecd4a0c-a8b0-4ccf-bc71-06d2047dba3a}" shortName="a"
+    description="Model 1">
+    <class id="{586cb924-f105-4f61-a6a0-2166c08323e1}" shortName="a">
+        <parameters>
+            <parameter type="double" id="2f813375-757a-4052-901d-159dbfd88aec" shortName="s" />
+            <parameter type="double" id="e845b4c3-7dc3-4fc7-8973-f612088721a5" shortName="a" />
+        </parameters>
+        <rules>
+            <rule id="9def2bf0-f79d-435b-8c4b-204370d80e46" shortName="s_a_b"
+                resultId="s:2f813375-757a-4052-901d-159dbfd88aec"
+                relation="65645023-449e-4014-9ea0-13ef47fe97de"
+                initId="a:e845b4c3-7dc3-4fc7-8973-f612088721a5;b:aa9837ff-592d-4937-a11a-0394c2ff3c6a" />
+        </rules>
+        <constraints>
+            <constraint id="9db9a406-d413-41c8-b2d8-2dfeff7ae1aa" shortName="f_a"
+                relation="bb24c76e-de46-4fc1-a6e4-bd6229a14bee"
+                initId="a:e845b4c3-7dc3-4fc7-8973-f612088721a5" />
+            <constraint id="9dd97b92-5718-4ea6-84e2-c93a92cbb1aa" shortName="f_b"
+                relation="bb24c76e-de46-4fc1-a6e4-bd6229a14bee"
+                initId="a:aa9837ff-592d-4937-a11a-0394c2ff3c6a" />
+            <constraint id="efbba56f-5e34-4783-a341-726bcd8f51f7" shortName="v_a"
+                relation="15ace374-7113-474d-9de1-5071b9e940f2"
+                initId="v:e845b4c3-7dc3-4fc7-8973-f612088721a5" />
+        </constraints>
+        <classes>
+            <class id="c97d4420-8f25-4ac7-a96d-232a7506ca7c" shortName="b">
+                <parameters>
+                    <parameter type="double" id="aa9837ff-592d-4937-a11a-0394c2ff3c6a" shortName="b" />
+                </parameters>
+                <rules />
+                <constraints>
+                    <constraint id="0d6ba19d-0c3f-4ba8-8fd3-7da06eaa5cf5" shortName="v_b"
+                        relation="15ace374-7113-474d-9de1-5071b9e940f2"
+                        initId="v:aa9837ff-592d-4937-a11a-0394c2ff3c6a" />
+                </constraints>
+                <classes />
+            </class>
+        </classes>
+    </class>
+    <relations>
+        <relation id="15ace374-7113-474d-9de1-5071b9e940f2" shortName="v" inObj="v:double"
+            outObj="flag:double" relationType="constr">if (v > 19) {flag = true;} else {flag = false;}</relation>
+        <relation id="65645023-449e-4014-9ea0-13ef47fe97de" shortName="s" inObj="a:double;b:double"
+            outObj="s:double" relationType="simple">s = a + b</relation>
+        <relation id="bb24c76e-de46-4fc1-a6e4-bd6229a14bee" shortName="f" inObj="a:double"
+            outObj="flag:double" relationType="constr">if (a>0) {flag = true;} else {flag = false;}</relation>
+    </relations>
+</model>
