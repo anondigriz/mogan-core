@@ -14,12 +14,11 @@ import (
 type processPatternsArgs struct {
 	patterns map[string]kbEnt.Pattern
 	model    *formatV2M0.Model
-	ws       workspaceHandler
 }
 
-func (tf ToFormat) processPatterns(args processPatternsArgs) error {
+func (tf *ToFormat) processPatterns(args processPatternsArgs) error {
 	for _, v := range args.patterns {
-		r, err := tf.mapToRelation(v, args.ws)
+		r, err := tf.mapToRelation(v)
 		if err != nil {
 			tf.lg.Error(errMsgs.MappingRelationFail, zap.Error(err))
 			return err
@@ -29,8 +28,8 @@ func (tf ToFormat) processPatterns(args processPatternsArgs) error {
 	return nil
 }
 
-func (tf ToFormat) mapToRelation(pattern kbEnt.Pattern, ws workspaceHandler) (formatV2M0.Relation, error) {
-	if err := ws.CheckAndRememberPattern(pattern); err != nil {
+func (tf *ToFormat) mapToRelation(pattern kbEnt.Pattern) (formatV2M0.Relation, error) {
+	if err := tf.ws.CheckAndRememberPattern(pattern); err != nil {
 		tf.lg.Error(errMsgs.MappingPatternFail, zap.Error(err))
 		return formatV2M0.Relation{}, err
 	}
@@ -73,7 +72,7 @@ func (tf ToFormat) mapToRelation(pattern kbEnt.Pattern, ws workspaceHandler) (fo
 	return r, nil
 }
 
-func (tf ToFormat) mapToRelationParameters(parameters []kbEnt.ParameterPattern) (string, error) {
+func (tf *ToFormat) mapToRelationParameters(parameters []kbEnt.ParameterPattern) (string, error) {
 	keys := make([]string, 0, len(parameters))
 	for _, v := range parameters {
 		parameterType, err := tf.mapToParameterType(v.Type)

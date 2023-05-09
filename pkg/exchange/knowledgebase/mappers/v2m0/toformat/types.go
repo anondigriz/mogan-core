@@ -11,7 +11,7 @@ import (
 	formatV2M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v2m0"
 )
 
-func (tf ToFormat) mapToRelationType(base types.PatternType) (string, error) {
+func (tf *ToFormat) mapToRelationType(base types.PatternType) (string, error) {
 	switch base {
 	case types.Program:
 		return string(formatV2M0.Prog), nil
@@ -24,7 +24,7 @@ func (tf ToFormat) mapToRelationType(base types.PatternType) (string, error) {
 	}
 }
 
-func (tf ToFormat) mapToParameterType(base types.ParameterType) (string, error) {
+func (tf *ToFormat) mapToParameterType(base types.ParameterType) (string, error) {
 	switch base {
 	case types.Double:
 		return string(formatV2M0.Double), nil
@@ -41,7 +41,7 @@ func (tf ToFormat) mapToParameterType(base types.ParameterType) (string, error) 
 	}
 }
 
-func (tf ToFormat) isAllowedScriptLanguageType(base types.ScriptLanguageType) error {
+func (tf *ToFormat) isAllowedScriptLanguageType(base types.ScriptLanguageType) error {
 	switch base {
 	case types.JS:
 		return nil

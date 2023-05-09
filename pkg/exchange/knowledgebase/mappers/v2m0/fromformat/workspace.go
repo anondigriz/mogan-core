@@ -21,6 +21,7 @@ type workspaceHandler interface {
 	CreateRuleUUID() string
 	GetOrCreateParameterUUID(id string) string
 	GetPatternUUID(relationID string) (string, bool)
+	GetContainer() kbEnt.Container
 }
 
 type workspace struct {
@@ -30,12 +31,15 @@ type workspace struct {
 
 func newWorkspace() *workspace {
 	ws := &workspace{}
+
 	ws.cont.Groups = map[string]kbEnt.Group{}
 	ws.cont.Parameters = map[string]kbEnt.Parameter{}
 	ws.cont.Patterns = map[string]kbEnt.Pattern{}
 	ws.cont.Rules = map[string]kbEnt.Rule{}
+
 	ws.mapping.parameters = map[string]string{}
 	ws.mapping.patterns = map[string]string{}
+
 	return ws
 }
 
@@ -87,4 +91,8 @@ func (ws *workspace) GetOrCreateParameterUUID(id string) string {
 func (ws *workspace) GetPatternUUID(relationID string) (string, bool) {
 	uuid, ok := ws.mapping.patterns[relationID]
 	return uuid, ok
+}
+
+func (ws *workspace) GetContainer() kbEnt.Container {
+	return ws.cont
 }

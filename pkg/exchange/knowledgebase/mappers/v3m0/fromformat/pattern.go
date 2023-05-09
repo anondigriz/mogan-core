@@ -10,22 +10,22 @@ import (
 	formatV3M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v3m0"
 )
 
-func (ff FromFormat) processPatterns(patterns []formatV3M0.Pattern, ws workspaceHandler) error {
+func (ff *FromFormat) processPatterns(patterns []formatV3M0.Pattern) error {
 	for _, v := range patterns {
-		pattern, err := ff.mapToPattern(v, ws)
+		pattern, err := ff.mapToPattern(v)
 		if err != nil {
 			ff.lg.Error(errMsgs.MappingPatternFail, zap.Error(err))
 			return err
 		}
-		ws.AddPattern(pattern)
+		ff.ws.AddPattern(pattern)
 	}
 	return nil
 }
 
-func (ff FromFormat) mapToPattern(pattern formatV3M0.Pattern, ws workspaceHandler) (kbEnt.Pattern, error) {
+func (ff *FromFormat) mapToPattern(pattern formatV3M0.Pattern) (kbEnt.Pattern, error) {
 	p := kbEnt.Pattern{
 		BaseInfo: kbEnt.BaseInfo{
-			UUID:         ws.CreatePatternUUID(pattern.ID),
+			UUID:         ff.ws.CreatePatternUUID(pattern.ID),
 			ID:           pattern.ID,
 			ShortName:    pattern.ShortName,
 			Description:  pattern.Description,
@@ -42,7 +42,7 @@ func (ff FromFormat) mapToPattern(pattern formatV3M0.Pattern, ws workspaceHandle
 	}
 	p.Type = patternType
 
-	scriptLanguageType, err := ff.mapToScriptLanguageType(pattern.Type)
+	scriptLanguageType, err := ff.mapToScriptLanguageType(pattern.Language)
 	if err != nil {
 		ff.lg.Error(errMsgs.MappingScriptLanguageTypeFail, zap.Error(err))
 		return kbEnt.Pattern{}, err
@@ -67,7 +67,7 @@ func (ff FromFormat) mapToPattern(pattern formatV3M0.Pattern, ws workspaceHandle
 
 }
 
-func (ff FromFormat) mapToPatternParameters(parameters []formatV3M0.ParameterPattern) ([]kbEnt.ParameterPattern, error) {
+func (ff *FromFormat) mapToPatternParameters(parameters []formatV3M0.ParameterPattern) ([]kbEnt.ParameterPattern, error) {
 	var ps []kbEnt.ParameterPattern
 	for _, v := range parameters {
 		parameterType, err := ff.mapToParameterType(v.Type)

@@ -11,7 +11,7 @@ import (
 	formatV3M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v3m0"
 )
 
-func (tf ToFormat) mapToPatternType(base types.PatternType) (string, error) {
+func (tf *ToFormat) mapToPatternType(base types.PatternType) (string, error) {
 	switch base {
 	case types.Program:
 		return string(formatV3M0.Program), nil
@@ -24,7 +24,7 @@ func (tf ToFormat) mapToPatternType(base types.PatternType) (string, error) {
 	}
 }
 
-func (tf ToFormat) mapToParameterType(base types.ParameterType) (string, error) {
+func (tf *ToFormat) mapToParameterType(base types.ParameterType) (string, error) {
 	switch base {
 	case types.Double:
 		return string(formatV3M0.Double), nil
@@ -39,7 +39,7 @@ func (tf ToFormat) mapToParameterType(base types.ParameterType) (string, error) 
 	}
 }
 
-func (tf ToFormat) mapToScriptLanguageType(base types.ScriptLanguageType) (string, error) {
+func (tf *ToFormat) mapToScriptLanguageType(base types.ScriptLanguageType) (string, error) {
 	switch base {
 	case types.JS:
 		return string(formatV3M0.JS), nil

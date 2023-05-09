@@ -15,16 +15,14 @@ import (
 )
 
 type ParseXMLArgs struct {
-	Version       formats.Version
-	KnowledgeBase kbEnt.Container
-	XMLFile       io.Writer
+	Version formats.Version
+	Cont    *kbEnt.Container
+	XMLFile io.Writer
 }
 
 type Collector struct {
 	lg       *zap.Logger
 	detector *detector.Detector
-	v2m0     *v2m0.V2M0
-	v3m0     *v3m0.V3M0
 }
 
 func New(lg *zap.Logger) *Collector {
@@ -33,8 +31,6 @@ func New(lg *zap.Logger) *Collector {
 	p := &Collector{
 		lg:       lg,
 		detector: d,
-		v2m0:     v2m0.New(lg),
-		v3m0:     v3m0.New(lg),
 	}
 	return p
 }
@@ -60,9 +56,11 @@ func (c Collector) collectToFormat(args ParseXMLArgs) error {
 
 	switch args.Version {
 	case formats.VersionV2M0:
-		b, err = c.v2m0.CollectXML(args.KnowledgeBase)
+		tf := v2m0.New(c.lg)
+		b, err = tf.CollectXML(args.Cont)
 	default:
-		b, err = c.v3m0.CollectXML(args.KnowledgeBase)
+		tf := v3m0.New(c.lg)
+		b, err = tf.CollectXML(args.Cont)
 	}
 
 	if err != nil {

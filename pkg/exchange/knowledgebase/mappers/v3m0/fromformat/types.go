@@ -9,7 +9,7 @@ import (
 	formatV3M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v3m0"
 )
 
-func (ff FromFormat) mapToPatternType(base string) (types.PatternType, error) {
+func (ff *FromFormat) mapToPatternType(base string) (types.PatternType, error) {
 	switch base {
 	case string(formatV3M0.Program):
 		return types.Program, nil
@@ -22,7 +22,7 @@ func (ff FromFormat) mapToPatternType(base string) (types.PatternType, error) {
 	}
 }
 
-func (ff FromFormat) mapToParameterType(base string) (types.ParameterType, error) {
+func (ff *FromFormat) mapToParameterType(base string) (types.ParameterType, error) {
 	switch base {
 	case string(formatV3M0.String):
 		return types.String, nil
@@ -37,7 +37,7 @@ func (ff FromFormat) mapToParameterType(base string) (types.ParameterType, error
 	}
 }
 
-func (ff FromFormat) mapToScriptLanguageType(base string) (types.ScriptLanguageType, error) {
+func (ff *FromFormat) mapToScriptLanguageType(base string) (types.ScriptLanguageType, error) {
 	switch base {
 	case string(formatV3M0.JS):
 		return types.JS, nil

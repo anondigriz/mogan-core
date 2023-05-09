@@ -14,27 +14,25 @@ import (
 )
 
 type processRulesArgs struct {
-	cont        kbEnt.Container
 	parentGroup kbEnt.Group
 	parentClass *formatV2M0.Class
-	ws          workspaceHandler
 }
 
-func (tf ToFormat) processRules(args processRulesArgs) error {
+func (tf *ToFormat) processRules(args processRulesArgs) error {
 	for _, v := range args.parentGroup.Rules {
-		rule, ok := args.cont.Rules[v]
+		rule, ok := tf.cont.Rules[v]
 		if !ok {
 			continue
 		}
 
-		pattern, ok := args.cont.Patterns[rule.PatternUUID]
+		pattern, ok := tf.cont.Patterns[rule.PatternUUID]
 		if !ok {
 			err := errors.NewPatternNotFoundForRuleErr(rule.UUID, rule.ID, rule.PatternUUID)
 			tf.lg.Error(errMsgs.PatternNotFoundForRule, zap.Error(err))
 			return err
 		}
 
-		r, err := tf.mapToRule(rule, pattern, args.cont, args.ws)
+		r, err := tf.mapToRule(rule, pattern)
 		if err != nil {
 			tf.lg.Error(errMsgs.MappingRelationFail, zap.Error(err))
 			return err
@@ -49,8 +47,8 @@ func (tf ToFormat) processRules(args processRulesArgs) error {
 	return nil
 }
 
-func (tf ToFormat) mapToRule(rule kbEnt.Rule, pattern kbEnt.Pattern, cont kbEnt.Container, ws workspaceHandler) (formatV2M0.Rule, error) {
-	if err := ws.CheckAndRememberRule(rule); err != nil {
+func (tf *ToFormat) mapToRule(rule kbEnt.Rule, pattern kbEnt.Pattern) (formatV2M0.Rule, error) {
+	if err := tf.ws.CheckAndRememberRule(rule); err != nil {
 		tf.lg.Error(errMsgs.MappingRuleFail, zap.Error(err))
 		return formatV2M0.Rule{}, err
 	}
@@ -64,14 +62,14 @@ func (tf ToFormat) mapToRule(rule kbEnt.Rule, pattern kbEnt.Pattern, cont kbEnt.
 		RelationID: pattern.ID,
 	}
 
-	initIDs, err := tf.mapToRuleParameters(rule.InputParameters, rule, cont)
+	initIDs, err := tf.mapToRuleParameters(rule.InputParameters, rule)
 	if err != nil {
 		tf.lg.Error(errMsgs.MappingRuleParametersFail, zap.Error(err))
 		return formatV2M0.Rule{}, err
 	}
 	r.InitIDs = initIDs
 
-	resultIDs, err := tf.mapToRuleParameters(rule.OutputParameters, rule, cont)
+	resultIDs, err := tf.mapToRuleParameters(rule.OutputParameters, rule)
 	if err != nil {
 		tf.lg.Error(errMsgs.MappingRuleParametersFail, zap.Error(err))
 		return formatV2M0.Rule{}, err
@@ -81,10 +79,10 @@ func (tf ToFormat) mapToRule(rule kbEnt.Rule, pattern kbEnt.Pattern, cont kbEnt.
 	return r, nil
 }
 
-func (tf ToFormat) mapToRuleParameters(parameters []kbEnt.ParameterRule, rule kbEnt.Rule, cont kbEnt.Container) (string, error) {
+func (tf *ToFormat) mapToRuleParameters(parameters []kbEnt.ParameterRule, rule kbEnt.Rule) (string, error) {
 	keys := make([]string, 0, len(parameters))
 	for _, v := range parameters {
-		parameter, ok := cont.Parameters[v.ParameterUUID]
+		parameter, ok := tf.cont.Parameters[v.ParameterUUID]
 		if !ok {
 			err := errors.NewParameterNotFoundForRuleErr(rule.UUID, rule.ID, rule.PatternUUID)
 			tf.lg.Error(errMsgs.ParameterNotFoundForRule, zap.Error(err))

@@ -13,23 +13,23 @@ import (
 	formatV2M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v2m0"
 )
 
-func (ff FromFormat) processRelations(relations []formatV2M0.Relation, ws workspaceHandler) error {
+func (ff *FromFormat) processRelations(relations []formatV2M0.Relation) error {
 	for _, v := range relations {
-		pattern, err := ff.mapToPattern(v, ws)
+		pattern, err := ff.mapToPattern(v)
 		if err != nil {
 			ff.lg.Error(errMsgs.MappingPatternFail, zap.Error(err))
 			return err
 		}
-		ws.AddPattern(pattern)
+		ff.ws.AddPattern(pattern)
 	}
 	return nil
 }
 
-func (ff FromFormat) mapToPattern(relation formatV2M0.Relation, ws workspaceHandler) (kbEnt.Pattern, error) {
+func (ff *FromFormat) mapToPattern(relation formatV2M0.Relation) (kbEnt.Pattern, error) {
 	now := time.Now()
 	p := kbEnt.Pattern{
 		BaseInfo: kbEnt.BaseInfo{
-			UUID:         ws.CreatePatternUUID(relation.ID),
+			UUID:         ff.ws.CreatePatternUUID(relation.ID),
 			ID:           relation.ID,
 			ShortName:    relation.ShortName,
 			Description:  relation.Description,
@@ -68,7 +68,7 @@ func (ff FromFormat) mapToPattern(relation formatV2M0.Relation, ws workspaceHand
 	return p, nil
 }
 
-func (ff FromFormat) convertScriptToProgramType(script string, input []kbEnt.ParameterPattern, output []kbEnt.ParameterPattern) string {
+func (ff *FromFormat) convertScriptToProgramType(script string, input []kbEnt.ParameterPattern, output []kbEnt.ParameterPattern) string {
 	vars := make([]string, 0, len(input)+len(output))
 	for _, v := range input {
 		vars = append(vars, v.ShortName)
@@ -80,7 +80,7 @@ func (ff FromFormat) convertScriptToProgramType(script string, input []kbEnt.Par
 	return result
 }
 
-func (ff FromFormat) mapToPatternParameters(attribute string) ([]kbEnt.ParameterPattern, error) {
+func (ff *FromFormat) mapToPatternParameters(attribute string) ([]kbEnt.ParameterPattern, error) {
 	var parameters []kbEnt.ParameterPattern
 	dict, err := ff.mapToDictionary(attribute)
 	if err != nil {

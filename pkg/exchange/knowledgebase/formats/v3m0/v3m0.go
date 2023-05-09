@@ -34,10 +34,7 @@ type KnowledgeBase struct {
 	BaseInfo
 	XMLName          xml.Name `xml:"knowledgeBase"`
 	FormatXMLVersion string   `xml:"formatXmlVersion,attr"`
-	Groups           struct {
-		Groups []Group `xml:"group"`
-	} `xml:"groups"`
-	Parameters struct {
+	Parameters       struct {
 		Parameters []Parameter `xml:"parameter"`
 	} `xml:"parameters"`
 	Patterns struct {
@@ -46,6 +43,9 @@ type KnowledgeBase struct {
 	Rules struct {
 		Rules []Rule `xml:"rule"`
 	} `xml:"rules"`
+	Groups struct {
+		Groups []Group `xml:"group"`
+	} `xml:"groups"`
 }
 
 type Group struct {

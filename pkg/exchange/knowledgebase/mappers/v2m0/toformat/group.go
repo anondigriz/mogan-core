@@ -9,26 +9,20 @@ import (
 )
 
 type processGroupsArgs struct {
-	cont        kbEnt.Container
 	childGroups map[string]kbEnt.Group
 	parentClass *formatV2M0.Class
-	ws          workspaceHandler
 }
 
 type processGroupArgs struct {
-	cont        kbEnt.Container
 	group       kbEnt.Group
 	parentClass *formatV2M0.Class
-	ws          workspaceHandler
 }
 
-func (tf ToFormat) processGroups(args processGroupsArgs) error {
+func (tf *ToFormat) processGroups(args processGroupsArgs) error {
 	for _, v := range args.childGroups {
 		err := tf.processGroup(processGroupArgs{
-			cont:        args.cont,
 			group:       v,
 			parentClass: args.parentClass,
-			ws:          args.ws,
 		})
 		if err != nil {
 			tf.lg.Error(errMsgs.MappingGroupFail, zap.Error(err))
@@ -39,18 +33,16 @@ func (tf ToFormat) processGroups(args processGroupsArgs) error {
 	return nil
 }
 
-func (tf ToFormat) processGroup(args processGroupArgs) error {
-	c, err := tf.mapToClass(args.group, args.ws)
+func (tf *ToFormat) processGroup(args processGroupArgs) error {
+	c, err := tf.mapToClass(args.group)
 	if err != nil {
 		tf.lg.Error(errMsgs.MappingClassFail, zap.Error(err))
 		return err
 	}
 
 	err = tf.processParameters(processParametersArgs{
-		cont:        args.cont,
 		parentGroup: args.group,
 		parentClass: &c,
-		ws:          args.ws,
 	})
 	if err != nil {
 		tf.lg.Error(errMsgs.MappingParametersFail, zap.Error(err))
@@ -58,10 +50,8 @@ func (tf ToFormat) processGroup(args processGroupArgs) error {
 	}
 
 	err = tf.processGroups(processGroupsArgs{
-		cont:        args.cont,
 		childGroups: args.group.Groups,
 		parentClass: &c,
-		ws:          args.ws,
 	})
 	if err != nil {
 		tf.lg.Error(errMsgs.MappingGroupsFail, zap.Error(err))
@@ -73,8 +63,8 @@ func (tf ToFormat) processGroup(args processGroupArgs) error {
 	return nil
 }
 
-func (tf ToFormat) mapToClass(group kbEnt.Group, ws workspaceHandler) (formatV2M0.Class, error) {
-	if err := ws.CheckAndRememberGroup(group); err != nil {
+func (tf *ToFormat) mapToClass(group kbEnt.Group) (formatV2M0.Class, error) {
+	if err := tf.ws.CheckAndRememberGroup(group); err != nil {
 		tf.lg.Error(errMsgs.MappingGroupFail, zap.Error(err))
 		return formatV2M0.Class{}, err
 	}

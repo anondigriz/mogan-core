@@ -9,24 +9,28 @@ import (
 )
 
 type FromFormat struct {
-	lg *zap.Logger
+	lg     *zap.Logger
+	ws     workspaceHandler
+	kbUUID string
+	kb     *formatV3M0.KnowledgeBase
 }
 
-func New(lg *zap.Logger) *FromFormat {
+func New(lg *zap.Logger, kbUUID string, kb *formatV3M0.KnowledgeBase) *FromFormat {
 	vm := &FromFormat{
-		lg: lg,
+		lg:     lg,
+		kbUUID: kbUUID,
+		kb:     kb,
 	}
 	return vm
 }
 
-func (ff FromFormat) Map(kbUUID string, kb formatV3M0.KnowledgeBase) (kbEnt.Container, error) {
-	ws := newWorkspace()
-	err := ff.processKnowledgeBase(kbUUID, kb, ws)
+func (ff *FromFormat) Map() (kbEnt.Container, error) {
+	ff.ws = newWorkspace()
+	err := ff.processKnowledgeBase()
 	if err != nil {
 		ff.lg.Error(errMsgs.MapKnowledgeBaseFail, zap.Error(err))
 		return kbEnt.Container{}, err
 	}
 
-	return ws.cont, nil
-
+	return ff.ws.GetContainer(), nil
 }

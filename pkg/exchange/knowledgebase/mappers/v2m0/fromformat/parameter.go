@@ -10,24 +10,24 @@ import (
 	formatV2M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v2m0"
 )
 
-func (ff FromFormat) processParameters(parameters []formatV2M0.Parameter, parentGroup *kbEnt.Group, ws workspaceHandler) error {
+func (ff *FromFormat) processParameters(parameters []formatV2M0.Parameter, parentGroup *kbEnt.Group) error {
 	for _, v := range parameters {
-		parameter, err := ff.mapToParameter(v, ws)
+		parameter, err := ff.mapToParameter(v)
 		if err != nil {
 			ff.lg.Error(errMsgs.MappingParameterFail, zap.Error(err))
 			return err
 		}
 		parentGroup.Parameters = append(parentGroup.Parameters, parameter.UUID)
-		ws.AddParameter(parameter)
+		ff.ws.AddParameter(parameter)
 	}
 	return nil
 }
 
-func (ff FromFormat) mapToParameter(parameter formatV2M0.Parameter, ws workspaceHandler) (kbEnt.Parameter, error) {
+func (ff *FromFormat) mapToParameter(parameter formatV2M0.Parameter) (kbEnt.Parameter, error) {
 	now := time.Now()
 	p := kbEnt.Parameter{
 		BaseInfo: kbEnt.BaseInfo{
-			UUID:         ws.GetOrCreateParameterUUID(parameter.ID),
+			UUID:         ff.ws.GetOrCreateParameterUUID(parameter.ID),
 			ID:           parameter.ID,
 			ShortName:    parameter.ShortName,
 			Description:  parameter.Description,

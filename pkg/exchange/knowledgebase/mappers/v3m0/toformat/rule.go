@@ -9,10 +9,10 @@ import (
 	formatV3M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v3m0"
 )
 
-func (tf ToFormat) mapToRules(cont kbEnt.Container, ws workspaceHandler) ([]formatV3M0.Rule, error) {
+func (tf *ToFormat) mapToRules() ([]formatV3M0.Rule, error) {
 	ps := []formatV3M0.Rule{}
-	for _, v := range cont.Rules {
-		p, err := tf.mapToRule(v, cont, ws)
+	for _, v := range tf.cont.Rules {
+		p, err := tf.mapToRule(v)
 		if err != nil {
 			tf.lg.Error(errMsgs.MappingRuleFail, zap.Error(err))
 			return []formatV3M0.Rule{}, err
@@ -23,8 +23,8 @@ func (tf ToFormat) mapToRules(cont kbEnt.Container, ws workspaceHandler) ([]form
 	return ps, nil
 }
 
-func (tf ToFormat) mapToRule(rule kbEnt.Rule, cont kbEnt.Container, ws workspaceHandler) (formatV3M0.Rule, error) {
-	if err := ws.CheckAndRememberRule(rule); err != nil {
+func (tf *ToFormat) mapToRule(rule kbEnt.Rule) (formatV3M0.Rule, error) {
+	if err := tf.ws.CheckAndRememberRule(rule); err != nil {
 		tf.lg.Error(errMsgs.MappingRuleFail, zap.Error(err))
 		return formatV3M0.Rule{}, err
 	}
@@ -38,7 +38,7 @@ func (tf ToFormat) mapToRule(rule kbEnt.Rule, cont kbEnt.Container, ws workspace
 		},
 	}
 
-	pattern, ok := cont.Patterns[rule.PatternUUID]
+	pattern, ok := tf.cont.Patterns[rule.PatternUUID]
 	if !ok {
 		err := errors.NewPatternNotFoundForRuleErr(rule.UUID, rule.ID, rule.PatternUUID)
 		tf.lg.Error(errMsgs.PatternNotFoundForRule, zap.Error(err))
@@ -46,14 +46,14 @@ func (tf ToFormat) mapToRule(rule kbEnt.Rule, cont kbEnt.Container, ws workspace
 	}
 	r.PatternID = pattern.ID
 
-	inputParameters, err := tf.mapToRuleParameters(rule.InputParameters, rule, cont)
+	inputParameters, err := tf.mapToRuleParameters(rule.InputParameters, rule)
 	if err != nil {
 		tf.lg.Error(errMsgs.MappingRuleParametersFail, zap.Error(err))
 		return formatV3M0.Rule{}, err
 	}
 	r.InputParameters.InputParameters = inputParameters
 
-	outputParameters, err := tf.mapToRuleParameters(rule.OutputParameters, rule, cont)
+	outputParameters, err := tf.mapToRuleParameters(rule.OutputParameters, rule)
 	if err != nil {
 		tf.lg.Error(errMsgs.MappingRuleParametersFail, zap.Error(err))
 		return formatV3M0.Rule{}, err
@@ -63,10 +63,10 @@ func (tf ToFormat) mapToRule(rule kbEnt.Rule, cont kbEnt.Container, ws workspace
 	return r, nil
 }
 
-func (tf ToFormat) mapToRuleParameters(parameters []kbEnt.ParameterRule, rule kbEnt.Rule, cont kbEnt.Container) ([]formatV3M0.ParameterRule, error) {
+func (tf *ToFormat) mapToRuleParameters(parameters []kbEnt.ParameterRule, rule kbEnt.Rule) ([]formatV3M0.ParameterRule, error) {
 	ps := []formatV3M0.ParameterRule{}
 	for _, v := range parameters {
-		parameter, ok := cont.Parameters[v.ParameterUUID]
+		parameter, ok := tf.cont.Parameters[v.ParameterUUID]
 		if !ok {
 			err := errors.NewParameterNotFoundForRuleErr(rule.UUID, rule.ID, rule.PatternUUID)
 			tf.lg.Error(errMsgs.ParameterNotFoundForRule, zap.Error(err))

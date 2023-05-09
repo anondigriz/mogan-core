@@ -1,8 +1,6 @@
 package fromformat
 
 import (
-	"time"
-
 	"go.uber.org/zap"
 
 	kbEnt "github.com/anondigriz/mogan-core/pkg/entities/containers/knowledgebase"
@@ -11,38 +9,28 @@ import (
 )
 
 type FromFormat struct {
-	lg *zap.Logger
+	lg     *zap.Logger
+	ws     workspaceHandler
+	kbUUID string
+	model  *formatV2M0.Model
 }
 
-func New(lg *zap.Logger) *FromFormat {
+func New(lg *zap.Logger, kbUUID string, model *formatV2M0.Model) *FromFormat {
 	vm := &FromFormat{
-		lg: lg,
+		lg:     lg,
+		kbUUID: kbUUID,
+		model:  model,
 	}
 	return vm
 }
 
-func (ff FromFormat) Map(kbUUID string, model formatV2M0.Model) (kbEnt.Container, error) {
-	ws := newWorkspace()
-	ws.AddKnowledgeBase(ff.mapToKnowledgeBase(model, kbUUID))
-	err := ff.processModel(model, ws)
+func (ff *FromFormat) Map() (kbEnt.Container, error) {
+	ff.ws = newWorkspace()
+	err := ff.processModel()
 	if err != nil {
 		ff.lg.Error(errMsgs.MapKnowledgeBaseFail, zap.Error(err))
 		return kbEnt.Container{}, err
 	}
 
-	return ws.cont, nil
-}
-
-func (ff FromFormat) mapToKnowledgeBase(model formatV2M0.Model, kbUUID string) kbEnt.KnowledgeBase {
-	now := time.Now()
-	return kbEnt.KnowledgeBase{
-		BaseInfo: kbEnt.BaseInfo{
-			UUID:         kbUUID,
-			ID:           model.ID,
-			ShortName:    model.ShortName,
-			Description:  model.Description,
-			CreatedDate:  now,
-			ModifiedDate: now,
-		},
-	}
+	return ff.ws.GetContainer(), nil
 }

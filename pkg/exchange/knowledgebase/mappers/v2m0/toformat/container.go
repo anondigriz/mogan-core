@@ -10,14 +10,13 @@ import (
 	formatV2M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v2m0"
 )
 
-func (tf ToFormat) processContainer(model *formatV2M0.Model, cont kbEnt.Container, ws workspaceHandler) error {
-	tf.prepareModel(model, cont, ws)
-	tf.warmUpWorkspace(cont, ws)
+func (tf *ToFormat) processContainer(model *formatV2M0.Model) error {
+	tf.prepareModel(model)
+	tf.warmUpWorkspace()
 
 	err := tf.processPatterns(processPatternsArgs{
-		patterns: cont.Patterns,
+		patterns: tf.cont.Patterns,
 		model:    model,
-		ws:       ws,
 	})
 	if err != nil {
 		tf.lg.Error(errMsgs.MappingPatternFail, zap.Error(err))
@@ -25,10 +24,8 @@ func (tf ToFormat) processContainer(model *formatV2M0.Model, cont kbEnt.Containe
 	}
 
 	err = tf.processGroups(processGroupsArgs{
-		cont:        cont,
-		childGroups: cont.Groups,
+		childGroups: tf.cont.Groups,
 		parentClass: &model.Class,
-		ws:          ws,
 	})
 
 	if err != nil {
@@ -36,14 +33,14 @@ func (tf ToFormat) processContainer(model *formatV2M0.Model, cont kbEnt.Containe
 		return err
 	}
 
-	return tf.processRootClass(cont, model, ws)
+	return tf.processRootClass(model)
 }
 
-func (tf ToFormat) prepareModel(model *formatV2M0.Model, cont kbEnt.Container, ws workspaceHandler) {
+func (tf *ToFormat) prepareModel(model *formatV2M0.Model) {
 	model.BaseInfo = formatV2M0.BaseInfo{
-		ID:          cont.KnowledgeBase.BaseInfo.ID,
-		ShortName:   cont.KnowledgeBase.BaseInfo.ShortName,
-		Description: cont.KnowledgeBase.BaseInfo.Description,
+		ID:          tf.cont.KnowledgeBase.BaseInfo.ID,
+		ShortName:   tf.cont.KnowledgeBase.BaseInfo.ShortName,
+		Description: tf.cont.KnowledgeBase.BaseInfo.Description,
 	}
 	model.FormatXMLVersion = string(formats.VersionV2M0)
 	model.Relations.Relations = []formatV2M0.Relation{}
@@ -51,33 +48,31 @@ func (tf ToFormat) prepareModel(model *formatV2M0.Model, cont kbEnt.Container, w
 	model.Class = formatV2M0.Class{
 		BaseInfo: formatV2M0.BaseInfo{
 			ID:          uuidGen.NewString(),
-			ShortName:   cont.KnowledgeBase.ShortName,
-			Description: cont.KnowledgeBase.Description,
+			ShortName:   tf.cont.KnowledgeBase.ShortName,
+			Description: tf.cont.KnowledgeBase.Description,
 		},
 	}
 }
 
-func (ToFormat) warmUpWorkspace(cont kbEnt.Container, ws workspaceHandler) {
+func (tf *ToFormat) warmUpWorkspace() {
 	unprocessedParameters := []string{}
-	for k := range cont.Parameters {
+	for k := range tf.cont.Parameters {
 		unprocessedParameters = append(unprocessedParameters, k)
 	}
-	ws.SaveUnprocessedParameters(unprocessedParameters)
+	tf.ws.SaveUnprocessedParameters(unprocessedParameters)
 }
 
-func (tf ToFormat) processRootClass(cont kbEnt.Container, model *formatV2M0.Model, ws workspaceHandler) error {
+func (tf *ToFormat) processRootClass(model *formatV2M0.Model) error {
 	rootGroup := kbEnt.Group{}
 
-	rootGroup.Parameters = append(rootGroup.Parameters, ws.GetUnprocessedParameters()...)
-	for k := range cont.Rules {
+	rootGroup.Parameters = append(rootGroup.Parameters, tf.ws.GetUnprocessedParameters()...)
+	for k := range tf.cont.Rules {
 		rootGroup.Rules = append(rootGroup.Rules, k)
 	}
 
 	err := tf.processRules(processRulesArgs{
-		cont:        cont,
 		parentGroup: rootGroup,
 		parentClass: &model.Class,
-		ws:          ws,
 	})
 	if err != nil {
 		tf.lg.Error(errMsgs.MappingRulesFail, zap.Error(err))
@@ -85,10 +80,8 @@ func (tf ToFormat) processRootClass(cont kbEnt.Container, model *formatV2M0.Mode
 	}
 
 	err = tf.processParameters(processParametersArgs{
-		cont:        cont,
 		parentGroup: rootGroup,
 		parentClass: &model.Class,
-		ws:          ws,
 	})
 	if err != nil {
 		tf.lg.Error(errMsgs.MappingParametersFail, zap.Error(err))

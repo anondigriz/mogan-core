@@ -13,19 +13,18 @@ import (
 
 type V3M0 struct {
 	lg *zap.Logger
-	tf *toformatV3M0.ToFormat
 }
 
 func New(lg *zap.Logger) *V3M0 {
 	vm := &V3M0{
 		lg: lg,
-		tf: toformatV3M0.New(lg),
 	}
 	return vm
 }
 
-func (vm V3M0) CollectXML(KnowledgeBase kbEnt.Container) ([]byte, error) {
-	model, err := vm.tf.Map(KnowledgeBase)
+func (vm V3M0) CollectXML(cont *kbEnt.Container) ([]byte, error) {
+	tf := toformatV3M0.New(vm.lg, cont)
+	model, err := tf.Map()
 	if err != nil {
 		vm.lg.Error(errMsgs.MapKnowledgeBaseFail, zap.Error(err))
 		return []byte{}, err

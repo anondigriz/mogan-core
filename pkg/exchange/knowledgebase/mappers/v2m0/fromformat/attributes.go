@@ -9,7 +9,7 @@ import (
 	errMsgs "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors/messages"
 )
 
-func (ff FromFormat) mapToDictionary(base string) (map[string]string, error) {
+func (ff *FromFormat) mapToDictionary(base string) (map[string]string, error) {
 	params := map[string]string{}
 	if base == "" {
 		return params, nil

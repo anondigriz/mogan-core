@@ -8,10 +8,10 @@ import (
 	formatV3M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v3m0"
 )
 
-func (tf ToFormat) mapToParameters(parameters map[string]kbEnt.Parameter, ws workspaceHandler) ([]formatV3M0.Parameter, error) {
+func (tf *ToFormat) mapToParameters(parameters map[string]kbEnt.Parameter) ([]formatV3M0.Parameter, error) {
 	ps := []formatV3M0.Parameter{}
 	for _, v := range parameters {
-		p, err := tf.mapToParameter(v, ws)
+		p, err := tf.mapToParameter(v)
 		if err != nil {
 			tf.lg.Error(errMsgs.MappingParameterFail, zap.Error(err))
 			return []formatV3M0.Parameter{}, err
@@ -22,8 +22,8 @@ func (tf ToFormat) mapToParameters(parameters map[string]kbEnt.Parameter, ws wor
 	return ps, nil
 }
 
-func (tf ToFormat) mapToParameter(parameter kbEnt.Parameter, ws workspaceHandler) (formatV3M0.Parameter, error) {
-	if err := ws.CheckAndRememberParameter(parameter); err != nil {
+func (tf *ToFormat) mapToParameter(parameter kbEnt.Parameter) (formatV3M0.Parameter, error) {
+	if err := tf.ws.CheckAndRememberParameter(parameter); err != nil {
 		tf.lg.Error(errMsgs.MappingParameterFail, zap.Error(err))
 		return formatV3M0.Parameter{}, err
 	}

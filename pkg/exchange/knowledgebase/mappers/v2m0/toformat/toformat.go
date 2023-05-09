@@ -9,21 +9,24 @@ import (
 )
 
 type ToFormat struct {
-	lg *zap.Logger
+	lg   *zap.Logger
+	cont *kbEnt.Container
+	ws   workspaceHandler
 }
 
-func New(lg *zap.Logger) *ToFormat {
+func New(lg *zap.Logger, cont *kbEnt.Container) *ToFormat {
 	vm := &ToFormat{
-		lg: lg,
+		lg:   lg,
+		cont: cont,
 	}
 	return vm
 }
 
-func (tf ToFormat) Map(cont kbEnt.Container) (formatV2M0.Model, error) {
+func (tf *ToFormat) Map() (formatV2M0.Model, error) {
+	tf.ws = newWorkspace()
 	model := &formatV2M0.Model{}
-	ws := newWorkspace()
 
-	err := tf.processContainer(model, cont, ws)
+	err := tf.processContainer(model)
 	if err != nil {
 		tf.lg.Error(errMsgs.MapKnowledgeBaseFail, zap.Error(err))
 		return formatV2M0.Model{}, err

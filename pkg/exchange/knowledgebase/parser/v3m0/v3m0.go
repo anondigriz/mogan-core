@@ -14,13 +14,11 @@ import (
 
 type V3M0 struct {
 	lg *zap.Logger
-	ff *fromFormatV3M0.FromFormat
 }
 
 func New(lg *zap.Logger) *V3M0 {
 	vm := &V3M0{
 		lg: lg,
-		ff: fromFormatV3M0.New(lg),
 	}
 	return vm
 }
@@ -32,7 +30,8 @@ func (vm V3M0) ParseXML(kbUUID string, content []byte) (kbEnt.Container, error) 
 		return kbEnt.Container{}, errors.NewXMLUnmarshalFailErr(err)
 	}
 
-	cont, err := vm.ff.Map(kbUUID, knowledgeBase)
+	ff := fromFormatV3M0.New(vm.lg, kbUUID, &knowledgeBase)
+	cont, err := ff.Map()
 	if err != nil {
 		vm.lg.Error(errMsgs.MapKnowledgeBaseFail, zap.Error(err))
 		return kbEnt.Container{}, err

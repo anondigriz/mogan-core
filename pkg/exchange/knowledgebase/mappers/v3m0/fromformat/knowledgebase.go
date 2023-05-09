@@ -7,41 +7,40 @@ import (
 
 	kbEnt "github.com/anondigriz/mogan-core/pkg/entities/containers/knowledgebase"
 	errMsgs "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/errors/messages"
-	formatV3M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v3m0"
 )
 
-func (ff FromFormat) processKnowledgeBase(kbUUID string, knowledgeBase formatV3M0.KnowledgeBase, ws workspaceHandler) error {
-	ws.AddKnowledgeBase(ff.mapToKnowledgeBase(kbUUID, knowledgeBase, ws))
+func (ff *FromFormat) processKnowledgeBase() error {
+	ff.ws.AddKnowledgeBase(ff.mapToKnowledgeBase())
 
-	ff.processGroups(knowledgeBase.Groups.Groups, ws)
-
-	if err := ff.processParameters(knowledgeBase.Parameters.Parameters, ws); err != nil {
+	if err := ff.processParameters(ff.kb.Parameters.Parameters); err != nil {
 		ff.lg.Error(errMsgs.MappingParametersFail, zap.Error(err))
 		return err
 	}
 
-	if err := ff.processPatterns(knowledgeBase.Patterns.Patterns, ws); err != nil {
+	if err := ff.processPatterns(ff.kb.Patterns.Patterns); err != nil {
 		ff.lg.Error(errMsgs.MappingRelationsFail, zap.Error(err))
 		return err
 	}
 
-	if err := ff.processRules(knowledgeBase.Rules.Rules, ws); err != nil {
+	if err := ff.processRules(ff.kb.Rules.Rules); err != nil {
 		ff.lg.Error(errMsgs.MappingRulesFail, zap.Error(err))
 		return err
 	}
 
+	ff.processGroups(ff.kb.Groups.Groups)
+
 	return nil
 }
 
-func (ff FromFormat) mapToKnowledgeBase(kbUUID string, knowledgeBase formatV3M0.KnowledgeBase, ws workspaceHandler) kbEnt.KnowledgeBase {
+func (ff *FromFormat) mapToKnowledgeBase() kbEnt.KnowledgeBase {
 	k := kbEnt.KnowledgeBase{
 		BaseInfo: kbEnt.BaseInfo{
-			UUID:         kbUUID,
-			ID:           knowledgeBase.ID,
-			ShortName:    knowledgeBase.ShortName,
-			Description:  knowledgeBase.Description,
-			CreatedDate:  time.Unix(knowledgeBase.CreatedDate, 0).UTC(),
-			ModifiedDate: time.Unix(knowledgeBase.ModifiedDate, 0).UTC(),
+			UUID:         ff.kbUUID,
+			ID:           ff.kb.ID,
+			ShortName:    ff.kb.ShortName,
+			Description:  ff.kb.Description,
+			CreatedDate:  time.Unix(ff.kb.CreatedDate, 0).UTC(),
+			ModifiedDate: time.Unix(ff.kb.ModifiedDate, 0).UTC(),
 		},
 	}
 

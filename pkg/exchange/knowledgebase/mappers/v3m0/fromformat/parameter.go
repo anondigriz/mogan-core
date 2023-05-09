@@ -10,22 +10,22 @@ import (
 	formatV3M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v3m0"
 )
 
-func (ff FromFormat) processParameters(parameters []formatV3M0.Parameter, ws workspaceHandler) error {
+func (ff *FromFormat) processParameters(parameters []formatV3M0.Parameter) error {
 	for _, v := range parameters {
-		parameter, err := ff.mapToParameter(v, ws)
+		parameter, err := ff.mapToParameter(v)
 		if err != nil {
 			ff.lg.Error(errMsgs.MappingParameterFail, zap.Error(err))
 			return err
 		}
-		ws.AddParameter(parameter)
+		ff.ws.AddParameter(parameter)
 	}
 	return nil
 }
 
-func (ff FromFormat) mapToParameter(parameter formatV3M0.Parameter, ws workspaceHandler) (kbEnt.Parameter, error) {
+func (ff *FromFormat) mapToParameter(parameter formatV3M0.Parameter) (kbEnt.Parameter, error) {
 	p := kbEnt.Parameter{
 		BaseInfo: kbEnt.BaseInfo{
-			UUID:         ws.GetOrCreateParameterUUID(parameter.ID),
+			UUID:         ff.ws.GetOrCreateParameterUUID(parameter.ID),
 			ID:           parameter.ID,
 			ShortName:    parameter.ShortName,
 			Description:  parameter.Description,

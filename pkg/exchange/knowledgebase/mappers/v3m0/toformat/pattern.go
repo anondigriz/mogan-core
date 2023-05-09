@@ -8,10 +8,10 @@ import (
 	formatV3M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v3m0"
 )
 
-func (tf ToFormat) mapToPatterns(patterns map[string]kbEnt.Pattern, ws workspaceHandler) ([]formatV3M0.Pattern, error) {
+func (tf *ToFormat) mapToPatterns(patterns map[string]kbEnt.Pattern) ([]formatV3M0.Pattern, error) {
 	ps := []formatV3M0.Pattern{}
 	for _, v := range patterns {
-		p, err := tf.mapToPattern(v, ws)
+		p, err := tf.mapToPattern(v)
 		if err != nil {
 			tf.lg.Error(errMsgs.MappingPatternFail, zap.Error(err))
 			return []formatV3M0.Pattern{}, err
@@ -22,8 +22,8 @@ func (tf ToFormat) mapToPatterns(patterns map[string]kbEnt.Pattern, ws workspace
 	return ps, nil
 }
 
-func (tf ToFormat) mapToPattern(pattern kbEnt.Pattern, ws workspaceHandler) (formatV3M0.Pattern, error) {
-	if err := ws.CheckAndRememberPattern(pattern); err != nil {
+func (tf *ToFormat) mapToPattern(pattern kbEnt.Pattern) (formatV3M0.Pattern, error) {
+	if err := tf.ws.CheckAndRememberPattern(pattern); err != nil {
 		tf.lg.Error(errMsgs.MappingPatternFail, zap.Error(err))
 		return formatV3M0.Pattern{}, err
 	}
@@ -70,7 +70,7 @@ func (tf ToFormat) mapToPattern(pattern kbEnt.Pattern, ws workspaceHandler) (for
 	return p, nil
 }
 
-func (tf ToFormat) mapToPatternParameters(parameters []kbEnt.ParameterPattern) ([]formatV3M0.ParameterPattern, error) {
+func (tf *ToFormat) mapToPatternParameters(parameters []kbEnt.ParameterPattern) ([]formatV3M0.ParameterPattern, error) {
 	ps := []formatV3M0.ParameterPattern{}
 	for _, v := range parameters {
 		parameterType, err := tf.mapToParameterType(v.Type)

@@ -11,23 +11,23 @@ import (
 	formatV3M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v3m0"
 )
 
-func (ff FromFormat) processRules(rules []formatV3M0.Rule, ws workspaceHandler) error {
+func (ff *FromFormat) processRules(rules []formatV3M0.Rule) error {
 	for _, v := range rules {
-		rule, err := ff.mapToRule(v, ws)
+		rule, err := ff.mapToRule(v)
 		if err != nil {
 			ff.lg.Error(errMsgs.MappingRulesFail, zap.Error(err))
 			return err
 		}
-		ws.AddRule(rule)
+		ff.ws.AddRule(rule)
 	}
 
 	return nil
 }
 
-func (ff FromFormat) mapToRule(rule formatV3M0.Rule, ws workspaceHandler) (kbEnt.Rule, error) {
+func (ff *FromFormat) mapToRule(rule formatV3M0.Rule) (kbEnt.Rule, error) {
 	r := kbEnt.Rule{
 		BaseInfo: kbEnt.BaseInfo{
-			UUID:         ws.CreateRuleUUID(),
+			UUID:         ff.ws.CreateRuleUUID(rule.ID),
 			ID:           rule.ID,
 			ShortName:    rule.ShortName,
 			Description:  rule.Description,
@@ -36,7 +36,7 @@ func (ff FromFormat) mapToRule(rule formatV3M0.Rule, ws workspaceHandler) (kbEnt
 		},
 	}
 
-	patternUUID, ok := ws.GetPatternUUID(rule.PatternID)
+	patternUUID, ok := ff.ws.GetPatternUUID(rule.PatternID)
 	if !ok {
 		err := errors.NewRelationNotFoundForRuleErr(rule.ID, rule.PatternID)
 		ff.lg.Error(errMsgs.RelationNotFoundForRule, zap.Error(err))
@@ -44,18 +44,18 @@ func (ff FromFormat) mapToRule(rule formatV3M0.Rule, ws workspaceHandler) (kbEnt
 	}
 	r.PatternUUID = patternUUID
 
-	r.InputParameters = ff.mapToRuleParameters(rule.InputParameters.InputParameters, ws)
-	r.OutputParameters = ff.mapToRuleParameters(rule.OutputParameters.OutputParameters, ws)
+	r.InputParameters = ff.mapToRuleParameters(rule.InputParameters.InputParameters)
+	r.OutputParameters = ff.mapToRuleParameters(rule.OutputParameters.OutputParameters)
 
 	return r, nil
 }
 
-func (ff FromFormat) mapToRuleParameters(parameters []formatV3M0.ParameterRule, ws workspaceHandler) []kbEnt.ParameterRule {
+func (ff *FromFormat) mapToRuleParameters(parameters []formatV3M0.ParameterRule) []kbEnt.ParameterRule {
 	var ps []kbEnt.ParameterRule
 	for _, v := range parameters {
 		ps = append(ps, kbEnt.ParameterRule{
 			ShortName:     v.ShortName,
-			ParameterUUID: ws.GetOrCreateParameterUUID(v.ParameterID),
+			ParameterUUID: ff.ws.GetOrCreateParameterUUID(v.ParameterID),
 		})
 	}
 	return ps

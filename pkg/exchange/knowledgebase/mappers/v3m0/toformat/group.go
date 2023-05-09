@@ -8,10 +8,10 @@ import (
 	formatV3M0 "github.com/anondigriz/mogan-core/pkg/exchange/knowledgebase/formats/v3m0"
 )
 
-func (tf ToFormat) mapToGroups(groups map[string]kbEnt.Group, ws workspaceHandler) ([]formatV3M0.Group, error) {
+func (tf *ToFormat) mapToGroups(groups map[string]kbEnt.Group) ([]formatV3M0.Group, error) {
 	gs := []formatV3M0.Group{}
 	for _, v := range groups {
-		g, err := tf.mapToGroup(v, ws)
+		g, err := tf.mapToGroup(v)
 		if err != nil {
 			tf.lg.Error(errMsgs.MappingGroupFail, zap.Error(err))
 			return []formatV3M0.Group{}, err
@@ -22,8 +22,8 @@ func (tf ToFormat) mapToGroups(groups map[string]kbEnt.Group, ws workspaceHandle
 	return gs, nil
 }
 
-func (tf ToFormat) mapToGroup(group kbEnt.Group, ws workspaceHandler) (formatV3M0.Group, error) {
-	if err := ws.CheckAndRememberGroup(group); err != nil {
+func (tf *ToFormat) mapToGroup(group kbEnt.Group) (formatV3M0.Group, error) {
+	if err := tf.ws.CheckAndRememberGroup(group); err != nil {
 		tf.lg.Error(errMsgs.MappingGroupFail, zap.Error(err))
 		return formatV3M0.Group{}, err
 	}
@@ -37,10 +37,26 @@ func (tf ToFormat) mapToGroup(group kbEnt.Group, ws workspaceHandler) (formatV3M
 			ModifiedDate: group.ModifiedDate.UTC().Unix(),
 		},
 	}
-	g.Parameters.Parameters = append(g.Parameters.Parameters, group.Parameters...)
-	g.Rules.Rules = append(g.Rules.Rules, group.Rules...)
 
-	gs, err := tf.mapToGroups(group.Groups, ws)
+	for _, v := range group.Parameters {
+		parameter, ok := tf.cont.Parameters[v]
+		if !ok {
+			continue
+		}
+
+		g.Parameters.Parameters = append(g.Parameters.Parameters, parameter.ID)
+	}
+
+	for _, v := range group.Rules {
+		rule, ok := tf.cont.Rules[v]
+		if !ok {
+			continue
+		}
+
+		g.Rules.Rules = append(g.Rules.Rules, rule.ID)
+	}
+
+	gs, err := tf.mapToGroups(group.Groups)
 	if err != nil {
 		tf.lg.Error(errMsgs.MappingGroupsFail, zap.Error(err))
 		return formatV3M0.Group{}, err

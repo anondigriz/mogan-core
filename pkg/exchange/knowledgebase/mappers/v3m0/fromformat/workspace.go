@@ -6,9 +6,9 @@ import (
 )
 
 type idToUUIDmap struct {
-	groups     map[string]string
 	parameters map[string]string
 	patterns   map[string]string
+	rules      map[string]string
 }
 
 type workspaceHandler interface {
@@ -19,9 +19,12 @@ type workspaceHandler interface {
 	AddRule(rule kbEnt.Rule)
 	CreateGroupUUID() string
 	CreatePatternUUID(id string) string
-	CreateRuleUUID() string
+	CreateRuleUUID(id string) string
 	GetOrCreateParameterUUID(id string) string
 	GetPatternUUID(relationID string) (string, bool)
+	GetParameterUUID(id string) (string, bool)
+	GetRuleUUID(id string) (string, bool)
+	GetContainer() kbEnt.Container
 }
 
 type workspace struct {
@@ -31,12 +34,16 @@ type workspace struct {
 
 func newWorkspace() *workspace {
 	ws := &workspace{}
+
 	ws.cont.Groups = map[string]kbEnt.Group{}
 	ws.cont.Parameters = map[string]kbEnt.Parameter{}
 	ws.cont.Patterns = map[string]kbEnt.Pattern{}
 	ws.cont.Rules = map[string]kbEnt.Rule{}
+
 	ws.mapping.parameters = map[string]string{}
 	ws.mapping.patterns = map[string]string{}
+	ws.mapping.rules = map[string]string{}
+
 	return ws
 }
 
@@ -71,8 +78,9 @@ func (ws *workspace) CreatePatternUUID(id string) string {
 	return uuid
 }
 
-func (ws *workspace) CreateRuleUUID() string {
+func (ws *workspace) CreateRuleUUID(id string) string {
 	uuid := uuidGen.NewString()
+	ws.mapping.rules[id] = uuid
 	return uuid
 }
 func (ws *workspace) GetOrCreateParameterUUID(id string) string {
@@ -85,7 +93,21 @@ func (ws *workspace) GetOrCreateParameterUUID(id string) string {
 	return uuid
 }
 
-func (ws *workspace) GetPatternUUID(relationID string) (string, bool) {
-	uuid, ok := ws.mapping.patterns[relationID]
+func (ws *workspace) GetPatternUUID(id string) (string, bool) {
+	uuid, ok := ws.mapping.patterns[id]
 	return uuid, ok
+}
+
+func (ws *workspace) GetParameterUUID(id string) (string, bool) {
+	uuid, ok := ws.mapping.parameters[id]
+	return uuid, ok
+}
+
+func (ws *workspace) GetRuleUUID(id string) (string, bool) {
+	uuid, ok := ws.mapping.rules[id]
+	return uuid, ok
+}
+
+func (ws *workspace) GetContainer() kbEnt.Container {
+	return ws.cont
 }
